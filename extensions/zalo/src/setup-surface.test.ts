@@ -5,7 +5,7 @@ import {
   createTestWizardPrompter,
   type WizardPrompter,
 } from "../../../test/helpers/extensions/setup-wizard.js";
-import type { OpenClawConfig, RuntimeEnv } from "../runtime-api.js";
+import type { KlawtyConfig, RuntimeEnv } from "../runtime-api.js";
 import { zaloPlugin } from "./channel.js";
 
 const zaloConfigureAdapter = buildChannelSetupWizardAdapterFromSetupWizard({
@@ -34,7 +34,7 @@ describe("zalo setup wizard", () => {
     const runtime: RuntimeEnv = createRuntimeEnv();
 
     const result = await zaloConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime,
       prompter,
       options: { secretInputMode: "plaintext" },

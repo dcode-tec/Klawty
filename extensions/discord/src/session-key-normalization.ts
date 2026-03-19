@@ -1,5 +1,5 @@
-import { normalizeChatType } from "openclaw/plugin-sdk/channel-runtime";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+import { normalizeChatType } from "klawty/plugin-sdk/channel-runtime";
+import type { MsgContext } from "klawty/plugin-sdk/reply-runtime";
 
 export function normalizeExplicitDiscordSessionKey(
   sessionKey: string,

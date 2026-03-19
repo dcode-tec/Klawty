@@ -1,5 +1,5 @@
 /**
- * Synology Chat Channel Plugin for OpenClaw.
+ * Synology Chat Channel Plugin for Klawty.
  *
  * Implements the ChannelPlugin interface following the LINE pattern.
  */
@@ -7,16 +7,16 @@
 import {
   createHybridChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
+} from "klawty/plugin-sdk/channel-config-helpers";
 import {
   createConditionalWarningCollector,
   projectWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "klawty/plugin-sdk/channel-policy";
 import {
   attachChannelToResult,
   createEmptyChannelDirectoryAdapter,
   createTextPairingAdapter,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 import { z } from "zod";
 import { DEFAULT_ACCOUNT_ID, registerPluginHttpRoute, buildChannelConfigSchema } from "../api.js";
 import { listAccountIds, resolveAccount } from "./accounts.js";
@@ -37,7 +37,7 @@ const resolveSynologyChatDmPolicy = createScopedDmSecurityResolver<ResolvedSynol
   resolveAllowFrom: (account) => account.allowedUserIds,
   policyPathSuffix: "dmPolicy",
   defaultPolicy: "allowlist",
-  approveHint: "openclaw pairing approve synology-chat <code>",
+  approveHint: "klawty pairing approve synology-chat <code>",
   normalizeEntry: (raw) => raw.toLowerCase().trim(),
 });
 
@@ -109,7 +109,7 @@ export function createSynologyChatPlugin() {
       selectionLabel: "Synology Chat (Webhook)",
       detailLabel: "Synology Chat (Webhook)",
       docsPath: "/channels/synology-chat",
-      blurb: "Connect your Synology NAS Chat to OpenClaw",
+      blurb: "Connect your Synology NAS Chat to Klawty",
       order: 90,
     },
 
@@ -137,7 +137,7 @@ export function createSynologyChatPlugin() {
 
     pairing: createTextPairingAdapter({
       idLabel: "synologyChatUserId",
-      message: "OpenClaw: your access has been approved.",
+      message: "Klawty: your access has been approved.",
       normalizeAllowEntry: (entry: string) => entry.toLowerCase().trim(),
       notify: async ({ cfg, id, message }) => {
         const account = resolveAccount(cfg);

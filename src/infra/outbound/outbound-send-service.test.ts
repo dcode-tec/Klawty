@@ -250,7 +250,7 @@ describe("executeSendAction", () => {
         dryRun: true,
         silent: true,
         gateway: {
-          url: "http://127.0.0.1:18789",
+          url: "http://127.0.0.1:2508",
           token: "tok",
           timeoutMs: 5000,
           clientName: GATEWAY_CLIENT_NAMES.GATEWAY_CLIENT,
@@ -269,7 +269,7 @@ describe("executeSendAction", () => {
         dryRun: true,
         silent: true,
         gateway: expect.objectContaining({
-          url: "http://127.0.0.1:18789",
+          url: "http://127.0.0.1:2508",
           token: "tok",
           timeoutMs: 5000,
         }),
@@ -344,7 +344,7 @@ describe("executeSendAction", () => {
         dryRun: true,
         silent: true,
         gateway: {
-          url: "http://127.0.0.1:18789",
+          url: "http://127.0.0.1:2508",
           token: "tok",
           timeoutMs: 5000,
           clientName: GATEWAY_CLIENT_NAMES.GATEWAY_CLIENT,
@@ -369,7 +369,7 @@ describe("executeSendAction", () => {
         dryRun: true,
         silent: true,
         gateway: expect.objectContaining({
-          url: "http://127.0.0.1:18789",
+          url: "http://127.0.0.1:2508",
           token: "tok",
           timeoutMs: 5000,
         }),

@@ -5,7 +5,7 @@ import {
   type ProviderAuthMethodNonInteractiveContext,
   type ProviderResolveDynamicModelContext,
   type ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/core";
+} from "klawty/plugin-sdk/core";
 import {
   applyAuthProfileConfig,
   buildApiKeyCredential,
@@ -15,10 +15,10 @@ import {
   type SecretInput,
   upsertAuthProfile,
   validateApiKeyInput,
-} from "openclaw/plugin-sdk/provider-auth-api-key";
-import { DEFAULT_CONTEXT_TOKENS, normalizeModelCompat } from "openclaw/plugin-sdk/provider-models";
-import { createZaiToolStreamWrapper } from "openclaw/plugin-sdk/provider-stream";
-import { fetchZaiUsage, resolveLegacyPiAgentAccessToken } from "openclaw/plugin-sdk/provider-usage";
+} from "klawty/plugin-sdk/provider-auth-api-key";
+import { DEFAULT_CONTEXT_TOKENS, normalizeModelCompat } from "klawty/plugin-sdk/provider-models";
+import { createZaiToolStreamWrapper } from "klawty/plugin-sdk/provider-stream";
+import { fetchZaiUsage, resolveLegacyPiAgentAccessToken } from "klawty/plugin-sdk/provider-usage";
 import { detectZaiEndpoint, type ZaiEndpointId } from "./detect.js";
 import { zaiMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { applyZaiConfig, applyZaiProviderConfig, ZAI_DEFAULT_MODEL_REF } from "./onboard.js";

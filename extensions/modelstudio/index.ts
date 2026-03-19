@@ -1,6 +1,6 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/core";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
-import { buildSingleProviderApiKeyCatalog } from "openclaw/plugin-sdk/provider-catalog";
+import { definePluginEntry } from "klawty/plugin-sdk/core";
+import { createProviderApiKeyAuthMethod } from "klawty/plugin-sdk/provider-auth";
+import { buildSingleProviderApiKeyCatalog } from "klawty/plugin-sdk/provider-catalog";
 import {
   applyModelStudioConfig,
   applyModelStudioConfigCn,

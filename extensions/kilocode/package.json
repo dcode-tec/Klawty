@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/kilocode-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/kilocode-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Kilo Gateway provider plugin",
+  "description": "Klawty Kilo Gateway provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

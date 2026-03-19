@@ -6,8 +6,8 @@
     {
       "layers" : [
         {
-          "image-name" : "openclaw-mac.png",
-          "name" : "openclaw-mac",
+          "image-name" : "klawty-mac.png",
+          "name" : "klawty-mac",
           "position" : {
             "scale" : 1.07,
             "translation-in-points" : [

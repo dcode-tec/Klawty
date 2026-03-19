@@ -7,7 +7,7 @@ import type {
 } from "../../../../src/auto-reply/commands-registry.types.js";
 import type { ModelsProviderData } from "../../../../src/auto-reply/reply/commands-models.js";
 import * as dispatcherModule from "../../../../src/auto-reply/reply/provider-dispatcher.js";
-import type { OpenClawConfig } from "../../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../../src/config/config.js";
 import * as globalsModule from "../../../../src/globals.js";
 import * as timeoutModule from "../../../../src/utils/with-timeout.js";
 import * as modelPickerPreferencesModule from "./model-picker-preferences.js";
@@ -69,7 +69,7 @@ function createModelPickerContext(): ModelPickerContext {
         },
       },
     },
-  } as unknown as OpenClawConfig;
+  } as unknown as KlawtyConfig;
 
   return {
     cfg,

@@ -1,13 +1,13 @@
 import {
   listSlackDirectoryGroupsLive as listSlackDirectoryGroupsLiveImpl,
   listSlackDirectoryPeersLive as listSlackDirectoryPeersLiveImpl,
-} from "openclaw/plugin-sdk/slack";
-import { monitorSlackProvider as monitorSlackProviderImpl } from "openclaw/plugin-sdk/slack";
-import { probeSlack as probeSlackImpl } from "openclaw/plugin-sdk/slack";
-import { resolveSlackChannelAllowlist as resolveSlackChannelAllowlistImpl } from "openclaw/plugin-sdk/slack";
-import { resolveSlackUserAllowlist as resolveSlackUserAllowlistImpl } from "openclaw/plugin-sdk/slack";
-import { sendMessageSlack as sendMessageSlackImpl } from "openclaw/plugin-sdk/slack";
-import { handleSlackAction as handleSlackActionImpl } from "openclaw/plugin-sdk/slack";
+} from "klawty/plugin-sdk/slack";
+import { monitorSlackProvider as monitorSlackProviderImpl } from "klawty/plugin-sdk/slack";
+import { probeSlack as probeSlackImpl } from "klawty/plugin-sdk/slack";
+import { resolveSlackChannelAllowlist as resolveSlackChannelAllowlistImpl } from "klawty/plugin-sdk/slack";
+import { resolveSlackUserAllowlist as resolveSlackUserAllowlistImpl } from "klawty/plugin-sdk/slack";
+import { sendMessageSlack as sendMessageSlackImpl } from "klawty/plugin-sdk/slack";
+import { handleSlackAction as handleSlackActionImpl } from "klawty/plugin-sdk/slack";
 import type { PluginRuntimeChannel } from "./types-channel.js";
 
 type RuntimeSlackOps = Pick<

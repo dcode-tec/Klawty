@@ -289,7 +289,7 @@ export async function gatewayStatusCommand(
               sshPort: b.sshPort ?? null,
               wsUrl: (() => {
                 const host = b.tailnetDns || b.lanHost || b.host;
-                const port = b.gatewayPort ?? 18789;
+                const port = b.gatewayPort ?? 2508;
                 return host ? `ws://${host}:${port}` : null;
               })(),
             })),

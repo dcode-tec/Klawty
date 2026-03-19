@@ -10,19 +10,19 @@ import {
 } from "@buape/carbon";
 import type { APIStringSelectComponent } from "discord-api-types/v10";
 import { ChannelType } from "discord-api-types/v10";
-import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
-import { resolveCommandAuthorizedFromAuthorizers } from "openclaw/plugin-sdk/channel-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { DiscordAccountConfig } from "openclaw/plugin-sdk/config-runtime";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/config-runtime";
-import { upsertChannelPairingRequest } from "openclaw/plugin-sdk/conversation-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { createChannelPairingChallengeIssuer } from "klawty/plugin-sdk/channel-pairing";
+import { resolveCommandAuthorizedFromAuthorizers } from "klawty/plugin-sdk/channel-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import type { DiscordAccountConfig } from "klawty/plugin-sdk/config-runtime";
+import { isDangerousNameMatchingEnabled } from "klawty/plugin-sdk/config-runtime";
+import { upsertChannelPairingRequest } from "klawty/plugin-sdk/conversation-runtime";
+import { resolveAgentRoute } from "klawty/plugin-sdk/routing";
+import { logVerbose } from "klawty/plugin-sdk/runtime-env";
 import {
   readStoreAllowFromForDmPolicy,
   resolvePinnedMainDmOwnerFromAllowlist,
-} from "openclaw/plugin-sdk/security-runtime";
-import { logError } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/security-runtime";
+import { logError } from "klawty/plugin-sdk/text-runtime";
 import {
   createDiscordFormModal,
   parseDiscordComponentCustomId,
@@ -68,10 +68,10 @@ export type DiscordChannelContext = {
 };
 
 export type AgentComponentContext = {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId: string;
   discordConfig?: DiscordAccountConfig;
-  runtime?: import("openclaw/plugin-sdk/runtime-env").RuntimeEnv;
+  runtime?: import("klawty/plugin-sdk/runtime-env").RuntimeEnv;
   token?: string;
   guildEntries?: Record<string, DiscordGuildEntryResolved>;
   allowFrom?: string[];

@@ -1,11 +1,11 @@
 import {
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
+} from "klawty/plugin-sdk/channel-config-helpers";
 import {
   createAllowlistProviderOpenWarningCollector,
   projectWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "klawty/plugin-sdk/channel-policy";
 import {
   createChannelDirectoryAdapter,
   createPairingPrefixStripper,
@@ -14,8 +14,8 @@ import {
   createRuntimeOutboundDelegates,
   createTextPairingAdapter,
   listResolvedDirectoryEntriesFromSources,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import { createLazyRuntimeNamedExport } from "klawty/plugin-sdk/lazy-runtime";
 import { buildTrafficStatusSummary } from "../../shared/channel-status-summary.js";
 import {
   buildChannelConfigSchema,

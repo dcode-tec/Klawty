@@ -1,12 +1,12 @@
-import { buildDmGroupAccountAllowlistAdapter } from "openclaw/plugin-sdk/allowlist-config-edit";
+import { buildDmGroupAccountAllowlistAdapter } from "klawty/plugin-sdk/allowlist-config-edit";
 import {
   createAttachedChannelResultAdapter,
   resolveOutboundSendDep,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { buildOutboundBaseSessionKey } from "openclaw/plugin-sdk/core";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { type RoutePeer } from "openclaw/plugin-sdk/routing";
+} from "klawty/plugin-sdk/channel-runtime";
+import { buildOutboundBaseSessionKey } from "klawty/plugin-sdk/core";
+import { buildPassiveProbedChannelStatusSummary } from "klawty/plugin-sdk/extension-shared";
+import { createLazyRuntimeModule } from "klawty/plugin-sdk/lazy-runtime";
+import { type RoutePeer } from "klawty/plugin-sdk/routing";
 import {
   collectStatusIssuesFromLastError,
   DEFAULT_ACCOUNT_ID,

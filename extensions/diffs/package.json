@@ -1,8 +1,8 @@
 {
-  "name": "@openclaw/diffs",
-  "version": "2026.3.14",
+  "name": "@klawty/diffs",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw diff viewer plugin",
+  "description": "Klawty diff viewer plugin",
   "type": "module",
   "scripts": {
     "build:viewer": "bun build src/viewer-client.ts --target browser --format esm --minify --outfile assets/viewer-runtime.js"
@@ -12,7 +12,7 @@
     "@sinclair/typebox": "0.34.48",
     "playwright-core": "1.58.2"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

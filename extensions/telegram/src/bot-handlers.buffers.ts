@@ -1,11 +1,11 @@
 import type { Message } from "@grammyjs/types";
-import { shouldDebounceTextInbound } from "openclaw/plugin-sdk/channel-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+import { shouldDebounceTextInbound } from "klawty/plugin-sdk/channel-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
 import {
   createInboundDebouncer,
   resolveInboundDebounceMs,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { danger, logVerbose, warn } from "openclaw/plugin-sdk/runtime-env";
+} from "klawty/plugin-sdk/reply-runtime";
+import { danger, logVerbose, warn } from "klawty/plugin-sdk/runtime-env";
 import {
   hasInboundMedia,
   isRecoverableMediaGroupError,
@@ -49,7 +49,7 @@ type TelegramBotApi = {
 export function createTelegramInboundBufferRuntime(params: {
   accountId?: string | null;
   bot: { api: TelegramBotApi };
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   logger: { warn: (...args: unknown[]) => void };
   mediaMaxBytes: number;
   opts: {

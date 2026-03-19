@@ -1,9 +1,9 @@
 ---
-name: openclaw-pr-maintainer
-description: Maintainer workflow for reviewing, triaging, preparing, closing, or landing OpenClaw pull requests and related issues. Use when Codex needs to validate bug-fix claims, search for related issues or PRs, apply or recommend close/reason labels, prepare GitHub comments safely, check review-thread follow-up, or perform maintainer-style PR decision making before merge or closure.
+name: klawty-pr-maintainer
+description: Maintainer workflow for reviewing, triaging, preparing, closing, or landing Klawty pull requests and related issues. Use when Codex needs to validate bug-fix claims, search for related issues or PRs, apply or recommend close/reason labels, prepare GitHub comments safely, check review-thread follow-up, or perform maintainer-style PR decision making before merge or closure.
 ---
 
-# OpenClaw PR Maintainer
+# Klawty PR Maintainer
 
 Use this skill for maintainer-facing GitHub workflow, not for ordinary code changes.
 
@@ -45,16 +45,16 @@ Use this skill for maintainer-facing GitHub workflow, not for ordinary code chan
 ## Search broadly before deciding
 
 - Prefer targeted keyword search before proposing new work or closing something as duplicate.
-- Use `--repo openclaw/openclaw` with `--match title,body` first.
+- Use `--repo klawty/klawty` with `--match title,body` first.
 - Add `--match comments` when triaging follow-up discussion.
 - Do not stop at the first 500 results when the task requires a full search.
 
 Examples:
 
 ```bash
-gh search prs --repo openclaw/openclaw --match title,body --limit 50 -- "auto-update"
-gh search issues --repo openclaw/openclaw --match title,body --limit 50 -- "auto-update"
-gh search issues --repo openclaw/openclaw --match title,body --limit 50 \
+gh search prs --repo klawty/klawty --match title,body --limit 50 -- "auto-update"
+gh search issues --repo klawty/klawty --match title,body --limit 50 -- "auto-update"
+gh search issues --repo klawty/klawty --match title,body --limit 50 \
   --json number,title,state,url,updatedAt -- "auto update" \
   --jq '.[] | "\(.number) | \(.state) | \(.title) | \(.url)"'
 ```

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { buildChannelSetupWizardAdapterFromSetupWizard } from "../../../src/channels/plugins/setup-wizard.js";
 import { createRuntimeEnv } from "../../../test/helpers/extensions/runtime-env.js";
 import { createTestWizardPrompter } from "../../../test/helpers/extensions/setup-wizard.js";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { KlawtyConfig } from "../runtime-api.js";
 
 vi.mock("./zalo-js.js", async (importOriginal) => {
   const actual = await importOriginal<typeof import("./zalo-js.js")>();
@@ -50,7 +50,7 @@ describe("zalouser setup wizard", () => {
     });
 
     const result = await zalouserConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime,
       prompter,
       options: {},
@@ -94,7 +94,7 @@ describe("zalouser setup wizard", () => {
     });
 
     const result = await zalouserConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime,
       prompter,
       options: { quickstartDefaults: true },
@@ -149,7 +149,7 @@ describe("zalouser setup wizard", () => {
     });
 
     const result = await zalouserConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime,
       prompter,
       options: { quickstartDefaults: true },
@@ -205,7 +205,7 @@ describe("zalouser setup wizard", () => {
     });
 
     const result = await zalouserConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime,
       prompter,
       options: {},
@@ -249,7 +249,7 @@ describe("zalouser setup wizard", () => {
     });
 
     const result = await zalouserConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime,
       prompter,
       options: {},
@@ -288,7 +288,7 @@ describe("zalouser setup wizard", () => {
         plugins: {
           allow: ["telegram"],
         },
-      } as OpenClawConfig,
+      } as KlawtyConfig,
       runtime,
       prompter,
       options: {},

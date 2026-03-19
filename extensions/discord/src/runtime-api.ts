@@ -4,7 +4,7 @@ export {
   PAIRING_APPROVED_MESSAGE,
   projectCredentialSnapshotFields,
   resolveConfiguredFromCredentialStatuses,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 export {
   buildChannelConfigSchema,
   getChatChannelMeta,
@@ -15,37 +15,37 @@ export {
   resolvePollMaxSelections,
   type ActionGate,
   type ChannelPlugin,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/discord-core";
-export { DiscordConfigSchema } from "openclaw/plugin-sdk/discord-core";
-export { readBooleanParam } from "openclaw/plugin-sdk/boolean-param";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/discord-core";
+export { DiscordConfigSchema } from "klawty/plugin-sdk/discord-core";
+export { readBooleanParam } from "klawty/plugin-sdk/boolean-param";
 export {
   assertMediaNotDataUrl,
   parseAvailableTags,
   readReactionParams,
   withNormalizedTimestamp,
-} from "openclaw/plugin-sdk/discord-core";
+} from "klawty/plugin-sdk/discord-core";
 export {
   createHybridChannelConfigAdapter,
   createScopedChannelConfigAdapter,
   createScopedAccountConfigAccessors,
   createScopedChannelConfigBase,
   createTopLevelChannelConfigAdapter,
-} from "openclaw/plugin-sdk/channel-config-helpers";
+} from "klawty/plugin-sdk/channel-config-helpers";
 export {
   createAccountActionGate,
   createAccountListHelpers,
-} from "openclaw/plugin-sdk/account-helpers";
-export { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-export { resolveAccountEntry } from "openclaw/plugin-sdk/routing";
+} from "klawty/plugin-sdk/account-helpers";
+export { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "klawty/plugin-sdk/account-id";
+export { resolveAccountEntry } from "klawty/plugin-sdk/routing";
 export type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
-} from "openclaw/plugin-sdk/channel-runtime";
-export type { DiscordConfig } from "openclaw/plugin-sdk/discord";
-export type { DiscordAccountConfig, DiscordActionConfig } from "openclaw/plugin-sdk/discord";
+} from "klawty/plugin-sdk/channel-runtime";
+export type { DiscordConfig } from "klawty/plugin-sdk/discord";
+export type { DiscordAccountConfig, DiscordActionConfig } from "klawty/plugin-sdk/discord";
 export {
   hasConfiguredSecretInput,
   normalizeResolvedSecretInputString,
   normalizeSecretInputString,
-} from "openclaw/plugin-sdk/config-runtime";
+} from "klawty/plugin-sdk/config-runtime";

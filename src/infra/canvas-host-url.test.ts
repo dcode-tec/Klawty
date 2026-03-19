@@ -11,11 +11,11 @@ describe("resolveCanvasHostUrl", () => {
     expect(
       resolveCanvasHostUrl({
         canvasPort: 3000,
-        hostOverride: " canvas.openclaw.ai ",
+        hostOverride: " canvas.klawty.ai ",
         requestHost: "gateway.local:9000",
         localAddress: "192.168.1.10",
       }),
-    ).toBe("http://canvas.openclaw.ai:3000");
+    ).toBe("http://canvas.klawty.ai:3000");
   });
 
   it("falls back from rejected loopback overrides to request hosts", () => {
@@ -31,21 +31,21 @@ describe("resolveCanvasHostUrl", () => {
   it("maps proxied default gateway ports to request-host ports or scheme defaults", () => {
     expect(
       resolveCanvasHostUrl({
-        canvasPort: 18789,
+        canvasPort: 2508,
         requestHost: "gateway.example.com:9443",
         forwardedProto: "https",
       }),
     ).toBe("https://gateway.example.com:9443");
     expect(
       resolveCanvasHostUrl({
-        canvasPort: 18789,
+        canvasPort: 2508,
         requestHost: "gateway.example.com",
         forwardedProto: ["https", "http"],
       }),
     ).toBe("https://gateway.example.com:443");
     expect(
       resolveCanvasHostUrl({
-        canvasPort: 18789,
+        canvasPort: 2508,
         requestHost: "gateway.example.com",
       }),
     ).toBe("http://gateway.example.com:80");

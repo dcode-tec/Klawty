@@ -219,8 +219,8 @@ echo "Waiting for rollout..."
 kubectl rollout status deployment/openclaw -n "$NS" --timeout=300s
 echo ""
 echo "Done. Access the gateway:"
-echo "  kubectl port-forward svc/openclaw 18789:18789 -n $NS"
-echo "  open http://localhost:18789"
+echo "  kubectl port-forward svc/openclaw 2508:2508 -n $NS"
+echo "  open http://localhost:2508"
 echo ""
 if $SHOW_TOKEN; then
   echo "Gateway token (paste into Control UI):"

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../src/config/config.js";
 import type { DirectoryConfigParams } from "../../../src/plugin-sdk/directory-runtime.js";
 import { listDiscordDirectoryGroupsLive, listDiscordDirectoryPeersLive } from "./directory-live.js";
 
@@ -11,7 +11,7 @@ function makeParams(overrides: Partial<DirectoryConfigParams> = {}): DirectoryCo
           token: "test-token",
         },
       },
-    } as OpenClawConfig,
+    } as KlawtyConfig,
     accountId: "default",
     ...overrides,
   };
@@ -32,7 +32,7 @@ describe("discord directory live lookups", () => {
   it("returns empty group directory when token is missing", async () => {
     const rows = await listDiscordDirectoryGroupsLive({
       ...makeParams(),
-      cfg: { channels: { discord: { token: "" } } } as OpenClawConfig,
+      cfg: { channels: { discord: { token: "" } } } as KlawtyConfig,
       query: "general",
     });
 

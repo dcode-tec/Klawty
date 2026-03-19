@@ -62,7 +62,7 @@ describe("runServiceRestart token drift", () => {
     resetLifecycleServiceMocks();
     service.readCommand.mockResolvedValue({
       programArguments: [],
-      environment: { OPENCLAW_GATEWAY_TOKEN: "service-token" },
+      environment: { KLAWTY_GATEWAY_TOKEN: "service-token" },
     });
     stubEmptyGatewayEnv();
   });
@@ -87,9 +87,9 @@ describe("runServiceRestart token drift", () => {
     });
     service.readCommand.mockResolvedValue({
       programArguments: [],
-      environment: { OPENCLAW_GATEWAY_TOKEN: "env-token" },
+      environment: { KLAWTY_GATEWAY_TOKEN: "env-token" },
     });
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "env-token");
+    vi.stubEnv("KLAWTY_GATEWAY_TOKEN", "env-token");
 
     await runServiceRestart(createServiceRunArgs(true));
 
@@ -122,7 +122,7 @@ describe("runServiceRestart token drift", () => {
       opts: { json: true },
       onNotLoaded: async () => ({
         result: "stopped",
-        message: "Gateway stop signal sent to unmanaged process on port 18789: 4200.",
+        message: "Gateway stop signal sent to unmanaged process on port 2508: 4200.",
       }),
     });
 
@@ -143,7 +143,7 @@ describe("runServiceRestart token drift", () => {
       opts: { json: true },
       onNotLoaded: async () => ({
         result: "restarted",
-        message: "Gateway restart signal sent to unmanaged process on port 18789: 4200.",
+        message: "Gateway restart signal sent to unmanaged process on port 2508: 4200.",
       }),
       postRestartCheck,
     });

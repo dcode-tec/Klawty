@@ -1,20 +1,20 @@
 ---
 title: "Building Extensions"
-summary: "Step-by-step guide for creating OpenClaw channel and provider extensions"
+summary: "Step-by-step guide for creating Klawty channel and provider extensions"
 read_when:
-  - You want to create a new OpenClaw plugin or extension
+  - You want to create a new Klawty plugin or extension
   - You need to understand the plugin SDK import patterns
-  - You are adding a new channel or provider to OpenClaw
+  - You are adding a new channel or provider to Klawty
 ---
 
 # Building Extensions
 
-This guide walks through creating an OpenClaw extension from scratch. Extensions
+This guide walks through creating an Klawty extension from scratch. Extensions
 can add channels, model providers, tools, or other capabilities.
 
 ## Prerequisites
 
-- OpenClaw repository cloned and dependencies installed (`pnpm install`)
+- Klawty repository cloned and dependencies installed (`pnpm install`)
 - Familiarity with TypeScript (ESM)
 
 ## Extension structure
@@ -23,7 +23,7 @@ Every extension lives under `extensions/<name>/` and follows this layout:
 
 ```
 extensions/my-channel/
-├── package.json          # npm metadata + openclaw config
+├── package.json          # npm metadata + klawty config
 ├── index.ts              # Entry point (defineChannelPluginEntry)
 ├── setup-entry.ts        # Setup wizard (optional)
 ├── api.ts                # Public contract barrel (optional)
@@ -40,12 +40,12 @@ Create `extensions/my-channel/package.json`:
 
 ```json
 {
-  "name": "@openclaw/my-channel",
+  "name": "@klawty/my-channel",
   "version": "2026.1.1",
-  "description": "OpenClaw My Channel plugin",
+  "description": "Klawty My Channel plugin",
   "type": "module",
   "dependencies": {},
-  "openclaw": {
+  "klawty": {
     "extensions": ["./index.ts"],
     "setupEntry": "./setup-entry.ts",
     "channel": {
@@ -58,14 +58,14 @@ Create `extensions/my-channel/package.json`:
       "order": 80
     },
     "install": {
-      "npmSpec": "@openclaw/my-channel",
+      "npmSpec": "@klawty/my-channel",
       "localPath": "extensions/my-channel"
     }
   }
 }
 ```
 
-The `openclaw` field tells the plugin system what your extension provides.
+The `klawty` field tells the plugin system what your extension provides.
 For provider plugins, use `providers` instead of `channel`.
 
 ## Step 2: Define the entry point
@@ -73,12 +73,12 @@ For provider plugins, use `providers` instead of `channel`.
 Create `extensions/my-channel/index.ts`:
 
 ```typescript
-import { defineChannelPluginEntry } from "openclaw/plugin-sdk/core";
+import { defineChannelPluginEntry } from "klawty/plugin-sdk/core";
 
 export default defineChannelPluginEntry({
   id: "my-channel",
   name: "My Channel",
-  description: "Connects OpenClaw to My Channel",
+  description: "Connects Klawty to My Channel",
   plugin: {
     // Channel adapter implementation
   },
@@ -94,15 +94,15 @@ subpaths rather than the monolithic root:
 
 ```typescript
 // Correct: focused subpaths
-import { defineChannelPluginEntry } from "openclaw/plugin-sdk/core";
-import { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
-import { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
-import { createOptionalChannelSetupSurface } from "openclaw/plugin-sdk/channel-setup";
-import { resolveChannelGroupRequireMention } from "openclaw/plugin-sdk/channel-policy";
+import { defineChannelPluginEntry } from "klawty/plugin-sdk/core";
+import { createChannelReplyPipeline } from "klawty/plugin-sdk/channel-reply-pipeline";
+import { createChannelPairingController } from "klawty/plugin-sdk/channel-pairing";
+import { createPluginRuntimeStore } from "klawty/plugin-sdk/runtime-store";
+import { createOptionalChannelSetupSurface } from "klawty/plugin-sdk/channel-setup";
+import { resolveChannelGroupRequireMention } from "klawty/plugin-sdk/channel-policy";
 
 // Wrong: monolithic root (lint will reject this)
-import { ... } from "openclaw/plugin-sdk";
+import { ... } from "klawty/plugin-sdk";
 ```
 
 Common subpaths:
@@ -147,7 +147,7 @@ external consumers only.
 
 ## Step 5: Add a plugin manifest
 
-Create `openclaw.plugin.json` in your extension root:
+Create `klawty.plugin.json` in your extension root:
 
 ```json
 {
@@ -155,7 +155,7 @@ Create `openclaw.plugin.json` in your extension root:
   "kind": "channel",
   "channels": ["my-channel"],
   "name": "My Channel Plugin",
-  "description": "Connects OpenClaw to My Channel"
+  "description": "Connects Klawty to My Channel"
 }
 ```
 
@@ -163,7 +163,7 @@ See [Plugin manifest](/plugins/manifest) for the full schema.
 
 ## Step 6: Test with contract tests
 
-OpenClaw runs contract tests against all registered plugins. After adding your
+Klawty runs contract tests against all registered plugins. After adding your
 extension, run:
 
 ```bash
@@ -177,14 +177,14 @@ wizard, session binding, message handling, group policy, etc.).
 For unit tests, import test helpers from the public testing surface:
 
 ```typescript
-import { createTestRuntime } from "openclaw/plugin-sdk/testing";
+import { createTestRuntime } from "klawty/plugin-sdk/testing";
 ```
 
 ## Lint enforcement
 
 Three scripts enforce SDK boundaries:
 
-1. **No monolithic root imports** — `openclaw/plugin-sdk` root is rejected
+1. **No monolithic root imports** — `klawty/plugin-sdk` root is rejected
 2. **No direct src/ imports** — extensions cannot import `../../src/` directly
 3. **No self-imports** — extensions cannot import their own `plugin-sdk/<name>` subpath
 
@@ -194,11 +194,11 @@ Run `pnpm check` to verify all boundaries before committing.
 
 Before submitting your extension:
 
-- [ ] `package.json` has correct `openclaw` metadata
+- [ ] `package.json` has correct `klawty` metadata
 - [ ] Entry point uses `defineChannelPluginEntry` or `definePluginEntry`
 - [ ] All imports use focused `plugin-sdk/<subpath>` paths
 - [ ] Internal imports use local barrels, not SDK self-imports
-- [ ] `openclaw.plugin.json` manifest is present and valid
+- [ ] `klawty.plugin.json` manifest is present and valid
 - [ ] Contract tests pass (`pnpm test:contracts`)
 - [ ] Unit tests colocated as `*.test.ts`
 - [ ] `pnpm check` passes (lint + format)

@@ -1,11 +1,11 @@
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import { parseDurationMs } from "openclaw/plugin-sdk/cli-runtime";
+import { formatCliCommand } from "klawty/plugin-sdk/cli-runtime";
+import { parseDurationMs } from "klawty/plugin-sdk/cli-runtime";
 import {
   definePluginEntry,
   type ProviderAuthContext,
   type ProviderResolveDynamicModelContext,
   type ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/core";
+} from "klawty/plugin-sdk/core";
 import {
   CLAUDE_CLI_PROFILE_ID,
   applyAuthProfileConfig,
@@ -24,9 +24,9 @@ import {
   upsertAuthProfile,
   validateAnthropicSetupToken,
   validateApiKeyInput,
-} from "openclaw/plugin-sdk/provider-auth";
-import { normalizeModelCompat } from "openclaw/plugin-sdk/provider-models";
-import { fetchClaudeUsage } from "openclaw/plugin-sdk/provider-usage";
+} from "klawty/plugin-sdk/provider-auth";
+import { normalizeModelCompat } from "klawty/plugin-sdk/provider-models";
+import { fetchClaudeUsage } from "klawty/plugin-sdk/provider-usage";
 import { anthropicMediaUnderstandingProvider } from "./media-understanding-provider.js";
 
 const PROVIDER_ID = "anthropic";
@@ -169,7 +169,7 @@ function buildAnthropicAuthDoctorHint(params: {
     }`,
     `- auth store oauth profiles: ${storeOauthProfiles || "(none)"}`,
     `- suggested profile: ${suggested}`,
-    `Fix: run "${formatCliCommand("openclaw doctor --yes")}"`,
+    `Fix: run "${formatCliCommand("klawty doctor --yes")}"`,
   ].join("\n");
 }
 

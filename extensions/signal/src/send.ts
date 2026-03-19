@@ -1,14 +1,14 @@
-import { loadConfig, type OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/config-runtime";
-import { kindFromMime } from "openclaw/plugin-sdk/media-runtime";
-import { resolveOutboundAttachmentFromUrl } from "openclaw/plugin-sdk/media-runtime";
+import { loadConfig, type KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import { resolveMarkdownTableMode } from "klawty/plugin-sdk/config-runtime";
+import { kindFromMime } from "klawty/plugin-sdk/media-runtime";
+import { resolveOutboundAttachmentFromUrl } from "klawty/plugin-sdk/media-runtime";
 import { resolveSignalAccount } from "./accounts.js";
 import { signalRpcRequest } from "./client.js";
 import { markdownToSignalText, type SignalTextStyleRange } from "./format.js";
 import { resolveSignalRpcContext } from "./rpc-context.js";
 
 export type SignalSendOpts = {
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   baseUrl?: string;
   account?: string;
   accountId?: string;

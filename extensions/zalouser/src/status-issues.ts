@@ -1,7 +1,7 @@
 import {
   coerceStatusIssueAccountId,
   readStatusIssueFields,
-} from "openclaw/plugin-sdk/extension-shared";
+} from "klawty/plugin-sdk/extension-shared";
 import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../runtime-api.js";
 
 const ZALOUSER_STATUS_FIELDS = [
@@ -35,7 +35,7 @@ export function collectZalouserStatusIssues(
         accountId,
         kind: "auth",
         message: "Not authenticated (no saved Zalo session).",
-        fix: "Run: openclaw channels login --channel zalouser",
+        fix: "Run: klawty channels login --channel zalouser",
       });
       continue;
     }

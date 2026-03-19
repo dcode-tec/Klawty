@@ -1,11 +1,11 @@
-import { createHybridChannelConfigAdapter } from "openclaw/plugin-sdk/channel-config-helpers";
+import { createHybridChannelConfigAdapter } from "klawty/plugin-sdk/channel-config-helpers";
 import {
   createRuntimeOutboundDelegates,
   type ChannelAccountSnapshot,
   type ChannelPlugin,
-} from "openclaw/plugin-sdk/channel-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import { createLazyRuntimeModule } from "klawty/plugin-sdk/lazy-runtime";
 import { tlonChannelConfigSchema } from "./config-schema.js";
 import { resolveTlonOutboundSessionRoute } from "./session-route.js";
 import {
@@ -45,8 +45,8 @@ const tlonSetupWizardProxy = createTlonSetupWizardBase({
 
 const tlonConfigAdapter = createHybridChannelConfigAdapter({
   sectionKey: TLON_CHANNEL_ID,
-  listAccountIds: (cfg: OpenClawConfig) => listTlonAccountIds(cfg),
-  resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) =>
+  listAccountIds: (cfg: KlawtyConfig) => listTlonAccountIds(cfg),
+  resolveAccount: (cfg: KlawtyConfig, accountId?: string | null) =>
     resolveTlonAccount(cfg, accountId ?? undefined),
   defaultAccountId: () => "default",
   clearBaseFields: ["ship", "code", "url", "name"],

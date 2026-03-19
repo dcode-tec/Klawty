@@ -1,6 +1,6 @@
 import type {
   MarkdownTableMode,
-  OpenClawConfig,
+  KlawtyConfig,
   ReplyPayload,
   RuntimeEnv,
 } from "../../runtime-api.js";
@@ -34,7 +34,7 @@ function shouldSuppressReasoningReplyText(text?: string): boolean {
 }
 
 export async function deliverMatrixReplies(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   replies: ReplyPayload[];
   roomId: string;
   client: MatrixClient;

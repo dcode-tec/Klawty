@@ -1,16 +1,16 @@
 ---
-summary: "OpenClaw on DigitalOcean (simple paid VPS option)"
+summary: "Klawty on DigitalOcean (simple paid VPS option)"
 read_when:
-  - Setting up OpenClaw on DigitalOcean
-  - Looking for cheap VPS hosting for OpenClaw
+  - Setting up Klawty on DigitalOcean
+  - Looking for cheap VPS hosting for Klawty
 title: "DigitalOcean"
 ---
 
-# OpenClaw on DigitalOcean
+# Klawty on DigitalOcean
 
 ## Goal
 
-Run a persistent OpenClaw Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
+Run a persistent Klawty Gateway on DigitalOcean for **$6/month** (or $4/mo with reserved pricing).
 
 If you want a $0/month option and don’t mind ARM + provider-specific setup, see the [Oracle Cloud guide](/platforms/oracle).
 
@@ -60,7 +60,7 @@ Use a clean base image (Ubuntu 24.04 LTS). Avoid third-party Marketplace 1-click
 ssh root@YOUR_DROPLET_IP
 ```
 
-## 3) Install OpenClaw
+## 3) Install Klawty
 
 ```bash
 # Update system
@@ -70,17 +70,17 @@ apt update && apt upgrade -y
 curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
 apt install -y nodejs
 
-# Install OpenClaw
-curl -fsSL https://openclaw.ai/install.sh | bash
+# Install Klawty
+curl -fsSL https://klawty.ai/install.sh | bash
 
 # Verify
-openclaw --version
+klawty --version
 ```
 
 ## 4) Run Onboarding
 
 ```bash
-openclaw onboard --install-daemon
+klawty onboard --install-daemon
 ```
 
 The wizard will walk you through:
@@ -94,13 +94,13 @@ The wizard will walk you through:
 
 ```bash
 # Check status
-openclaw status
+klawty status
 
 # Check service
-systemctl --user status openclaw-gateway.service
+systemctl --user status klawty-gateway.service
 
 # View logs
-journalctl --user -u openclaw-gateway.service -f
+journalctl --user -u klawty-gateway.service -f
 ```
 
 ## 6) Access the Dashboard
@@ -111,9 +111,9 @@ The gateway binds to loopback by default. To access the Control UI:
 
 ```bash
 # From your local machine
-ssh -L 18789:localhost:18789 root@YOUR_DROPLET_IP
+ssh -L 2508:localhost:2508 root@YOUR_DROPLET_IP
 
-# Then open: http://localhost:18789
+# Then open: http://localhost:2508
 ```
 
 **Option B: Tailscale Serve (HTTPS, loopback-only)**
@@ -124,8 +124,8 @@ curl -fsSL https://tailscale.com/install.sh | sh
 tailscale up
 
 # Configure Gateway to use Tailscale Serve
-openclaw config set gateway.tailscale.mode serve
-openclaw gateway restart
+klawty config set gateway.tailscale.mode serve
+klawty gateway restart
 ```
 
 Open: `https://<magicdns>/`
@@ -138,25 +138,25 @@ Notes:
 **Option C: Tailnet bind (no Serve)**
 
 ```bash
-openclaw config set gateway.bind tailnet
-openclaw gateway restart
+klawty config set gateway.bind tailnet
+klawty gateway restart
 ```
 
-Open: `http://<tailscale-ip>:18789` (token required).
+Open: `http://<tailscale-ip>:2508` (token required).
 
 ## 7) Connect Your Channels
 
 ### Telegram
 
 ```bash
-openclaw pairing list telegram
-openclaw pairing approve telegram <CODE>
+klawty pairing list telegram
+klawty pairing approve telegram <CODE>
 ```
 
 ### WhatsApp
 
 ```bash
-openclaw channels login whatsapp
+klawty channels login whatsapp
 # Scan QR code
 ```
 
@@ -198,13 +198,13 @@ htop
 
 All state lives in:
 
-- `~/.openclaw/` — config, credentials, session data
-- `~/.openclaw/workspace/` — workspace (SOUL.md, memory, etc.)
+- `~/.klawty/` — config, credentials, session data
+- `~/.klawty/workspace/` — workspace (SOUL.md, memory, etc.)
 
 These survive reboots. Back them up periodically:
 
 ```bash
-tar -czvf openclaw-backup.tar.gz ~/.openclaw ~/.openclaw/workspace
+tar -czvf klawty-backup.tar.gz ~/.klawty ~/.klawty/workspace
 ```
 
 ---
@@ -234,15 +234,15 @@ For the full setup guide, see [Oracle Cloud](/platforms/oracle). For signup tips
 ### Gateway will not start
 
 ```bash
-openclaw gateway status
-openclaw doctor --non-interactive
-journalctl -u openclaw --no-pager -n 50
+klawty gateway status
+klawty doctor --non-interactive
+journalctl -u klawty --no-pager -n 50
 ```
 
 ### Port already in use
 
 ```bash
-lsof -i :18789
+lsof -i :2508
 kill <PID>
 ```
 

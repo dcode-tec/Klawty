@@ -1,6 +1,6 @@
-import { shouldAckReactionForWhatsApp } from "openclaw/plugin-sdk/channel-runtime";
-import type { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { shouldAckReactionForWhatsApp } from "klawty/plugin-sdk/channel-runtime";
+import type { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { logVerbose } from "klawty/plugin-sdk/runtime-env";
 import { sendReactionWhatsApp } from "../../send.js";
 import { formatError } from "../../session.js";
 import type { WebInboundMsg } from "../types.js";

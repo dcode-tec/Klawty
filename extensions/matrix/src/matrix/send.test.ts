@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk/matrix";
+import type { PluginRuntime } from "klawty/plugin-sdk/matrix";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { setMatrixRuntime } from "../runtime.js";
 
@@ -249,12 +249,12 @@ describe("sendMessageMatrix media", () => {
     await sendMessageMatrix("room:!room:example", "caption", {
       client,
       mediaUrl: "file:///tmp/photo.png",
-      mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+      mediaLocalRoots: ["/tmp/klawty-matrix-test"],
     });
 
     expect(loadWebMediaMock).toHaveBeenCalledWith("file:///tmp/photo.png", {
       maxBytes: undefined,
-      localRoots: ["/tmp/openclaw-matrix-test"],
+      localRoots: ["/tmp/klawty-matrix-test"],
     });
   });
 });

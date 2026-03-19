@@ -1,7 +1,7 @@
 import {
   listInspectedDirectoryEntriesFromSources,
   type DirectoryConfigParams,
-} from "openclaw/plugin-sdk/directory-runtime";
+} from "klawty/plugin-sdk/directory-runtime";
 import { inspectSlackAccount, type InspectedSlackAccount } from "../api.js";
 import { parseSlackTarget } from "./targets.js";
 

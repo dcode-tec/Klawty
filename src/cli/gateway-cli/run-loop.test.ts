@@ -374,7 +374,7 @@ describe("runGatewayLoop", () => {
       void runGatewayLoop({
         start: start as unknown as Parameters<typeof runGatewayLoop>[0]["start"],
         runtime: runtime as unknown as Parameters<typeof runGatewayLoop>[0]["runtime"],
-        lockPort: 18789,
+        lockPort: 2508,
       });
       await new Promise<void>((resolve) => setImmediate(resolve));
       const sigusr1 = captureSignal("SIGUSR1");
@@ -385,9 +385,9 @@ describe("runGatewayLoop", () => {
       sigusr1();
 
       await new Promise<void>((resolve) => setImmediate(resolve));
-      expect(acquireGatewayLock).toHaveBeenNthCalledWith(1, { port: 18789 });
-      expect(acquireGatewayLock).toHaveBeenNthCalledWith(2, { port: 18789 });
-      expect(acquireGatewayLock).toHaveBeenNthCalledWith(3, { port: 18789 });
+      expect(acquireGatewayLock).toHaveBeenNthCalledWith(1, { port: 2508 });
+      expect(acquireGatewayLock).toHaveBeenNthCalledWith(2, { port: 2508 });
+      expect(acquireGatewayLock).toHaveBeenNthCalledWith(3, { port: 2508 });
 
       sigterm();
       await expect(exited).resolves.toBe(0);
@@ -438,19 +438,19 @@ describe("gateway discover routing helpers", () => {
     const beacon: GatewayBonjourBeacon = {
       instanceName: "Test",
       host: "10.0.0.2",
-      port: 18789,
+      port: 2508,
       gatewayPort: 12345,
     };
-    expect(pickGatewayPort(beacon)).toBe(18789);
+    expect(pickGatewayPort(beacon)).toBe(2508);
   });
 
   it("falls back to TXT host/port when resolve data is missing", () => {
     const beacon: GatewayBonjourBeacon = {
       instanceName: "Test",
       lanHost: "test-host.local",
-      gatewayPort: 18789,
+      gatewayPort: 2508,
     };
     expect(pickBeaconHost(beacon)).toBe("test-host.local");
-    expect(pickGatewayPort(beacon)).toBe(18789);
+    expect(pickGatewayPort(beacon)).toBe(2508);
   });
 });

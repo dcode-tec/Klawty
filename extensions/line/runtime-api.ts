@@ -1,1 +1,1 @@
-export * from "openclaw/plugin-sdk/line-core";
+export * from "klawty/plugin-sdk/line-core";

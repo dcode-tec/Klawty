@@ -1,5 +1,5 @@
 ---
-summary: "OpenClaw plugins/extensions: discovery, config, and safety"
+summary: "Klawty plugins/extensions: discovery, config, and safety"
 read_when:
   - Adding or modifying plugins/extensions
   - Documenting plugin install or load rules
@@ -13,22 +13,22 @@ title: "Plugins"
 
 A plugin is either:
 
-- a native **OpenClaw plugin** (`openclaw.plugin.json` + runtime module), or
+- a native **Klawty plugin** (`klawty.plugin.json` + runtime module), or
 - a compatible **bundle** (`.codex-plugin/plugin.json` or `.claude-plugin/plugin.json`)
 
-Both show up under `openclaw plugins`, but only native OpenClaw plugins execute
+Both show up under `klawty plugins`, but only native Klawty plugins execute
 runtime code in-process.
 
 1. See what is already loaded:
 
 ```bash
-openclaw plugins list
+klawty plugins list
 ```
 
 2. Install an official plugin (example: Voice Call):
 
 ```bash
-openclaw plugins install @openclaw/voice-call
+klawty plugins install @klawty/voice-call
 ```
 
 Npm specs are registry-only. See [install rules](/cli/plugins#install) for
@@ -43,19 +43,19 @@ Need the bundle compatibility details? See [Plugin bundles](/plugins/bundles).
 For compatible bundles, install from a local directory or archive:
 
 ```bash
-openclaw plugins install ./my-bundle
-openclaw plugins install ./my-bundle.tgz
+klawty plugins install ./my-bundle
+klawty plugins install ./my-bundle.tgz
 ```
 
 For Claude marketplace installs, list the marketplace first, then install by
 marketplace entry name:
 
 ```bash
-openclaw plugins marketplace list <marketplace-name>
-openclaw plugins install <plugin-name>@<marketplace-name>
+klawty plugins marketplace list <marketplace-name>
+klawty plugins install <plugin-name>@<marketplace-name>
 ```
 
-OpenClaw resolves known Claude marketplace names from
+Klawty resolves known Claude marketplace names from
 `~/.claude/plugins/known_marketplaces.json`. You can also pass an explicit
 marketplace source with `--marketplace`.
 
@@ -63,28 +63,28 @@ marketplace source with `--marketplace`.
 
 ### Installable plugins
 
-These are published to npm and installed with `openclaw plugins install`:
+These are published to npm and installed with `klawty plugins install`:
 
 | Plugin          | Package                | Docs                               |
 | --------------- | ---------------------- | ---------------------------------- |
-| Matrix          | `@openclaw/matrix`     | [Matrix](/channels/matrix)         |
-| Microsoft Teams | `@openclaw/msteams`    | [MS Teams](/channels/msteams)      |
-| Nostr           | `@openclaw/nostr`      | [Nostr](/channels/nostr)           |
-| Voice Call      | `@openclaw/voice-call` | [Voice Call](/plugins/voice-call)  |
-| Zalo            | `@openclaw/zalo`       | [Zalo](/channels/zalo)             |
-| Zalo Personal   | `@openclaw/zalouser`   | [Zalo Personal](/plugins/zalouser) |
+| Matrix          | `@klawty/matrix`     | [Matrix](/channels/matrix)         |
+| Microsoft Teams | `@klawty/msteams`    | [MS Teams](/channels/msteams)      |
+| Nostr           | `@klawty/nostr`      | [Nostr](/channels/nostr)           |
+| Voice Call      | `@klawty/voice-call` | [Voice Call](/plugins/voice-call)  |
+| Zalo            | `@klawty/zalo`       | [Zalo](/channels/zalo)             |
+| Zalo Personal   | `@klawty/zalouser`   | [Zalo Personal](/plugins/zalouser) |
 
 Microsoft Teams is plugin-only as of 2026.1.15.
 
 Packaged installs also ship install-on-demand metadata for heavyweight official
 plugins. Today that includes WhatsApp and `memory-lancedb`: onboarding,
-`openclaw channels add`, `openclaw channels login --channel whatsapp`, and
+`klawty channels add`, `klawty channels login --channel whatsapp`, and
 other channel setup flows prompt to install them when first used instead of
 shipping their full runtime trees inside the main npm tarball.
 
 ### Bundled plugins
 
-These ship with OpenClaw and are enabled by default unless noted.
+These ship with Klawty and are enabled by default unless noted.
 
 **Memory:**
 
@@ -105,7 +105,7 @@ These ship with OpenClaw and are enabled by default unless noted.
 
 ## Compatible bundles
 
-OpenClaw also recognizes compatible external bundle layouts:
+Klawty also recognizes compatible external bundle layouts:
 
 - Codex-style bundles: `.codex-plugin/plugin.json`
 - Claude-style bundles: `.claude-plugin/plugin.json` or the default Claude
@@ -152,8 +152,8 @@ Validation rules (strict):
 - Unknown `channels.<id>` keys are **errors** unless a plugin manifest declares
   the channel id.
 - Native plugin config is validated using the JSON Schema embedded in
-  `openclaw.plugin.json` (`configSchema`).
-- Compatible bundles currently do not expose native OpenClaw config schemas.
+  `klawty.plugin.json` (`configSchema`).
+- Compatible bundles currently do not expose native Klawty config schemas.
 - If a plugin is disabled, its config is preserved and a **warning** is emitted.
 
 ### Disabled vs missing vs invalid
@@ -164,12 +164,12 @@ These states are intentionally different:
 - **missing**: config references a plugin id that discovery did not find
 - **invalid**: plugin exists, but its config does not match the declared schema
 
-OpenClaw preserves config for disabled plugins so toggling them back on is not
+Klawty preserves config for disabled plugins so toggling them back on is not
 destructive.
 
 ## Discovery and precedence
 
-OpenClaw scans, in order:
+Klawty scans, in order:
 
 1. Config paths
 
@@ -177,24 +177,24 @@ OpenClaw scans, in order:
 
 2. Workspace extensions
 
-- `<workspace>/.openclaw/extensions/*.ts`
-- `<workspace>/.openclaw/extensions/*/index.ts`
+- `<workspace>/.klawty/extensions/*.ts`
+- `<workspace>/.klawty/extensions/*/index.ts`
 
 3. Global extensions
 
-- `~/.openclaw/extensions/*.ts`
-- `~/.openclaw/extensions/*/index.ts`
+- `~/.klawty/extensions/*.ts`
+- `~/.klawty/extensions/*/index.ts`
 
-4. Bundled extensions (shipped with OpenClaw; mixed default-on/default-off)
+4. Bundled extensions (shipped with Klawty; mixed default-on/default-off)
 
-- `<openclaw>/dist/extensions/*` in packaged installs
+- `<klawty>/dist/extensions/*` in packaged installs
 - `<workspace>/dist-runtime/extensions/*` in local built checkouts
 - `<workspace>/extensions/*` in source/Vitest workflows
 
 Many bundled provider plugins are enabled by default so model catalogs/runtime
 hooks stay available without extra setup. Others still require explicit
 enablement via `plugins.entries.<id>.enabled` or
-`openclaw plugins enable <id>`.
+`klawty plugins enable <id>`.
 
 Bundled plugin runtime dependencies are owned by each plugin package. Packaged
 builds stage opted-in bundled dependencies under
@@ -261,43 +261,43 @@ Default plugin ids:
 - Package packs: `package.json` `name`
 - Standalone file: file base name (`~/.../voice-call.ts` -> `voice-call`)
 
-If a plugin exports `id`, OpenClaw uses it but warns when it does not match the
+If a plugin exports `id`, Klawty uses it but warns when it does not match the
 configured id.
 
 ## Inspection
 
 ```bash
-openclaw plugins inspect openai        # deep detail on one plugin
-openclaw plugins inspect openai --json # machine-readable
-openclaw plugins list                  # compact inventory
-openclaw plugins status                # operational summary
-openclaw plugins doctor                # issue-focused diagnostics
+klawty plugins inspect openai        # deep detail on one plugin
+klawty plugins inspect openai --json # machine-readable
+klawty plugins list                  # compact inventory
+klawty plugins status                # operational summary
+klawty plugins doctor                # issue-focused diagnostics
 ```
 
 ## CLI
 
 ```bash
-openclaw plugins list
-openclaw plugins inspect <id>
-openclaw plugins install <path>                 # copy a local file/dir into ~/.openclaw/extensions/<id>
-openclaw plugins install ./extensions/voice-call # relative path ok
-openclaw plugins install ./plugin.tgz           # install from a local tarball
-openclaw plugins install ./plugin.zip           # install from a local zip
-openclaw plugins install -l ./extensions/voice-call # link (no copy) for dev
-openclaw plugins install @openclaw/voice-call   # install from npm
-openclaw plugins install @openclaw/voice-call --pin # store exact resolved name@version
-openclaw plugins update <id>
-openclaw plugins update --all
-openclaw plugins enable <id>
-openclaw plugins disable <id>
-openclaw plugins doctor
+klawty plugins list
+klawty plugins inspect <id>
+klawty plugins install <path>                 # copy a local file/dir into ~/.klawty/extensions/<id>
+klawty plugins install ./extensions/voice-call # relative path ok
+klawty plugins install ./plugin.tgz           # install from a local tarball
+klawty plugins install ./plugin.zip           # install from a local zip
+klawty plugins install -l ./extensions/voice-call # link (no copy) for dev
+klawty plugins install @klawty/voice-call   # install from npm
+klawty plugins install @klawty/voice-call --pin # store exact resolved name@version
+klawty plugins update <id>
+klawty plugins update --all
+klawty plugins enable <id>
+klawty plugins disable <id>
+klawty plugins doctor
 ```
 
-See [`openclaw plugins` CLI reference](/cli/plugins) for full details on each
+See [`klawty plugins` CLI reference](/cli/plugins) for full details on each
 command (install rules, inspect output, marketplace installs, uninstall).
 
 Plugins may also register their own top-level commands (example:
-`openclaw voicecall`).
+`klawty voicecall`).
 
 ## Plugin API (overview)
 

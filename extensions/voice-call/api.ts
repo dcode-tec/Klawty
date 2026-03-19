@@ -1,1 +1,1 @@
-export * from "openclaw/plugin-sdk/voice-call";
+export * from "klawty/plugin-sdk/voice-call";

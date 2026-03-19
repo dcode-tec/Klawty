@@ -1,6 +1,6 @@
-import { resolveWhatsAppAccount } from "openclaw/plugin-sdk/whatsapp";
+import { resolveWhatsAppAccount } from "klawty/plugin-sdk/whatsapp";
 import type { ChannelId } from "../../channels/plugins/types.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import {
   loadSessionStore,
   resolveAgentMainSessionKey,
@@ -38,7 +38,7 @@ export type DeliveryTargetResolution =
     };
 
 export async function resolveDeliveryTarget(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   agentId: string,
   jobPayload: {
     channel?: "last" | ChannelId;

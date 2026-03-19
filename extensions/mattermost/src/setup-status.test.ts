@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { KlawtyConfig } from "../runtime-api.js";
 import { mattermostSetupWizard } from "./setup-surface.js";
 
 describe("mattermost setup status", () => {
@@ -16,7 +16,7 @@ describe("mattermost setup status", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as KlawtyConfig,
     });
 
     expect(configured).toBe(true);

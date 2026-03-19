@@ -2,9 +2,9 @@ import {
   resolveToolsBySender,
   type GroupToolPolicyBySenderConfig,
   type GroupToolPolicyConfig,
-} from "openclaw/plugin-sdk/channel-policy";
-import { type ChannelGroupContext } from "openclaw/plugin-sdk/channel-runtime";
-import { normalizeAtHashSlug } from "openclaw/plugin-sdk/core";
+} from "klawty/plugin-sdk/channel-policy";
+import { type ChannelGroupContext } from "klawty/plugin-sdk/channel-runtime";
+import { normalizeAtHashSlug } from "klawty/plugin-sdk/core";
 import type { DiscordConfig } from "./runtime-api.js";
 
 function normalizeDiscordSlug(value?: string | null) {

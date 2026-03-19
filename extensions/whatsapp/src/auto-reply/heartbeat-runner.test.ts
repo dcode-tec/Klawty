@@ -89,16 +89,16 @@ vi.mock("../../../../src/logging.js", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/state-paths", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/state-paths")>();
+vi.mock("klawty/plugin-sdk/state-paths", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/state-paths")>();
   return {
     ...actual,
-    resolveOAuthDir: () => "/tmp/openclaw-oauth",
+    resolveOAuthDir: () => "/tmp/klawty-oauth",
   };
 });
 
-vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/runtime-env")>();
+vi.mock("klawty/plugin-sdk/runtime-env", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/runtime-env")>();
   const logger = {
     child: () => logger,
     info: vi.fn(),
@@ -113,8 +113,8 @@ vi.mock("openclaw/plugin-sdk/runtime-env", async (importOriginal) => {
 });
 
 vi.mock("../auth-store.js", () => ({
-  WA_WEB_AUTH_DIR: "/tmp/openclaw-oauth/whatsapp/default",
-  resolveDefaultWebAuthDir: () => "/tmp/openclaw-oauth/whatsapp/default",
+  WA_WEB_AUTH_DIR: "/tmp/klawty-oauth/whatsapp/default",
+  resolveDefaultWebAuthDir: () => "/tmp/klawty-oauth/whatsapp/default",
   hasWebCredsSync: () => false,
   maybeRestoreCredsFromBackup: () => undefined,
   webAuthExists: async () => false,

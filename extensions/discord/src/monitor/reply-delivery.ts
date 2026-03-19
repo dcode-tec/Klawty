@@ -1,22 +1,22 @@
 import type { RequestClient } from "@buape/carbon";
-import { resolveAgentAvatar } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { MarkdownTableMode, ReplyToMode } from "openclaw/plugin-sdk/config-runtime";
+import { resolveAgentAvatar } from "klawty/plugin-sdk/agent-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import type { MarkdownTableMode, ReplyToMode } from "klawty/plugin-sdk/config-runtime";
 import {
   resolveRetryConfig,
   retryAsync,
   type RetryConfig,
   type RetryRunner,
-} from "openclaw/plugin-sdk/infra-runtime";
+} from "klawty/plugin-sdk/infra-runtime";
 import {
   resolveSendableOutboundReplyParts,
   resolveTextChunksWithFallback,
   sendMediaWithLeadingCaption,
-} from "openclaw/plugin-sdk/reply-payload";
-import type { ChunkMode } from "openclaw/plugin-sdk/reply-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { convertMarkdownTables } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/reply-payload";
+import type { ChunkMode } from "klawty/plugin-sdk/reply-runtime";
+import type { ReplyPayload } from "klawty/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
+import { convertMarkdownTables } from "klawty/plugin-sdk/text-runtime";
 import { resolveDiscordAccount } from "../accounts.js";
 import { chunkDiscordTextWithMode } from "../chunk.js";
 import { createDiscordRetryRunner } from "../retry.js";
@@ -114,7 +114,7 @@ function resolveBoundThreadBinding(params: {
 }
 
 function resolveBindingPersona(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   binding: DiscordThreadBindingLookupRecord | undefined,
 ): {
   username?: string;
@@ -139,7 +139,7 @@ function resolveBindingPersona(
 }
 
 async function sendDiscordChunkWithFallback(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   target: string;
   text: string;
   token: string;
@@ -216,7 +216,7 @@ async function sendDiscordChunkWithFallback(params: {
 }
 
 export async function deliverDiscordReply(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   replies: ReplyPayload[];
   target: string;
   token: string;

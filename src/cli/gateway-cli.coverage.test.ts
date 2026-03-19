@@ -76,7 +76,7 @@ vi.mock("../daemon/service.js", () => ({
 
 vi.mock("../daemon/program-args.js", () => ({
   resolveGatewayProgramArguments: async () => ({
-    programArguments: ["/bin/node", "cli", "gateway", "--port", "18789"],
+    programArguments: ["/bin/node", "cli", "gateway", "--port", "2508"],
   }),
 }));
 
@@ -142,13 +142,13 @@ describe("gateway-cli coverage", () => {
     discoverGatewayBeacons.mockClear();
     discoverGatewayBeacons.mockResolvedValueOnce([
       {
-        instanceName: "Studio (OpenClaw)",
+        instanceName: "Studio (Klawty)",
         displayName: "Studio",
-        domain: "openclaw.internal.",
-        host: "studio.openclaw.internal",
+        domain: "klawty.internal.",
+        host: "studio.klawty.internal",
         lanHost: "studio.local",
         tailnetDns: "studio.tailnet.ts.net",
-        gatewayPort: 18789,
+        gatewayPort: 2508,
         sshPort: 22,
       },
     ]);
@@ -192,7 +192,7 @@ describe("gateway-cli coverage", () => {
     await expectGatewayExit([
       "gateway",
       "--port",
-      "18789",
+      "2508",
       "--token",
       "test-token",
       "--force",
@@ -206,7 +206,7 @@ describe("gateway-cli coverage", () => {
     await expectGatewayExit([
       "gateway",
       "--port",
-      "18789",
+      "2508",
       "--token",
       "test-token",
       "--allow-unconfigured",
@@ -237,7 +237,7 @@ describe("gateway-cli coverage", () => {
   });
 
   it("uses env/config port when --port is omitted", async () => {
-    await withEnvOverride({ OPENCLAW_GATEWAY_PORT: "19001" }, async () => {
+    await withEnvOverride({ KLAWTY_GATEWAY_PORT: "19001" }, async () => {
       resetRuntimeCapture();
       startGatewayServer.mockClear();
 

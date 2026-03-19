@@ -114,7 +114,7 @@ describe("Matrix IndexedDB persistence", () => {
   it("persists and restores database contents for the selected prefix", async () => {
     const snapshotPath = path.join(tmpDir, "crypto-idb-snapshot.json");
     await seedDatabase({
-      name: "openclaw-matrix-test::matrix-sdk-crypto",
+      name: "klawty-matrix-test::matrix-sdk-crypto",
       storeName: "sessions",
       records: [{ key: "room-1", value: { session: "abc123" } }],
     });
@@ -126,7 +126,7 @@ describe("Matrix IndexedDB persistence", () => {
 
     await persistIdbToDisk({
       snapshotPath,
-      databasePrefix: "openclaw-matrix-test",
+      databasePrefix: "klawty-matrix-test",
     });
     expect(fs.existsSync(snapshotPath)).toBe(true);
 
@@ -139,7 +139,7 @@ describe("Matrix IndexedDB persistence", () => {
     expect(restored).toBe(true);
 
     const restoredRecords = await readDatabaseRecords({
-      name: "openclaw-matrix-test::matrix-sdk-crypto",
+      name: "klawty-matrix-test::matrix-sdk-crypto",
       storeName: "sessions",
     });
     expect(restoredRecords).toEqual([{ key: "room-1", value: { session: "abc123" } }]);

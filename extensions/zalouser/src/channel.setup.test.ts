@@ -13,10 +13,10 @@ const zalouserSetupAdapter = buildChannelSetupWizardAdapterFromSetupWizard({
 
 describe("zalouser setup plugin", () => {
   it("builds setup status without an initialized runtime", async () => {
-    const stateDir = await mkdtemp(path.join(os.tmpdir(), "openclaw-zalouser-setup-"));
+    const stateDir = await mkdtemp(path.join(os.tmpdir(), "klawty-zalouser-setup-"));
 
     try {
-      await withEnvAsync({ OPENCLAW_STATE_DIR: stateDir }, async () => {
+      await withEnvAsync({ KLAWTY_STATE_DIR: stateDir }, async () => {
         await expect(
           zalouserSetupAdapter.getStatus({
             cfg: {},

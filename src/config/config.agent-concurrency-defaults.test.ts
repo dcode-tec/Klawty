@@ -6,8 +6,8 @@ import {
   resolveSubagentMaxConcurrent,
 } from "./agent-limits.js";
 import { loadConfig } from "./config.js";
-import { withTempHome, writeOpenClawConfig } from "./test-helpers.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { withTempHome, writeKlawtyConfig } from "./test-helpers.js";
+import { KlawtySchema } from "./zod-schema.js";
 
 describe("agent concurrency defaults", () => {
   it("resolves defaults when unset", () => {
@@ -29,7 +29,7 @@ describe("agent concurrency defaults", () => {
   });
 
   it("accepts subagent spawn depth and per-agent child limits", () => {
-    const parsed = OpenClawSchema.parse({
+    const parsed = KlawtySchema.parse({
       agents: {
         defaults: {
           subagents: {
@@ -46,7 +46,7 @@ describe("agent concurrency defaults", () => {
 
   it("injects defaults on load", async () => {
     await withTempHome(async (home) => {
-      await writeOpenClawConfig(home, {});
+      await writeKlawtyConfig(home, {});
 
       const cfg = loadConfig();
 

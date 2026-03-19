@@ -2,9 +2,9 @@ import "./test-helpers.js";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import * as ssrf from "openclaw/plugin-sdk/infra-runtime";
-import { resetInboundDedupe } from "openclaw/plugin-sdk/reply-runtime";
-import { resetLogger, setLoggerOverride } from "openclaw/plugin-sdk/runtime-env";
+import * as ssrf from "klawty/plugin-sdk/infra-runtime";
+import { resetInboundDedupe } from "klawty/plugin-sdk/reply-runtime";
+import { resetLogger, setLoggerOverride } from "klawty/plugin-sdk/runtime-env";
 import { afterAll, afterEach, beforeAll, beforeEach, vi } from "vitest";
 import type { WebInboundMessage, WebListenerCloseReason } from "./inbound.js";
 import {
@@ -29,8 +29,8 @@ type MockWebListener = {
 
 export const TEST_NET_IP = "203.0.113.10";
 
-vi.mock("openclaw/plugin-sdk/agent-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/agent-runtime")>();
+vi.mock("klawty/plugin-sdk/agent-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/agent-runtime")>();
   return {
     ...actual,
     abortEmbeddedPiRun: vi.fn().mockReturnValue(false),
@@ -88,7 +88,7 @@ let tempHomeId = 0;
 
 export function installWebAutoReplyTestHomeHooks() {
   beforeAll(async () => {
-    tempHomeRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-web-home-suite-"));
+    tempHomeRoot = await fs.mkdtemp(path.join(os.tmpdir(), "klawty-web-home-suite-"));
   });
 
   beforeEach(async () => {
@@ -116,7 +116,7 @@ export function installWebAutoReplyTestHomeHooks() {
 export async function makeSessionStore(
   entries: Record<string, unknown> = {},
 ): Promise<{ storePath: string; cleanup: () => Promise<void> }> {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-session-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "klawty-session-"));
   const storePath = path.join(dir, "sessions.json");
   await fs.writeFile(storePath, JSON.stringify(entries));
   const cleanup = async () => {

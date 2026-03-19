@@ -1,1 +1,1 @@
-export * from "openclaw/plugin-sdk/signal";
+export * from "klawty/plugin-sdk/signal";

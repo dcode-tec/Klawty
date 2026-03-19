@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/discord",
-  "version": "2026.3.14",
-  "description": "OpenClaw Discord channel plugin",
+  "name": "@klawty/discord",
+  "version": "1.0.0",
+  "description": "Klawty Discord channel plugin",
   "type": "module",
   "dependencies": {
     "@buape/carbon": "0.0.0-beta-20260216184201",
@@ -10,7 +10,7 @@
     "https-proxy-agent": "^8.0.0",
     "opusscript": "^0.1.1"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],
@@ -26,7 +26,7 @@
       "systemImage": "bubble.left.and.bubble.right"
     },
     "install": {
-      "npmSpec": "@openclaw/discord",
+      "npmSpec": "@klawty/discord",
       "localPath": "extensions/discord",
       "defaultChoice": "npm"
     },

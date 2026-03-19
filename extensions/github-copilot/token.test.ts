@@ -4,7 +4,7 @@ import { deriveCopilotApiBaseUrlFromToken, resolveCopilotApiToken } from "./toke
 describe("github-copilot token", () => {
   const loadJsonFile = vi.fn();
   const saveJsonFile = vi.fn();
-  const cachePath = "/tmp/openclaw-state/credentials/github-copilot.token.json";
+  const cachePath = "/tmp/klawty-state/credentials/github-copilot.token.json";
 
   beforeEach(() => {
     loadJsonFile.mockClear();

@@ -1,4 +1,4 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/core";
+import { definePluginEntry } from "klawty/plugin-sdk/core";
 import { createPerplexityWebSearchProvider } from "./src/perplexity-web-search-provider.js";
 
 export default definePluginEntry({

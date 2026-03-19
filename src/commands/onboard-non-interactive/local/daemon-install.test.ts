@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { KlawtyConfig } from "../../../config/config.js";
 
 const buildGatewayInstallPlan = vi.hoisted(() => vi.fn());
 const gatewayInstallErrorHint = vi.hoisted(() => vi.fn(() => "hint"));
@@ -48,7 +48,7 @@ describe("installGatewayDaemonNonInteractive", () => {
       warnings: [],
     });
     buildGatewayInstallPlan.mockResolvedValue({
-      programArguments: ["openclaw", "gateway", "run"],
+      programArguments: ["klawty", "gateway", "run"],
       workingDirectory: "/tmp",
       environment: {},
     });
@@ -65,14 +65,14 @@ describe("installGatewayDaemonNonInteractive", () => {
             token: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_GATEWAY_TOKEN",
+              id: "KLAWTY_GATEWAY_TOKEN",
             },
           },
         },
-      } as OpenClawConfig,
+      } as KlawtyConfig,
       opts: { installDaemon: true },
       runtime,
-      port: 18789,
+      port: 2508,
     });
 
     expect(resolveGatewayInstallToken).toHaveBeenCalledTimes(1);
@@ -91,10 +91,10 @@ describe("installGatewayDaemonNonInteractive", () => {
     const runtime = { log: vi.fn(), error: vi.fn(), exit: vi.fn() };
 
     await installGatewayDaemonNonInteractive({
-      nextConfig: {} as OpenClawConfig,
+      nextConfig: {} as KlawtyConfig,
       opts: { installDaemon: true },
       runtime,
-      port: 18789,
+      port: 2508,
     });
 
     expect(runtime.error).toHaveBeenCalledWith(expect.stringContaining("Gateway install blocked"));
@@ -115,10 +115,10 @@ describe("installGatewayDaemonNonInteractive", () => {
 
     try {
       const result = await installGatewayDaemonNonInteractive({
-        nextConfig: {} as OpenClawConfig,
+        nextConfig: {} as KlawtyConfig,
         opts: { installDaemon: true },
         runtime,
-        port: 18789,
+        port: 2508,
       });
 
       expect(result).toEqual({

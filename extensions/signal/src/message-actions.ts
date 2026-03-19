@@ -5,7 +5,7 @@ import {
   resolveReactionMessageId,
   type ChannelMessageActionAdapter,
   type ChannelMessageActionName,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 import { listEnabledSignalAccounts, resolveSignalAccount } from "./accounts.js";
 import { resolveSignalReactionLevel } from "./reaction-level.js";
 import { removeReactionSignal, sendReactionSignal } from "./send-reactions.js";

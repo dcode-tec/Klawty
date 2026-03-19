@@ -1,4 +1,4 @@
-import { resolveGlobalMap } from "openclaw/plugin-sdk/text-runtime";
+import { resolveGlobalMap } from "klawty/plugin-sdk/text-runtime";
 
 /**
  * In-memory cache of Slack threads the bot has participated in.
@@ -13,7 +13,7 @@ const MAX_ENTRIES = 5000;
  * Keep Slack thread participation shared across bundled chunks so thread
  * auto-reply gating does not diverge between prepare/dispatch call paths.
  */
-const SLACK_THREAD_PARTICIPATION_KEY = Symbol.for("openclaw.slackThreadParticipation");
+const SLACK_THREAD_PARTICIPATION_KEY = Symbol.for("klawty.slackThreadParticipation");
 
 const threadParticipation = resolveGlobalMap<string, number>(SLACK_THREAD_PARTICIPATION_KEY);
 

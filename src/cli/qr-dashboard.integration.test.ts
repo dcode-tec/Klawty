@@ -4,7 +4,7 @@ import { captureEnv } from "../test-utils/env.js";
 
 const loadConfigMock = vi.hoisted(() => vi.fn());
 const readConfigFileSnapshotMock = vi.hoisted(() => vi.fn());
-const resolveGatewayPortMock = vi.hoisted(() => vi.fn(() => 18789));
+const resolveGatewayPortMock = vi.hoisted(() => vi.fn(() => 2508));
 const copyToClipboardMock = vi.hoisted(() => vi.fn(async () => false));
 
 const runtimeLogs: string[] = [];
@@ -53,7 +53,7 @@ function createGatewayTokenRefFixture() {
     gateway: {
       bind: "custom",
       customBindHost: "gateway.local",
-      port: 18789,
+      port: 2508,
       auth: {
         mode: "token",
         token: {
@@ -97,9 +97,9 @@ describe("cli integration: qr + dashboard token SecretRef", () => {
   beforeAll(() => {
     envSnapshot = captureEnv([
       "SHARED_GATEWAY_TOKEN",
-      "OPENCLAW_GATEWAY_TOKEN",
+      "KLAWTY_GATEWAY_TOKEN",
       "CLAWDBOT_GATEWAY_TOKEN",
-      "OPENCLAW_GATEWAY_PASSWORD",
+      "KLAWTY_GATEWAY_PASSWORD",
       "CLAWDBOT_GATEWAY_PASSWORD",
     ]);
   });
@@ -112,9 +112,9 @@ describe("cli integration: qr + dashboard token SecretRef", () => {
     runtimeLogs.length = 0;
     runtimeErrors.length = 0;
     vi.clearAllMocks();
-    delete process.env.OPENCLAW_GATEWAY_TOKEN;
+    delete process.env.KLAWTY_GATEWAY_TOKEN;
     delete process.env.CLAWDBOT_GATEWAY_TOKEN;
-    delete process.env.OPENCLAW_GATEWAY_PASSWORD;
+    delete process.env.KLAWTY_GATEWAY_PASSWORD;
     delete process.env.CLAWDBOT_GATEWAY_PASSWORD;
     delete process.env.SHARED_GATEWAY_TOKEN;
   });
@@ -124,7 +124,7 @@ describe("cli integration: qr + dashboard token SecretRef", () => {
     process.env.SHARED_GATEWAY_TOKEN = "shared-token-123";
     loadConfigMock.mockReturnValue(fixture);
     readConfigFileSnapshotMock.mockResolvedValue({
-      path: "/tmp/openclaw.json",
+      path: "/tmp/klawty.json",
       exists: true,
       valid: true,
       issues: [],
@@ -135,7 +135,7 @@ describe("cli integration: qr + dashboard token SecretRef", () => {
     const setupCode = runtimeLogs.at(-1);
     expect(setupCode).toBeTruthy();
     const payload = decodeSetupCode(setupCode ?? "");
-    expect(payload.url).toBe("ws://gateway.local:18789");
+    expect(payload.url).toBe("ws://gateway.local:2508");
     expect(payload.bootstrapToken).toBeTruthy();
     expect(payload.token).toBe("shared-token-123");
     expect(runtimeErrors).toEqual([]);
@@ -144,7 +144,7 @@ describe("cli integration: qr + dashboard token SecretRef", () => {
     runtimeErrors.length = 0;
     await runCli(["dashboard", "--no-open"]);
     const joined = runtimeLogs.join("\n");
-    expect(joined).toContain("Dashboard URL: http://127.0.0.1:18789/");
+    expect(joined).toContain("Dashboard URL: http://127.0.0.1:2508/");
     expect(joined).not.toContain("#token=");
     expect(joined).toContain(
       "Token auto-auth is disabled for SecretRef-managed gateway.auth.token",
@@ -157,7 +157,7 @@ describe("cli integration: qr + dashboard token SecretRef", () => {
     const fixture = createGatewayTokenRefFixture();
     loadConfigMock.mockReturnValue(fixture);
     readConfigFileSnapshotMock.mockResolvedValue({
-      path: "/tmp/openclaw.json",
+      path: "/tmp/klawty.json",
       exists: true,
       valid: true,
       issues: [],
@@ -171,9 +171,9 @@ describe("cli integration: qr + dashboard token SecretRef", () => {
     runtimeErrors.length = 0;
     await runCli(["dashboard", "--no-open"]);
     const joined = runtimeLogs.join("\n");
-    expect(joined).toContain("Dashboard URL: http://127.0.0.1:18789/");
+    expect(joined).toContain("Dashboard URL: http://127.0.0.1:2508/");
     expect(joined).not.toContain("#token=");
     expect(joined).toContain("Token auto-auth unavailable");
-    expect(joined).toContain("Set OPENCLAW_GATEWAY_TOKEN");
+    expect(joined).toContain("Set KLAWTY_GATEWAY_TOKEN");
   });
 });

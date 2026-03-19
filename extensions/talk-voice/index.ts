@@ -1,6 +1,6 @@
-import { resolveActiveTalkProviderConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { SpeechVoiceOption } from "openclaw/plugin-sdk/speech";
-import { definePluginEntry, type OpenClawPluginApi } from "./api.js";
+import { resolveActiveTalkProviderConfig } from "klawty/plugin-sdk/config-runtime";
+import type { SpeechVoiceOption } from "klawty/plugin-sdk/speech";
+import { definePluginEntry, type KlawtyPluginApi } from "./api.js";
 
 function mask(s: string, keep: number = 6): string {
   const trimmed = s.trim();
@@ -103,7 +103,7 @@ export default definePluginEntry({
   id: "talk-voice",
   name: "Talk Voice",
   description: "Command helpers for managing Talk voice configuration",
-  register(api: OpenClawPluginApi) {
+  register(api: KlawtyPluginApi) {
     api.registerCommand({
       name: "voice",
       nativeNames: {

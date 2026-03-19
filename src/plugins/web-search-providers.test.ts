@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import { createEmptyPluginRegistry } from "./registry.js";
 import { setActivePluginRegistry } from "./runtime.js";
 import {
@@ -16,8 +16,8 @@ const BUNDLED_WEB_SEARCH_PROVIDERS = [
   { pluginId: "firecrawl", id: "firecrawl", order: 60 },
 ] as const;
 
-const { loadOpenClawPluginsMock } = vi.hoisted(() => ({
-  loadOpenClawPluginsMock: vi.fn((params?: { config?: { plugins?: Record<string, unknown> } }) => {
+const { loadKlawtyPluginsMock } = vi.hoisted(() => ({
+  loadKlawtyPluginsMock: vi.fn((params?: { config?: { plugins?: Record<string, unknown> } }) => {
     const plugins = params?.config?.plugins as
       | {
           enabled?: boolean;
@@ -54,7 +54,7 @@ const { loadOpenClawPluginsMock } = vi.hoisted(() => ({
         getCredentialValue: () => "configured",
         setCredentialValue: () => {},
         applySelectionConfig:
-          provider.id === "firecrawl" ? (config: OpenClawConfig) => config : undefined,
+          provider.id === "firecrawl" ? (config: KlawtyConfig) => config : undefined,
         resolveRuntimeMetadata:
           provider.id === "perplexity"
             ? () => ({
@@ -73,12 +73,12 @@ const { loadOpenClawPluginsMock } = vi.hoisted(() => ({
 }));
 
 vi.mock("./loader.js", () => ({
-  loadOpenClawPlugins: loadOpenClawPluginsMock,
+  loadKlawtyPlugins: loadKlawtyPluginsMock,
 }));
 
 describe("resolvePluginWebSearchProviders", () => {
   beforeEach(() => {
-    loadOpenClawPluginsMock.mockClear();
+    loadKlawtyPluginsMock.mockClear();
   });
 
   afterEach(() => {

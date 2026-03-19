@@ -1,7 +1,7 @@
 import {
   isNumericTelegramUserId,
   normalizeTelegramAllowFromEntry,
-} from "openclaw/plugin-sdk/telegram";
+} from "klawty/plugin-sdk/telegram";
 import { readChannelAllowFromStore } from "../pairing/pairing-store.js";
 import {
   isDiscordMutableAllowEntry,

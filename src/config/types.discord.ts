@@ -1,4 +1,4 @@
-import type { DiscordPluralKitConfig } from "openclaw/plugin-sdk/discord";
+import type { DiscordPluralKitConfig } from "klawty/plugin-sdk/discord";
 import type {
   BlockStreamingChunkConfig,
   BlockStreamingCoalesceConfig,
@@ -343,7 +343,7 @@ export type DiscordAccountConfig = {
    */
   inboundWorker?: {
     /**
-     * Max time (ms) a queued inbound run may execute before OpenClaw aborts it.
+     * Max time (ms) a queued inbound run may execute before Klawty aborts it.
      * Defaults to 1800000 (30 minutes). Set 0 to disable the worker-owned timeout.
      */
     runTimeoutMs?: number;

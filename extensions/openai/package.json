@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/openai-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/openai-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw OpenAI provider plugins",
+  "description": "Klawty OpenAI provider plugins",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

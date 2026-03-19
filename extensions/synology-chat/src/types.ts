@@ -15,7 +15,7 @@ type SynologyChatConfigFields = {
   allowInsecureSsl?: boolean;
 };
 
-/** Raw channel config from openclaw.json channels.synology-chat */
+/** Raw channel config from klawty.json channels.synology-chat */
 export interface SynologyChatChannelConfig extends SynologyChatConfigFields {
   accounts?: Record<string, SynologyChatAccountRaw>;
 }

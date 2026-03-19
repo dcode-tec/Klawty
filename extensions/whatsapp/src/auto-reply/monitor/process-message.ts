@@ -1,35 +1,35 @@
-import { resolveIdentityNamePrefix } from "openclaw/plugin-sdk/agent-runtime";
-import { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
-import { toLocationContext } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveInboundSessionEnvelopeContext } from "openclaw/plugin-sdk/channel-runtime";
-import type { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/config-runtime";
-import { recordSessionMetaFromInbound } from "openclaw/plugin-sdk/config-runtime";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import { resolveChunkMode, resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-runtime";
-import { shouldComputeCommandAuthorized } from "openclaw/plugin-sdk/reply-runtime";
-import { formatInboundEnvelope } from "openclaw/plugin-sdk/reply-runtime";
-import type { getReplyFromConfig } from "openclaw/plugin-sdk/reply-runtime";
+import { resolveIdentityNamePrefix } from "klawty/plugin-sdk/agent-runtime";
+import { createChannelReplyPipeline } from "klawty/plugin-sdk/channel-reply-pipeline";
+import { toLocationContext } from "klawty/plugin-sdk/channel-runtime";
+import { resolveInboundSessionEnvelopeContext } from "klawty/plugin-sdk/channel-runtime";
+import type { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { resolveMarkdownTableMode } from "klawty/plugin-sdk/config-runtime";
+import { recordSessionMetaFromInbound } from "klawty/plugin-sdk/config-runtime";
+import { getAgentScopedMediaLocalRoots } from "klawty/plugin-sdk/media-runtime";
+import { resolveSendableOutboundReplyParts } from "klawty/plugin-sdk/reply-payload";
+import { resolveChunkMode, resolveTextChunkLimit } from "klawty/plugin-sdk/reply-runtime";
+import { shouldComputeCommandAuthorized } from "klawty/plugin-sdk/reply-runtime";
+import { formatInboundEnvelope } from "klawty/plugin-sdk/reply-runtime";
+import type { getReplyFromConfig } from "klawty/plugin-sdk/reply-runtime";
 import {
   buildHistoryContextFromEntries,
   type HistoryEntry,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { finalizeInboundContext } from "openclaw/plugin-sdk/reply-runtime";
-import { dispatchReplyWithBufferedBlockDispatcher } from "openclaw/plugin-sdk/reply-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
+import { finalizeInboundContext } from "klawty/plugin-sdk/reply-runtime";
+import { dispatchReplyWithBufferedBlockDispatcher } from "klawty/plugin-sdk/reply-runtime";
+import type { ReplyPayload } from "klawty/plugin-sdk/reply-runtime";
 import {
   resolveInboundLastRouteSessionKey,
   type resolveAgentRoute,
-} from "openclaw/plugin-sdk/routing";
-import { logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
-import type { getChildLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "klawty/plugin-sdk/routing";
+import { logVerbose, shouldLogVerbose } from "klawty/plugin-sdk/runtime-env";
+import type { getChildLogger } from "klawty/plugin-sdk/runtime-env";
 import {
   readStoreAllowFromForDmPolicy,
   resolvePinnedMainDmOwnerFromAllowlist,
   resolveDmGroupAccessWithCommandGate,
-} from "openclaw/plugin-sdk/security-runtime";
-import { jidToE164, normalizeE164 } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/security-runtime";
+import { jidToE164, normalizeE164 } from "klawty/plugin-sdk/text-runtime";
 import { resolveWhatsAppAccount } from "../../accounts.js";
 import { newConnectionId } from "../../reconnect.js";
 import { formatError } from "../../session.js";

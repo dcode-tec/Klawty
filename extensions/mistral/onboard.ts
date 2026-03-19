@@ -1,7 +1,7 @@
 import {
   applyProviderConfigWithDefaultModelPreset,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/provider-onboard";
 import {
   buildMistralModelDefinition,
   MISTRAL_BASE_URL,
@@ -10,7 +10,7 @@ import {
 
 export const MISTRAL_DEFAULT_MODEL_REF = `mistral/${MISTRAL_DEFAULT_MODEL_ID}`;
 
-function applyMistralPreset(cfg: OpenClawConfig, primaryModelRef?: string): OpenClawConfig {
+function applyMistralPreset(cfg: KlawtyConfig, primaryModelRef?: string): KlawtyConfig {
   return applyProviderConfigWithDefaultModelPreset(cfg, {
     providerId: "mistral",
     api: "openai-completions",
@@ -22,10 +22,10 @@ function applyMistralPreset(cfg: OpenClawConfig, primaryModelRef?: string): Open
   });
 }
 
-export function applyMistralProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyMistralProviderConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applyMistralPreset(cfg);
 }
 
-export function applyMistralConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyMistralConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applyMistralPreset(cfg, MISTRAL_DEFAULT_MODEL_REF);
 }

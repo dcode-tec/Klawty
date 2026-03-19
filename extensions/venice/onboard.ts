@@ -3,15 +3,15 @@ import {
   VENICE_BASE_URL,
   VENICE_DEFAULT_MODEL_REF,
   VENICE_MODEL_CATALOG,
-} from "openclaw/plugin-sdk/provider-models";
+} from "klawty/plugin-sdk/provider-models";
 import {
   applyProviderConfigWithModelCatalogPreset,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/provider-onboard";
 
 export { VENICE_DEFAULT_MODEL_REF };
 
-function applyVenicePreset(cfg: OpenClawConfig, primaryModelRef?: string): OpenClawConfig {
+function applyVenicePreset(cfg: KlawtyConfig, primaryModelRef?: string): KlawtyConfig {
   return applyProviderConfigWithModelCatalogPreset(cfg, {
     providerId: "venice",
     api: "openai-completions",
@@ -22,10 +22,10 @@ function applyVenicePreset(cfg: OpenClawConfig, primaryModelRef?: string): OpenC
   });
 }
 
-export function applyVeniceProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyVeniceProviderConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applyVenicePreset(cfg);
 }
 
-export function applyVeniceConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyVeniceConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applyVenicePreset(cfg, VENICE_DEFAULT_MODEL_REF);
 }

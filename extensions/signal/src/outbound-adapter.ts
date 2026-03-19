@@ -1,13 +1,13 @@
-import { createScopedChannelMediaMaxBytesResolver } from "openclaw/plugin-sdk/channel-runtime";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveOutboundSendDep, type OutboundSendDeps } from "openclaw/plugin-sdk/channel-runtime";
+import { createScopedChannelMediaMaxBytesResolver } from "klawty/plugin-sdk/channel-runtime";
+import type { ChannelOutboundAdapter } from "klawty/plugin-sdk/channel-runtime";
+import { resolveOutboundSendDep, type OutboundSendDeps } from "klawty/plugin-sdk/channel-runtime";
 import {
   attachChannelToResult,
   attachChannelToResults,
   createAttachedChannelResultAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/config-runtime";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/channel-send-result";
+import { resolveMarkdownTableMode } from "klawty/plugin-sdk/config-runtime";
+import { resolveTextChunkLimit } from "klawty/plugin-sdk/reply-runtime";
 import { markdownToSignalTextChunks } from "./format.js";
 import { sendMessageSignal } from "./send.js";
 

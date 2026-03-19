@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/tlon",
-  "version": "2026.3.14",
-  "description": "OpenClaw Tlon/Urbit channel plugin",
+  "name": "@klawty/tlon",
+  "version": "1.0.0",
+  "description": "Klawty Tlon/Urbit channel plugin",
   "type": "module",
   "dependencies": {
     "@tloncorp/api": "git+https://github.com/tloncorp/api-beta.git#7eede1c1a756977b09f96aa14a92e2b06318ae87",
@@ -9,7 +9,7 @@
     "@urbit/aura": "^3.0.0",
     "zod": "^4.3.6"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],
@@ -25,7 +25,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/tlon",
+      "npmSpec": "@klawty/tlon",
       "localPath": "extensions/tlon",
       "defaultChoice": "npm"
     }

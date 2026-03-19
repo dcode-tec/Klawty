@@ -4,8 +4,8 @@ import {
   readNumberParam,
   readStringArrayParam,
   readStringParam,
-} from "openclaw/plugin-sdk/agent-runtime";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/agent-runtime";
+import type { ChannelMessageActionContext } from "klawty/plugin-sdk/channel-runtime";
 import { handleDiscordAction } from "./runtime.js";
 import {
   isDiscordModerationAction,

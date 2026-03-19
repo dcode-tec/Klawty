@@ -1,15 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { KlawtyConfig } from "../../../config/config.js";
 
 vi.mock("../../../../extensions/slack/src/send.js", () => ({
   sendMessageSlack: vi.fn().mockResolvedValue({ messageId: "1234.5678", channelId: "C123" }),
 }));
 
-vi.mock("openclaw/plugin-sdk/plugin-runtime", () => ({
+vi.mock("klawty/plugin-sdk/plugin-runtime", () => ({
   getGlobalHookRunner: vi.fn(),
 }));
 
-import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
+import { getGlobalHookRunner } from "klawty/plugin-sdk/plugin-runtime";
 import { sendMessageSlack } from "../../../../extensions/slack/src/send.js";
 import { slackOutbound } from "../../../../test/channel-outbounds.js";
 
@@ -34,7 +34,7 @@ const BASE_SLACK_SEND_CTX = {
 const sendSlackText = async (ctx: SlackSendTextCtx) => {
   const sendText = slackOutbound.sendText as NonNullable<typeof slackOutbound.sendText>;
   return await sendText({
-    cfg: {} as OpenClawConfig,
+    cfg: {} as KlawtyConfig,
     ...ctx,
   });
 };

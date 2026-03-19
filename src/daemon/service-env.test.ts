@@ -275,7 +275,7 @@ describe("buildServiceEnvironment", () => {
   it("sets minimal PATH and gateway vars", () => {
     const env = buildServiceEnvironment({
       env: { HOME: "/home/user" },
-      port: 18789,
+      port: 2508,
     });
     expect(env.HOME).toBe("/home/user");
     if (process.platform === "win32") {
@@ -283,22 +283,22 @@ describe("buildServiceEnvironment", () => {
     } else {
       expect(env.PATH).toContain("/usr/bin");
     }
-    expect(env.OPENCLAW_GATEWAY_PORT).toBe("18789");
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBeUndefined();
-    expect(env.OPENCLAW_SERVICE_MARKER).toBe("openclaw");
-    expect(env.OPENCLAW_SERVICE_KIND).toBe("gateway");
-    expect(typeof env.OPENCLAW_SERVICE_VERSION).toBe("string");
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway.service");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway");
+    expect(env.KLAWTY_GATEWAY_PORT).toBe("2508");
+    expect(env.KLAWTY_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.KLAWTY_SERVICE_MARKER).toBe("klawty");
+    expect(env.KLAWTY_SERVICE_KIND).toBe("gateway");
+    expect(typeof env.KLAWTY_SERVICE_VERSION).toBe("string");
+    expect(env.KLAWTY_SYSTEMD_UNIT).toBe("klawty-gateway.service");
+    expect(env.KLAWTY_WINDOWS_TASK_NAME).toBe("Klawty Gateway");
     if (process.platform === "darwin") {
-      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.gateway");
+      expect(env.KLAWTY_LAUNCHD_LABEL).toBe("ai.klawty.gateway");
     }
   });
 
   it("forwards TMPDIR from the host environment", () => {
     const env = buildServiceEnvironment({
       env: { HOME: "/home/user", TMPDIR: "/var/folders/xw/abc123/T/" },
-      port: 18789,
+      port: 2508,
     });
     expect(env.TMPDIR).toBe("/var/folders/xw/abc123/T/");
   });
@@ -306,20 +306,20 @@ describe("buildServiceEnvironment", () => {
   it("falls back to os.tmpdir when TMPDIR is not set", () => {
     const env = buildServiceEnvironment({
       env: { HOME: "/home/user" },
-      port: 18789,
+      port: 2508,
     });
     expect(env.TMPDIR).toBe(os.tmpdir());
   });
 
   it("uses profile-specific unit and label", () => {
     const env = buildServiceEnvironment({
-      env: { HOME: "/home/user", OPENCLAW_PROFILE: "work" },
-      port: 18789,
+      env: { HOME: "/home/user", KLAWTY_PROFILE: "work" },
+      port: 2508,
     });
-    expect(env.OPENCLAW_SYSTEMD_UNIT).toBe("openclaw-gateway-work.service");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway (work)");
+    expect(env.KLAWTY_SYSTEMD_UNIT).toBe("klawty-gateway-work.service");
+    expect(env.KLAWTY_WINDOWS_TASK_NAME).toBe("Klawty Gateway (work)");
     if (process.platform === "darwin") {
-      expect(env.OPENCLAW_LAUNCHD_LABEL).toBe("ai.openclaw.work");
+      expect(env.KLAWTY_LAUNCHD_LABEL).toBe("ai.klawty.work");
     }
   });
 
@@ -333,7 +333,7 @@ describe("buildServiceEnvironment", () => {
         http_proxy: "http://proxy.local:7890",
         all_proxy: "socks5://proxy.local:1080",
       },
-      port: 18789,
+      port: 2508,
     });
 
     expect(env.HTTP_PROXY).toBe("http://proxy.local:7890");
@@ -349,18 +349,18 @@ describe("buildServiceEnvironment", () => {
         HOME: "C:\\Users\\alice",
         PATH: "C:\\Windows\\System32;C:\\Tools\\rg",
       },
-      port: 18789,
+      port: 2508,
       platform: "win32",
     });
 
     expect(env).not.toHaveProperty("PATH");
-    expect(env.OPENCLAW_WINDOWS_TASK_NAME).toBe("OpenClaw Gateway");
+    expect(env.KLAWTY_WINDOWS_TASK_NAME).toBe("Klawty Gateway");
   });
 
   it("prepends extra runtime directories to the gateway service PATH", () => {
     const env = buildServiceEnvironment({
       env: { HOME: "/home/user" },
-      port: 18789,
+      port: 2508,
       platform: "linux",
       extraPathDirs: ["/home/user/.nvm/versions/node/v22.22.0/bin"],
     });
@@ -379,40 +379,40 @@ describe("buildNodeServiceEnvironment", () => {
     expect(env.HOME).toBe("/home/user");
   });
 
-  it("passes through OPENCLAW_GATEWAY_TOKEN for node services", () => {
+  it("passes through KLAWTY_GATEWAY_TOKEN for node services", () => {
     const env = buildNodeServiceEnvironment({
-      env: { HOME: "/home/user", OPENCLAW_GATEWAY_TOKEN: " node-token " },
+      env: { HOME: "/home/user", KLAWTY_GATEWAY_TOKEN: " node-token " },
     });
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBe("node-token");
+    expect(env.KLAWTY_GATEWAY_TOKEN).toBe("node-token");
   });
 
-  it("maps legacy CLAWDBOT_GATEWAY_TOKEN to OPENCLAW_GATEWAY_TOKEN for node services", () => {
+  it("maps legacy CLAWDBOT_GATEWAY_TOKEN to KLAWTY_GATEWAY_TOKEN for node services", () => {
     const env = buildNodeServiceEnvironment({
       env: { HOME: "/home/user", CLAWDBOT_GATEWAY_TOKEN: " legacy-token " },
     });
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBe("legacy-token");
+    expect(env.KLAWTY_GATEWAY_TOKEN).toBe("legacy-token");
   });
 
-  it("prefers OPENCLAW_GATEWAY_TOKEN over legacy CLAWDBOT_GATEWAY_TOKEN", () => {
+  it("prefers KLAWTY_GATEWAY_TOKEN over legacy CLAWDBOT_GATEWAY_TOKEN", () => {
     const env = buildNodeServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_GATEWAY_TOKEN: "openclaw-token",
+        KLAWTY_GATEWAY_TOKEN: "klawty-token",
         CLAWDBOT_GATEWAY_TOKEN: "legacy-token",
       },
     });
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBe("openclaw-token");
+    expect(env.KLAWTY_GATEWAY_TOKEN).toBe("klawty-token");
   });
 
-  it("omits OPENCLAW_GATEWAY_TOKEN when both token env vars are empty", () => {
+  it("omits KLAWTY_GATEWAY_TOKEN when both token env vars are empty", () => {
     const env = buildNodeServiceEnvironment({
       env: {
         HOME: "/home/user",
-        OPENCLAW_GATEWAY_TOKEN: "   ",
+        KLAWTY_GATEWAY_TOKEN: "   ",
         CLAWDBOT_GATEWAY_TOKEN: " ",
       },
     });
-    expect(env.OPENCLAW_GATEWAY_TOKEN).toBeUndefined();
+    expect(env.KLAWTY_GATEWAY_TOKEN).toBeUndefined();
   });
 
   it("forwards proxy environment variables for node services", () => {
@@ -460,7 +460,7 @@ describe("shared Node TLS env defaults", () => {
     {
       name: "gateway service env",
       build: (env: Record<string, string | undefined>, platform?: NodeJS.Platform) =>
-        buildServiceEnvironment({ env, port: 18789, platform }),
+        buildServiceEnvironment({ env, port: 2508, platform }),
     },
     {
       name: "node service env",
@@ -503,31 +503,31 @@ describe("shared Node TLS env defaults", () => {
 describe("resolveGatewayStateDir", () => {
   it("uses the default state dir when no overrides are set", () => {
     const env = { HOME: "/Users/test" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw"));
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".klawty"));
   });
 
   it("appends the profile suffix when set", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "rescue" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw-rescue"));
+    const env = { HOME: "/Users/test", KLAWTY_PROFILE: "rescue" };
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".klawty-rescue"));
   });
 
   it("treats default profiles as the base state dir", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_PROFILE: "Default" };
-    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".openclaw"));
+    const env = { HOME: "/Users/test", KLAWTY_PROFILE: "Default" };
+    expect(resolveGatewayStateDir(env)).toBe(path.join("/Users/test", ".klawty"));
   });
 
-  it("uses OPENCLAW_STATE_DIR when provided", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_STATE_DIR: "/var/lib/openclaw" };
-    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/var/lib/openclaw"));
+  it("uses KLAWTY_STATE_DIR when provided", () => {
+    const env = { HOME: "/Users/test", KLAWTY_STATE_DIR: "/var/lib/klawty" };
+    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/var/lib/klawty"));
   });
 
-  it("expands ~ in OPENCLAW_STATE_DIR", () => {
-    const env = { HOME: "/Users/test", OPENCLAW_STATE_DIR: "~/openclaw-state" };
-    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/Users/test/openclaw-state"));
+  it("expands ~ in KLAWTY_STATE_DIR", () => {
+    const env = { HOME: "/Users/test", KLAWTY_STATE_DIR: "~/klawty-state" };
+    expect(resolveGatewayStateDir(env)).toBe(path.resolve("/Users/test/klawty-state"));
   });
 
   it("preserves Windows absolute paths without HOME", () => {
-    const env = { OPENCLAW_STATE_DIR: "C:\\State\\openclaw" };
-    expect(resolveGatewayStateDir(env)).toBe("C:\\State\\openclaw");
+    const env = { KLAWTY_STATE_DIR: "C:\\State\\klawty" };
+    expect(resolveGatewayStateDir(env)).toBe("C:\\State\\klawty");
   });
 });

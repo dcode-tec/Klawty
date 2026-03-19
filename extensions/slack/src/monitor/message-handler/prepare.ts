@@ -1,32 +1,32 @@
-import { resolveAckReaction } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveAckReaction } from "klawty/plugin-sdk/agent-runtime";
 import {
   shouldAckReaction as shouldAckReactionGate,
   type AckReactionScope,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { resolveControlCommandGate } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveConversationLabel } from "openclaw/plugin-sdk/channel-runtime";
-import { logInboundDrop } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveMentionGatingWithBypass } from "openclaw/plugin-sdk/channel-runtime";
-import { recordInboundSession } from "openclaw/plugin-sdk/channel-runtime";
-import { readSessionUpdatedAt, resolveStorePath } from "openclaw/plugin-sdk/config-runtime";
-import { enqueueSystemEvent } from "openclaw/plugin-sdk/infra-runtime";
-import { hasControlCommand } from "openclaw/plugin-sdk/reply-runtime";
-import { shouldHandleTextCommands } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import { resolveControlCommandGate } from "klawty/plugin-sdk/channel-runtime";
+import { resolveConversationLabel } from "klawty/plugin-sdk/channel-runtime";
+import { logInboundDrop } from "klawty/plugin-sdk/channel-runtime";
+import { resolveMentionGatingWithBypass } from "klawty/plugin-sdk/channel-runtime";
+import { recordInboundSession } from "klawty/plugin-sdk/channel-runtime";
+import { readSessionUpdatedAt, resolveStorePath } from "klawty/plugin-sdk/config-runtime";
+import { enqueueSystemEvent } from "klawty/plugin-sdk/infra-runtime";
+import { hasControlCommand } from "klawty/plugin-sdk/reply-runtime";
+import { shouldHandleTextCommands } from "klawty/plugin-sdk/reply-runtime";
 import {
   formatInboundEnvelope,
   resolveEnvelopeFormatOptions,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
 import {
   buildPendingHistoryContextFromMap,
   recordPendingHistoryEntryIfEnabled,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { finalizeInboundContext } from "openclaw/plugin-sdk/reply-runtime";
-import { buildMentionRegexes, matchesMentionWithExplicit } from "openclaw/plugin-sdk/reply-runtime";
-import type { FinalizedMsgContext } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { resolveThreadSessionKeys } from "openclaw/plugin-sdk/routing";
-import { logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { resolvePinnedMainDmOwnerFromAllowlist } from "openclaw/plugin-sdk/security-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
+import { finalizeInboundContext } from "klawty/plugin-sdk/reply-runtime";
+import { buildMentionRegexes, matchesMentionWithExplicit } from "klawty/plugin-sdk/reply-runtime";
+import type { FinalizedMsgContext } from "klawty/plugin-sdk/reply-runtime";
+import { resolveAgentRoute } from "klawty/plugin-sdk/routing";
+import { resolveThreadSessionKeys } from "klawty/plugin-sdk/routing";
+import { logVerbose, shouldLogVerbose } from "klawty/plugin-sdk/runtime-env";
+import { resolvePinnedMainDmOwnerFromAllowlist } from "klawty/plugin-sdk/security-runtime";
 import { resolveSlackReplyToMode, type ResolvedSlackAccount } from "../../accounts.js";
 import { reactSlackMessage } from "../../actions.js";
 import { sendMessageSlack } from "../../send.js";

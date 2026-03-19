@@ -32,7 +32,7 @@ describe("resolveOllamaApiBase", () => {
 });
 
 describe("Ollama provider", () => {
-  const createAgentDir = () => mkdtempSync(join(tmpdir(), "openclaw-test-"));
+  const createAgentDir = () => mkdtempSync(join(tmpdir(), "klawty-test-"));
 
   const enableDiscoveryEnv = () => {
     vi.stubEnv("VITEST", "");
@@ -263,7 +263,7 @@ describe("Ollama provider", () => {
   });
 
   it("should preserve explicit apiKey when discovery path has no models and no env key", async () => {
-    const agentDir = mkdtempSync(join(tmpdir(), "openclaw-test-"));
+    const agentDir = mkdtempSync(join(tmpdir(), "klawty-test-"));
 
     const providers = await resolveImplicitProvidersForTest({
       agentDir,

@@ -2,23 +2,23 @@ import type {
   ProviderAuthContext,
   ProviderResolveDynamicModelContext,
   ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { buildOauthProviderAuthResult } from "openclaw/plugin-sdk/provider-auth";
+} from "klawty/plugin-sdk/plugin-entry";
+import { buildOauthProviderAuthResult } from "klawty/plugin-sdk/provider-auth";
 import {
   CODEX_CLI_PROFILE_ID,
   ensureAuthProfileStore,
   listProfilesForProvider,
   type OAuthCredential,
-} from "openclaw/plugin-sdk/provider-auth";
-import { loginOpenAICodexOAuth } from "openclaw/plugin-sdk/provider-auth-login";
+} from "klawty/plugin-sdk/provider-auth";
+import { loginOpenAICodexOAuth } from "klawty/plugin-sdk/provider-auth-login";
 import {
   DEFAULT_CONTEXT_TOKENS,
   normalizeModelCompat,
   normalizeProviderId,
   type ProviderPlugin,
-} from "openclaw/plugin-sdk/provider-models";
-import { createOpenAIAttributionHeadersWrapper } from "openclaw/plugin-sdk/provider-stream";
-import { fetchCodexUsage } from "openclaw/plugin-sdk/provider-usage";
+} from "klawty/plugin-sdk/provider-models";
+import { createOpenAIAttributionHeadersWrapper } from "klawty/plugin-sdk/provider-stream";
+import { fetchCodexUsage } from "klawty/plugin-sdk/provider-usage";
 import { buildOpenAICodexProvider } from "./openai-codex-catalog.js";
 import {
   cloneFirstTemplateModel,

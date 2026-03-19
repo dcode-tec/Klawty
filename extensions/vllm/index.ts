@@ -3,24 +3,24 @@ import {
   VLLM_DEFAULT_BASE_URL,
   VLLM_MODEL_PLACEHOLDER,
   VLLM_PROVIDER_LABEL,
-} from "openclaw/plugin-sdk/agent-runtime";
+} from "klawty/plugin-sdk/agent-runtime";
 import {
   definePluginEntry,
-  type OpenClawPluginApi,
+  type KlawtyPluginApi,
   type ProviderAuthMethodNonInteractiveContext,
-} from "openclaw/plugin-sdk/core";
+} from "klawty/plugin-sdk/core";
 
 const PROVIDER_ID = "vllm";
 
 async function loadProviderSetup() {
-  return await import("openclaw/plugin-sdk/self-hosted-provider-setup");
+  return await import("klawty/plugin-sdk/self-hosted-provider-setup");
 }
 
 export default definePluginEntry({
   id: "vllm",
   name: "vLLM Provider",
   description: "Bundled vLLM provider plugin",
-  register(api: OpenClawPluginApi) {
+  register(api: KlawtyPluginApi) {
     api.registerProvider({
       id: PROVIDER_ID,
       label: "vLLM",

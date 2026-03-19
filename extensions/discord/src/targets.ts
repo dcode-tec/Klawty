@@ -1,4 +1,4 @@
-import type { DirectoryConfigParams } from "openclaw/plugin-sdk/channel-runtime";
+import type { DirectoryConfigParams } from "klawty/plugin-sdk/channel-runtime";
 import {
   buildMessagingTarget,
   parseMentionPrefixOrAtUserTarget,
@@ -6,7 +6,7 @@ import {
   type MessagingTarget,
   type MessagingTargetKind,
   type MessagingTargetParseOptions,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 import { rememberDiscordDirectoryUser } from "./directory-cache.js";
 import { listDiscordDirectoryPeersLive } from "./directory-live.js";
 

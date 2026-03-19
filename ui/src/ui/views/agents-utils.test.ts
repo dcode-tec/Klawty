@@ -104,7 +104,7 @@ describe("sortLocaleStrings", () => {
 describe("agentLogoUrl", () => {
   it("keeps base-mounted control UI logo paths absolute to the mount", () => {
     expect(agentLogoUrl("/ui")).toBe("/ui/favicon.svg");
-    expect(agentLogoUrl("/apps/openclaw/")).toBe("/apps/openclaw/favicon.svg");
+    expect(agentLogoUrl("/apps/klawty/")).toBe("/apps/klawty/favicon.svg");
   });
 
   it("uses a route-relative fallback before basePath bootstrap finishes", () => {

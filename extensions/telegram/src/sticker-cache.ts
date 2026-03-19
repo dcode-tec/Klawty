@@ -1,19 +1,19 @@
 import path from "node:path";
-import { resolveApiKeyForProvider } from "openclaw/plugin-sdk/agent-runtime";
-import type { ModelCatalogEntry } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveApiKeyForProvider } from "klawty/plugin-sdk/agent-runtime";
+import type { ModelCatalogEntry } from "klawty/plugin-sdk/agent-runtime";
 import {
   findModelInCatalog,
   loadModelCatalog,
   modelSupportsVision,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { resolveDefaultModelForAgent } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { loadJsonFile, saveJsonFile } from "openclaw/plugin-sdk/json-store";
-import { AUTO_IMAGE_KEY_PROVIDERS, DEFAULT_IMAGE_MODELS } from "openclaw/plugin-sdk/media-runtime";
-import { resolveAutoImageModel } from "openclaw/plugin-sdk/media-runtime";
-import { describeImageFileWithModel } from "openclaw/plugin-sdk/media-understanding-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { STATE_DIR } from "openclaw/plugin-sdk/state-paths";
+} from "klawty/plugin-sdk/agent-runtime";
+import { resolveDefaultModelForAgent } from "klawty/plugin-sdk/agent-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import { loadJsonFile, saveJsonFile } from "klawty/plugin-sdk/json-store";
+import { AUTO_IMAGE_KEY_PROVIDERS, DEFAULT_IMAGE_MODELS } from "klawty/plugin-sdk/media-runtime";
+import { resolveAutoImageModel } from "klawty/plugin-sdk/media-runtime";
+import { describeImageFileWithModel } from "klawty/plugin-sdk/media-understanding-runtime";
+import { logVerbose } from "klawty/plugin-sdk/runtime-env";
+import { STATE_DIR } from "klawty/plugin-sdk/state-paths";
 
 const CACHE_FILE = path.join(STATE_DIR, "telegram", "sticker-cache.json");
 const CACHE_VERSION = 1;
@@ -146,7 +146,7 @@ const STICKER_DESCRIPTION_PROMPT =
 
 export interface DescribeStickerParams {
   imagePath: string;
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   agentDir?: string;
   agentId?: string;
 }

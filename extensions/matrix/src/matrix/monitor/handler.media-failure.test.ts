@@ -1,4 +1,4 @@
-import type { PluginRuntime, RuntimeEnv, RuntimeLogger } from "openclaw/plugin-sdk/matrix";
+import type { PluginRuntime, RuntimeEnv, RuntimeLogger } from "klawty/plugin-sdk/matrix";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { setMatrixRuntime } from "../../runtime.js";
 import type { MatrixClient } from "../sdk.js";
@@ -41,7 +41,7 @@ function createHandlerHarness() {
         }),
       },
       session: {
-        resolveStorePath: vi.fn().mockReturnValue("/tmp/openclaw-test-session.json"),
+        resolveStorePath: vi.fn().mockReturnValue("/tmp/klawty-test-session.json"),
         readSessionUpdatedAt: vi.fn().mockReturnValue(123),
         recordInboundSession,
       },

@@ -1,5 +1,5 @@
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
-import { createChannelPluginBase } from "openclaw/plugin-sdk/core";
+import { formatAllowFromLowercase } from "klawty/plugin-sdk/allow-from";
+import { createChannelPluginBase } from "klawty/plugin-sdk/core";
 import { inspectDiscordAccount } from "./account-inspect.js";
 import {
   listDiscordAccountIds,

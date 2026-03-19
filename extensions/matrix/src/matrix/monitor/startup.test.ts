@@ -70,7 +70,7 @@ function createLegacyCryptoRestoreResult(
 const hoisted = vi.hoisted(() => ({
   maybeRestoreLegacyMatrixBackup: vi.fn(async () => createLegacyCryptoRestoreResult()),
   summarizeMatrixDeviceHealth: vi.fn(() => ({
-    staleOpenClawDevices: [] as Array<{ deviceId: string }>,
+    staleKlawtyDevices: [] as Array<{ deviceId: string }>,
   })),
   syncMatrixOwnProfile: vi.fn(async () => createProfileSyncResult()),
   ensureMatrixStartupVerification: vi.fn(async () => createStartupVerificationOutcome("verified")),
@@ -102,7 +102,7 @@ describe("runMatrixStartupMaintenance", () => {
     hoisted.maybeRestoreLegacyMatrixBackup
       .mockClear()
       .mockResolvedValue(createLegacyCryptoRestoreResult());
-    hoisted.summarizeMatrixDeviceHealth.mockClear().mockReturnValue({ staleOpenClawDevices: [] });
+    hoisted.summarizeMatrixDeviceHealth.mockClear().mockReturnValue({ staleKlawtyDevices: [] });
     hoisted.syncMatrixOwnProfile.mockClear().mockResolvedValue(createProfileSyncResult());
     hoisted.ensureMatrixStartupVerification
       .mockClear()
@@ -185,7 +185,7 @@ describe("runMatrixStartupMaintenance", () => {
     const params = createParams();
     params.auth.encryption = true;
     hoisted.summarizeMatrixDeviceHealth.mockReturnValue({
-      staleOpenClawDevices: [{ deviceId: "DEV123" }],
+      staleKlawtyDevices: [{ deviceId: "DEV123" }],
     });
     hoisted.ensureMatrixStartupVerification.mockResolvedValue(
       createStartupVerificationOutcome("pending"),
@@ -202,10 +202,10 @@ describe("runMatrixStartupMaintenance", () => {
     await runMatrixStartupMaintenance(params);
 
     expect(params.logger.warn).toHaveBeenCalledWith(
-      "matrix: stale OpenClaw devices detected for @bot:example.org: DEV123. Run 'openclaw matrix devices prune-stale --account ops' to keep encrypted-room trust healthy.",
+      "matrix: stale Klawty devices detected for @bot:example.org: DEV123. Run 'klawty matrix devices prune-stale --account ops' to keep encrypted-room trust healthy.",
     );
     expect(params.logger.info).toHaveBeenCalledWith(
-      "matrix: device not verified — run 'openclaw matrix verify device <key>' to enable E2EE",
+      "matrix: device not verified — run 'klawty matrix verify device <key>' to enable E2EE",
     );
     expect(params.logger.info).toHaveBeenCalledWith(
       "matrix: startup verification request is already pending; finish it in another Matrix client",

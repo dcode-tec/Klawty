@@ -11,25 +11,25 @@ import {
   type StringSelectMenuInteraction,
 } from "@buape/carbon";
 import { ButtonStyle } from "discord-api-types/v10";
-import type { OpenClawConfig, loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { loadSessionStore, resolveStorePath } from "openclaw/plugin-sdk/config-runtime";
+import type { KlawtyConfig, loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { loadSessionStore, resolveStorePath } from "klawty/plugin-sdk/config-runtime";
 import {
   buildCommandTextFromArgs,
   findCommandByNativeName,
   listChatCommands,
   resolveCommandArgChoices,
   serializeCommandArgs,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { resolveStoredModelOverride } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
+import { resolveStoredModelOverride } from "klawty/plugin-sdk/reply-runtime";
 import type {
   ChatCommandDefinition,
   CommandArgDefinition,
   CommandArgValues,
   CommandArgs,
-} from "openclaw/plugin-sdk/reply-runtime";
-import type { ResolvedAgentRoute } from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { chunkItems, withTimeout } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
+import type { ResolvedAgentRoute } from "klawty/plugin-sdk/routing";
+import { logVerbose } from "klawty/plugin-sdk/runtime-env";
+import { chunkItems, withTimeout } from "klawty/plugin-sdk/text-runtime";
 import { normalizeDiscordSlug } from "./allow-list.js";
 import { resolveDiscordChannelInfo } from "./message-utils.js";
 import {
@@ -51,7 +51,7 @@ import { resolveDiscordBoundConversationRoute } from "./route-resolution.js";
 import type { ThreadBindingManager } from "./thread-bindings.js";
 import { resolveDiscordThreadParentInfo } from "./threading.js";
 
-type DiscordConfig = NonNullable<OpenClawConfig["channels"]>["discord"];
+type DiscordConfig = NonNullable<KlawtyConfig["channels"]>["discord"];
 
 const DISCORD_COMMAND_ARG_CUSTOM_ID_KEY = "cmdarg";
 

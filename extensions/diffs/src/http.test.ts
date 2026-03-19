@@ -23,7 +23,7 @@ describe("createDiffsHttpHandler", () => {
   }
 
   beforeEach(async () => {
-    ({ store, cleanup: cleanupRootDir } = await createDiffStoreHarness("openclaw-diffs-http-"));
+    ({ store, cleanup: cleanupRootDir } = await createDiffStoreHarness("klawty-diffs-http-"));
   });
 
   afterEach(async () => {
@@ -94,7 +94,7 @@ describe("createDiffsHttpHandler", () => {
 
     expect(handled).toBe(true);
     expect(res.statusCode).toBe(200);
-    expect(String(res.body)).toContain("openclawDiffsReady");
+    expect(String(res.body)).toContain("klawtyDiffsReady");
   });
 
   it.each([

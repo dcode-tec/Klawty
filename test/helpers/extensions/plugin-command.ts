@@ -1,1 +1,1 @@
-export type { OpenClawPluginCommandDefinition } from "openclaw/plugin-sdk/core";
+export type { KlawtyPluginCommandDefinition } from "klawty/plugin-sdk/core";

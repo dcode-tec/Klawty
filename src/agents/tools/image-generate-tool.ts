@@ -1,5 +1,5 @@
 import { Type } from "@sinclair/typebox";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import { loadConfig } from "../../config/config.js";
 import {
   generateImage,
@@ -76,7 +76,7 @@ const ImageGenerateToolSchema = Type.Object({
   filename: Type.Optional(
     Type.String({
       description:
-        "Optional output filename hint. OpenClaw preserves the basename and saves under its managed media directory.",
+        "Optional output filename hint. Klawty preserves the basename and saves under its managed media directory.",
     }),
   ),
   size: Type.Optional(
@@ -107,7 +107,7 @@ const ImageGenerateToolSchema = Type.Object({
 });
 
 function resolveImageGenerationModelCandidates(
-  cfg: OpenClawConfig | undefined,
+  cfg: KlawtyConfig | undefined,
 ): Array<string | undefined> {
   const providerDefaults = new Map<string, string>();
   for (const provider of listRuntimeImageGenerationProviders({ config: cfg })) {
@@ -139,7 +139,7 @@ function resolveImageGenerationModelCandidates(
 }
 
 export function resolveImageGenerationModelConfigForTool(params: {
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   agentDir?: string;
 }): ToolModelConfig | null {
   const explicit = coerceToolModelConfig(params.cfg?.agents?.defaults?.imageGenerationModel);
@@ -248,7 +248,7 @@ function parseImageGenerationModelRef(
 }
 
 function resolveSelectedImageGenerationProvider(params: {
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   imageGenerationModelConfig: ToolModelConfig;
   modelOverride?: string;
 }): ImageGenerationProvider | undefined {
@@ -466,7 +466,7 @@ async function inferResolutionFromInputImages(
 }
 
 export function createImageGenerateTool(options?: {
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   agentDir?: string;
   workspaceDir?: string;
   sandbox?: ImageGenerateSandboxConfig;

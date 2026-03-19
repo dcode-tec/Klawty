@@ -1,7 +1,7 @@
 import {
   applyProviderConfigWithModelCatalogPreset,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/provider-onboard";
 import {
   MODELSTUDIO_CN_BASE_URL,
   MODELSTUDIO_DEFAULT_MODEL_REF,
@@ -12,10 +12,10 @@ import { buildModelStudioProvider } from "./provider-catalog.js";
 export { MODELSTUDIO_CN_BASE_URL, MODELSTUDIO_DEFAULT_MODEL_REF, MODELSTUDIO_GLOBAL_BASE_URL };
 
 function applyModelStudioProviderConfigWithBaseUrl(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   baseUrl: string,
   primaryModelRef?: string,
-): OpenClawConfig {
+): KlawtyConfig {
   const provider = buildModelStudioProvider();
   return applyProviderConfigWithModelCatalogPreset(cfg, {
     providerId: "modelstudio",
@@ -30,15 +30,15 @@ function applyModelStudioProviderConfigWithBaseUrl(
   });
 }
 
-export function applyModelStudioProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyModelStudioProviderConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applyModelStudioProviderConfigWithBaseUrl(cfg, MODELSTUDIO_GLOBAL_BASE_URL);
 }
 
-export function applyModelStudioProviderConfigCn(cfg: OpenClawConfig): OpenClawConfig {
+export function applyModelStudioProviderConfigCn(cfg: KlawtyConfig): KlawtyConfig {
   return applyModelStudioProviderConfigWithBaseUrl(cfg, MODELSTUDIO_CN_BASE_URL);
 }
 
-export function applyModelStudioConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyModelStudioConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applyModelStudioProviderConfigWithBaseUrl(
     cfg,
     MODELSTUDIO_GLOBAL_BASE_URL,
@@ -46,7 +46,7 @@ export function applyModelStudioConfig(cfg: OpenClawConfig): OpenClawConfig {
   );
 }
 
-export function applyModelStudioConfigCn(cfg: OpenClawConfig): OpenClawConfig {
+export function applyModelStudioConfigCn(cfg: KlawtyConfig): KlawtyConfig {
   return applyModelStudioProviderConfigWithBaseUrl(
     cfg,
     MODELSTUDIO_CN_BASE_URL,

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { resolveMatrixAccountStorageRoot } from "openclaw/plugin-sdk/matrix";
+import { resolveMatrixAccountStorageRoot } from "klawty/plugin-sdk/matrix";
 import { describe, expect, it, vi } from "vitest";
 import { withTempHome } from "../../../../../test/helpers/temp-home.js";
 import { maybeRestoreLegacyMatrixBackup } from "./legacy-crypto-restore.js";
@@ -25,7 +25,7 @@ function writeFile(filePath: string, value: string) {
 describe("maybeRestoreLegacyMatrixBackup", () => {
   it("marks pending legacy backup restore as completed after success", async () => {
     await withTempHome(async (home) => {
-      const stateDir = path.join(home, ".openclaw");
+      const stateDir = path.join(home, ".klawty");
       const auth = {
         accountId: "default",
         homeserver: "https://matrix.example.org",
@@ -62,7 +62,7 @@ describe("maybeRestoreLegacyMatrixBackup", () => {
         stateDir,
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: stateDir,
+          KLAWTY_STATE_DIR: stateDir,
           HOME: home,
         },
       });
@@ -88,7 +88,7 @@ describe("maybeRestoreLegacyMatrixBackup", () => {
 
   it("keeps the restore pending when startup restore fails", async () => {
     await withTempHome(async (home) => {
-      const stateDir = path.join(home, ".openclaw");
+      const stateDir = path.join(home, ".klawty");
       const auth = {
         accountId: "default",
         homeserver: "https://matrix.example.org",
@@ -125,7 +125,7 @@ describe("maybeRestoreLegacyMatrixBackup", () => {
         stateDir,
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: stateDir,
+          KLAWTY_STATE_DIR: stateDir,
           HOME: home,
         },
       });
@@ -148,7 +148,7 @@ describe("maybeRestoreLegacyMatrixBackup", () => {
 
   it("restores from a sibling token-hash directory when the access token changed", async () => {
     await withTempHome(async (home) => {
-      const stateDir = path.join(home, ".openclaw");
+      const stateDir = path.join(home, ".klawty");
       const oldAuth = {
         accountId: "default",
         homeserver: "https://matrix.example.org",
@@ -193,7 +193,7 @@ describe("maybeRestoreLegacyMatrixBackup", () => {
         stateDir,
         env: {
           ...process.env,
-          OPENCLAW_STATE_DIR: stateDir,
+          KLAWTY_STATE_DIR: stateDir,
           HOME: home,
         },
       });

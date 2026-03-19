@@ -1,4 +1,4 @@
-import { AllowFromListSchema, DmPolicySchema } from "openclaw/plugin-sdk/channel-config-schema";
+import { AllowFromListSchema, DmPolicySchema } from "klawty/plugin-sdk/channel-config-schema";
 import { z } from "zod";
 import { MarkdownConfigSchema, buildChannelConfigSchema } from "../api.js";
 

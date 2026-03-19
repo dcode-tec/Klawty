@@ -1,12 +1,12 @@
 import {
   createScopedDmSecurityResolver,
   createTopLevelChannelConfigAdapter,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { attachChannelToResult } from "openclaw/plugin-sdk/channel-send-result";
+} from "klawty/plugin-sdk/channel-config-helpers";
+import { attachChannelToResult } from "klawty/plugin-sdk/channel-send-result";
 import {
   buildPassiveChannelStatusSummary,
   buildTrafficStatusSummary,
-} from "openclaw/plugin-sdk/extension-shared";
+} from "klawty/plugin-sdk/extension-shared";
 import {
   buildChannelConfigSchema,
   collectStatusIssuesFromLastError,
@@ -235,7 +235,7 @@ export const nostrPlugin: ChannelPlugin<ResolvedNostrAccount> = {
             `[${account.accountId}] DM from ${senderPubkey}: ${text.slice(0, 50)}...`,
           );
 
-          // Forward to OpenClaw's message pipeline
+          // Forward to Klawty's message pipeline
           await (
             runtime.channel.reply as { handleInboundMessage?: (params: unknown) => Promise<void> }
           ).handleInboundMessage?.({

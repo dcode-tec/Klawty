@@ -20,7 +20,7 @@ import {
   withTrustedWebSearchEndpoint,
   wrapWebContent,
   writeCachedSearchPayload,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "klawty/plugin-sdk/provider-web-search";
 
 const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
 const GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta";
@@ -190,7 +190,7 @@ function createGeminiToolDefinition(
           return {
             error: name.startsWith("date_") ? "unsupported_date_filter" : `unsupported_${name}`,
             message: `${label} is not supported by the gemini provider. Only Brave and Perplexity support ${name === "country" ? "country filtering" : name === "language" ? "language filtering" : name === "freshness" ? "freshness" : "date filtering"}.`,
-            docs: "https://docs.openclaw.ai/tools/web",
+            docs: "https://docs.klawty.ai/tools/web",
           };
         }
       }
@@ -202,7 +202,7 @@ function createGeminiToolDefinition(
           error: "missing_gemini_api_key",
           message:
             "web_search (gemini) needs an API key. Set GEMINI_API_KEY in the Gateway environment, or configure tools.web.search.gemini.apiKey.",
-          docs: "https://docs.openclaw.ai/tools/web",
+          docs: "https://docs.klawty.ai/tools/web",
         };
       }
 
@@ -258,7 +258,7 @@ export function createGeminiWebSearchProvider(): WebSearchProviderPlugin {
     envVars: ["GEMINI_API_KEY"],
     placeholder: "AIza...",
     signupUrl: "https://aistudio.google.com/apikey",
-    docsUrl: "https://docs.openclaw.ai/tools/web",
+    docsUrl: "https://docs.klawty.ai/tools/web",
     autoDetectOrder: 20,
     credentialPath: "plugins.entries.google.config.webSearch.apiKey",
     inactiveSecretPaths: ["plugins.entries.google.config.webSearch.apiKey"],

@@ -1,1 +1,1 @@
-export * from "openclaw/plugin-sdk/google";
+export * from "klawty/plugin-sdk/google";

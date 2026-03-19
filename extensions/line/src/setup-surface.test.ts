@@ -10,7 +10,7 @@ import {
   createTestWizardPrompter,
   type WizardPrompter,
 } from "../../../test/helpers/extensions/setup-wizard.js";
-import type { OpenClawConfig } from "../api.js";
+import type { KlawtyConfig } from "../api.js";
 import { lineSetupAdapter, lineSetupWizard } from "./setup-surface.js";
 
 const lineConfigureAdapter = buildChannelSetupWizardAdapterFromSetupWizard({
@@ -20,7 +20,7 @@ const lineConfigureAdapter = buildChannelSetupWizardAdapterFromSetupWizard({
     config: {
       listAccountIds: listLineAccountIds,
       defaultAccountId: resolveDefaultLineAccountId,
-      resolveAllowFrom: ({ cfg, accountId }: { cfg: OpenClawConfig; accountId?: string | null }) =>
+      resolveAllowFrom: ({ cfg, accountId }: { cfg: KlawtyConfig; accountId?: string | null }) =>
         resolveLineAccount({ cfg, accountId: accountId ?? undefined }).config.allowFrom,
     },
     setup: lineSetupAdapter,
@@ -43,7 +43,7 @@ describe("line setup wizard", () => {
     });
 
     const result = await lineConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime: createRuntimeEnv(),
       prompter,
       options: {},

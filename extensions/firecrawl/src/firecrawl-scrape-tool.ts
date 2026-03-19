@@ -1,7 +1,7 @@
 import { Type } from "@sinclair/typebox";
-import { jsonResult, readNumberParam, readStringParam } from "openclaw/plugin-sdk/agent-runtime";
-import { optionalStringEnum } from "openclaw/plugin-sdk/core";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
+import { jsonResult, readNumberParam, readStringParam } from "klawty/plugin-sdk/agent-runtime";
+import { optionalStringEnum } from "klawty/plugin-sdk/core";
+import type { KlawtyPluginApi } from "klawty/plugin-sdk/plugin-runtime";
 import { runFirecrawlScrape } from "./firecrawl-client.js";
 
 const FirecrawlScrapeToolSchema = Type.Object(
@@ -45,7 +45,7 @@ const FirecrawlScrapeToolSchema = Type.Object(
   { additionalProperties: false },
 );
 
-export function createFirecrawlScrapeTool(api: OpenClawPluginApi) {
+export function createFirecrawlScrapeTool(api: KlawtyPluginApi) {
   return {
     name: "firecrawl_scrape",
     label: "Firecrawl Scrape",

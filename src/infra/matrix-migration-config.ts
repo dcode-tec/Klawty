@@ -11,7 +11,7 @@ import {
   resolveMatrixCredentialsPath,
   resolveMatrixDefaultOrOnlyAccountId,
 } from "../../extensions/matrix/runtime-api.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import { resolveStateDir } from "../config/paths.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
 
@@ -70,14 +70,14 @@ function resolveGlobalMatrixEnvConfig(env: NodeJS.ProcessEnv): {
 }
 
 function resolveMatrixAccountConfigEntry(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   accountId: string,
 ): Record<string, unknown> | null {
   return findMatrixAccountEntry(cfg, accountId);
 }
 
 function resolveMatrixFlatStoreSelectionNote(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   accountId: string,
 ): string | undefined {
   if (resolveConfiguredMatrixAccountIds(cfg).length <= 1) {
@@ -90,7 +90,7 @@ function resolveMatrixFlatStoreSelectionNote(
 }
 
 export function resolveMatrixMigrationConfigFields(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   env: NodeJS.ProcessEnv;
   accountId: string;
 }): {
@@ -181,7 +181,7 @@ export function credentialsMatchResolvedIdentity(
 }
 
 export function resolveMatrixMigrationAccountTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   env: NodeJS.ProcessEnv;
   accountId: string;
 }): MatrixMigrationAccountTarget | null {
@@ -221,7 +221,7 @@ export function resolveMatrixMigrationAccountTarget(params: {
 }
 
 export function resolveLegacyMatrixFlatStoreTarget(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   env: NodeJS.ProcessEnv;
   detectedPath: string;
   detectedKind: MatrixLegacyFlatStoreKind;
@@ -231,14 +231,14 @@ export function resolveLegacyMatrixFlatStoreTarget(params: {
     return {
       warning:
         `Legacy Matrix ${params.detectedKind} detected at ${params.detectedPath}, but channels.matrix is not configured yet. ` +
-        'Configure Matrix, then rerun "openclaw doctor --fix" or restart the gateway.',
+        'Configure Matrix, then rerun "klawty doctor --fix" or restart the gateway.',
     };
   }
   if (requiresExplicitMatrixDefaultAccount(params.cfg)) {
     return {
       warning:
         `Legacy Matrix ${params.detectedKind} detected at ${params.detectedPath}, but multiple Matrix accounts are configured and channels.matrix.defaultAccount is not set. ` +
-        'Set "channels.matrix.defaultAccount" to the intended target account before rerunning "openclaw doctor --fix" or restarting the gateway.',
+        'Set "channels.matrix.defaultAccount" to the intended target account before rerunning "klawty doctor --fix" or restarting the gateway.',
     };
   }
 
@@ -257,7 +257,7 @@ export function resolveLegacyMatrixFlatStoreTarget(params: {
       warning:
         `Legacy Matrix ${params.detectedKind} detected at ${params.detectedPath}, but ${targetDescription} could not be resolved yet ` +
         `(need homeserver, userId, and access token for channels.matrix${accountId === DEFAULT_ACCOUNT_ID ? "" : `.accounts.${accountId}`}). ` +
-        'Start the gateway once with a working Matrix login, or rerun "openclaw doctor --fix" after cached credentials are available.',
+        'Start the gateway once with a working Matrix login, or rerun "klawty doctor --fix" after cached credentials are available.',
     };
   }
 

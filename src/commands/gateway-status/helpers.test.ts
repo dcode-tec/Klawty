@@ -11,7 +11,7 @@ import {
 describe("extractConfigSummary", () => {
   it("marks SecretRef-backed gateway auth credentials as configured", () => {
     const summary = extractConfigSummary({
-      path: "/tmp/openclaw.json",
+      path: "/tmp/klawty.json",
       exists: true,
       valid: true,
       issues: [],
@@ -25,11 +25,11 @@ describe("extractConfigSummary", () => {
         gateway: {
           auth: {
             mode: "token",
-            token: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_TOKEN" },
-            password: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_PASSWORD" },
+            token: { source: "env", provider: "default", id: "KLAWTY_GATEWAY_TOKEN" },
+            password: { source: "env", provider: "default", id: "KLAWTY_GATEWAY_PASSWORD" },
           },
           remote: {
-            url: "wss://remote.example:18789",
+            url: "wss://remote.example:2508",
             token: { source: "env", provider: "default", id: "REMOTE_GATEWAY_TOKEN" },
             password: { source: "env", provider: "default", id: "REMOTE_GATEWAY_PASSWORD" },
           },
@@ -45,7 +45,7 @@ describe("extractConfigSummary", () => {
 
   it("still treats empty plaintext auth values as not configured", () => {
     const summary = extractConfigSummary({
-      path: "/tmp/openclaw.json",
+      path: "/tmp/klawty.json",
       exists: true,
       valid: true,
       issues: [],
@@ -77,7 +77,7 @@ describe("resolveAuthForTarget", () => {
     return {
       id: "configRemote",
       kind: "configRemote" as const,
-      url: "wss://remote.example:18789",
+      url: "wss://remote.example:2508",
       active: true,
     };
   }
@@ -107,8 +107,8 @@ describe("resolveAuthForTarget", () => {
   it("resolves local auth token SecretRef before probing local targets", async () => {
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_TOKEN: undefined,
-        OPENCLAW_GATEWAY_PASSWORD: undefined,
+        KLAWTY_GATEWAY_TOKEN: undefined,
+        KLAWTY_GATEWAY_PASSWORD: undefined,
         LOCAL_GATEWAY_TOKEN: "resolved-local-token",
       },
       async () => {
@@ -128,7 +128,7 @@ describe("resolveAuthForTarget", () => {
           {
             id: "localLoopback",
             kind: "localLoopback",
-            url: "ws://127.0.0.1:18789",
+            url: "ws://127.0.0.1:2508",
             active: true,
           },
           {},
@@ -189,7 +189,7 @@ describe("resolveAuthForTarget", () => {
       {
         id: "configRemote",
         kind: "configRemote",
-        url: "wss://remote.example:18789",
+        url: "wss://remote.example:2508",
         active: true,
       },
       {},
@@ -221,7 +221,7 @@ describe("resolveAuthForTarget", () => {
           {
             id: "localLoopback",
             kind: "localLoopback",
-            url: "ws://127.0.0.1:18789",
+            url: "ws://127.0.0.1:2508",
             active: true,
           },
           {},
@@ -240,7 +240,7 @@ describe("probe reachability classification", () => {
   it("treats missing-scope RPC failures as scope-limited and reachable", () => {
     const probe = {
       ok: false,
-      url: "ws://127.0.0.1:18789",
+      url: "ws://127.0.0.1:2508",
       connectLatencyMs: 51,
       error: "missing scope: operator.read",
       close: null,
@@ -258,7 +258,7 @@ describe("probe reachability classification", () => {
   it("keeps non-scope RPC failures as unreachable", () => {
     const probe = {
       ok: false,
-      url: "ws://127.0.0.1:18789",
+      url: "ws://127.0.0.1:2508",
       connectLatencyMs: 43,
       error: "unknown method: status",
       close: null,

@@ -1,11 +1,11 @@
-import { buildGoogleImageGenerationProvider } from "openclaw/plugin-sdk/image-generation";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
+import { buildGoogleImageGenerationProvider } from "klawty/plugin-sdk/image-generation";
+import { definePluginEntry } from "klawty/plugin-sdk/plugin-entry";
+import { createProviderApiKeyAuthMethod } from "klawty/plugin-sdk/provider-auth";
 import {
   GOOGLE_GEMINI_DEFAULT_MODEL,
   applyGoogleGeminiModelDefault,
-} from "openclaw/plugin-sdk/provider-models";
-import { createGoogleThinkingPayloadWrapper } from "openclaw/plugin-sdk/provider-stream";
+} from "klawty/plugin-sdk/provider-models";
+import { createGoogleThinkingPayloadWrapper } from "klawty/plugin-sdk/provider-stream";
 import { registerGoogleGeminiCliProvider } from "./gemini-cli-provider.js";
 import { googleMediaUnderstandingProvider } from "./media-understanding-provider.js";
 import { isModernGoogleModel, resolveGoogle31ForwardCompatModel } from "./provider-models.js";

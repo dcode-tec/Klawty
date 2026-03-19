@@ -104,11 +104,11 @@ describe("registerOnboardCommand", () => {
   });
 
   it("parses numeric gateway port and drops invalid values", async () => {
-    await runCli(["onboard", "--gateway-port", "18789"]);
+    await runCli(["onboard", "--gateway-port", "2508"]);
     expect(setupWizardCommandMock).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({
-        gatewayPort: 18789,
+        gatewayPort: 2508,
       }),
       runtime,
     );
@@ -145,10 +145,10 @@ describe("registerOnboardCommand", () => {
   });
 
   it("forwards --gateway-token-ref-env", async () => {
-    await runCli(["onboard", "--gateway-token-ref-env", "OPENCLAW_GATEWAY_TOKEN"]);
+    await runCli(["onboard", "--gateway-token-ref-env", "KLAWTY_GATEWAY_TOKEN"]);
     expect(setupWizardCommandMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        gatewayTokenRefEnv: "OPENCLAW_GATEWAY_TOKEN",
+        gatewayTokenRefEnv: "KLAWTY_GATEWAY_TOKEN",
       }),
       runtime,
     );

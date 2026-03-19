@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/whatsapp",
-  "version": "2026.3.14",
-  "description": "OpenClaw WhatsApp channel plugin",
+  "name": "@klawty/whatsapp",
+  "version": "1.0.0",
+  "description": "Klawty WhatsApp channel plugin",
   "type": "module",
   "dependencies": {
     "@whiskeysockets/baileys": "7.0.0-rc.9"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],
@@ -22,7 +22,7 @@
       "systemImage": "message"
     },
     "install": {
-      "npmSpec": "@openclaw/whatsapp",
+      "npmSpec": "@klawty/whatsapp",
       "localPath": "extensions/whatsapp",
       "defaultChoice": "npm"
     },

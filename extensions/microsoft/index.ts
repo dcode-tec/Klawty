@@ -1,5 +1,5 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/core";
-import { buildMicrosoftSpeechProvider } from "openclaw/plugin-sdk/speech";
+import { definePluginEntry } from "klawty/plugin-sdk/core";
+import { buildMicrosoftSpeechProvider } from "klawty/plugin-sdk/speech";
 
 export default definePluginEntry({
   id: "microsoft",

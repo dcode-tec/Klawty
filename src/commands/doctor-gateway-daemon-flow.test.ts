@@ -14,12 +14,12 @@ const inspectPortUsage = vi.hoisted(() => vi.fn());
 const readLastGatewayErrorLine = vi.hoisted(() => vi.fn(async () => null));
 
 vi.mock("../config/config.js", () => ({
-  resolveGatewayPort: vi.fn(() => 18789),
+  resolveGatewayPort: vi.fn(() => 2508),
 }));
 
 vi.mock("../daemon/constants.js", () => ({
-  resolveGatewayLaunchAgentLabel: vi.fn(() => "ai.openclaw.gateway"),
-  resolveNodeLaunchAgentLabel: vi.fn(() => "ai.openclaw.node"),
+  resolveGatewayLaunchAgentLabel: vi.fn(() => "ai.klawty.gateway"),
+  resolveNodeLaunchAgentLabel: vi.fn(() => "ai.klawty.node"),
 }));
 
 vi.mock("../daemon/diagnostics.js", () => ({
@@ -110,7 +110,7 @@ describe("maybeRepairGatewayDaemon", () => {
     service.readRuntime.mockResolvedValue({ status: "running" });
     service.restart.mockResolvedValue({ outcome: "completed" });
     inspectPortUsage.mockResolvedValue({
-      port: 18789,
+      port: 2508,
       status: "free",
       listeners: [],
       hints: [],

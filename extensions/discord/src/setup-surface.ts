@@ -1,11 +1,11 @@
 import {
   resolveEntriesWithOptionalToken,
-  type OpenClawConfig,
+  type KlawtyConfig,
   promptLegacyChannelAllowFromForAccount,
   type WizardPrompter,
-} from "openclaw/plugin-sdk/setup";
-import { type ChannelSetupWizard } from "openclaw/plugin-sdk/setup";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup-tools";
+} from "klawty/plugin-sdk/setup";
+import { type ChannelSetupWizard } from "klawty/plugin-sdk/setup";
+import { formatDocsLink } from "klawty/plugin-sdk/setup-tools";
 import { resolveDefaultDiscordAccountId, resolveDiscordAccount } from "./accounts.js";
 import { resolveDiscordChannelAllowlist } from "./resolve-channels.js";
 import { resolveDiscordUserAllowlist } from "./resolve-users.js";
@@ -42,10 +42,10 @@ async function resolveDiscordAllowFromEntries(params: { token?: string; entries:
 }
 
 async function promptDiscordAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<KlawtyConfig> {
   return await promptLegacyChannelAllowFromForAccount({
     cfg: params.cfg,
     channel,
@@ -84,7 +84,7 @@ async function promptDiscordAllowFrom(params: {
 }
 
 async function resolveDiscordGroupAllowlist(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId: string;
   credentialValues: { token?: string };
   entries: string[];

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/volcengine-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/volcengine-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Volcengine provider plugin",
+  "description": "Klawty Volcengine provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

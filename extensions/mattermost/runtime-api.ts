@@ -1,1 +1,1 @@
-export * from "openclaw/plugin-sdk/mattermost";
+export * from "klawty/plugin-sdk/mattermost";

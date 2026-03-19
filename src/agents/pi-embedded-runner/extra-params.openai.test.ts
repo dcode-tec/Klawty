@@ -24,14 +24,14 @@ function applyAndCapture(params: {
 }
 
 describe("extra-params: OpenAI attribution", () => {
-  const envSnapshot = captureEnv(["OPENCLAW_VERSION"]);
+  const envSnapshot = captureEnv(["KLAWTY_VERSION"]);
 
   afterEach(() => {
     envSnapshot.restore();
   });
 
   it("injects originator and release-based user agent for native OpenAI", () => {
-    process.env.OPENCLAW_VERSION = "2026.3.14";
+    process.env.KLAWTY_VERSION = "1.0.0";
 
     const { headers } = applyAndCapture({
       provider: "openai",
@@ -40,13 +40,13 @@ describe("extra-params: OpenAI attribution", () => {
     });
 
     expect(headers).toEqual({
-      originator: "openclaw",
-      "User-Agent": "openclaw/2026.3.14",
+      originator: "klawty",
+      "User-Agent": "klawty/1.0.0",
     });
   });
 
   it("overrides caller-supplied OpenAI attribution headers", () => {
-    process.env.OPENCLAW_VERSION = "2026.3.14";
+    process.env.KLAWTY_VERSION = "1.0.0";
 
     const { headers } = applyAndCapture({
       provider: "openai",
@@ -60,14 +60,14 @@ describe("extra-params: OpenAI attribution", () => {
     });
 
     expect(headers).toEqual({
-      originator: "openclaw",
-      "User-Agent": "openclaw/2026.3.14",
+      originator: "klawty",
+      "User-Agent": "klawty/1.0.0",
       "X-Custom": "1",
     });
   });
 
   it("does not inject attribution on non-native OpenAI-compatible base URLs", () => {
-    process.env.OPENCLAW_VERSION = "2026.3.14";
+    process.env.KLAWTY_VERSION = "1.0.0";
 
     const { headers } = applyAndCapture({
       provider: "openai",
@@ -79,7 +79,7 @@ describe("extra-params: OpenAI attribution", () => {
   });
 
   it("injects attribution for ChatGPT-backed OpenAI Codex traffic", () => {
-    process.env.OPENCLAW_VERSION = "2026.3.14";
+    process.env.KLAWTY_VERSION = "1.0.0";
 
     const { headers } = applyAndCapture({
       provider: "openai-codex",
@@ -88,8 +88,8 @@ describe("extra-params: OpenAI attribution", () => {
     });
 
     expect(headers).toEqual({
-      originator: "openclaw",
-      "User-Agent": "openclaw/2026.3.14",
+      originator: "klawty",
+      "User-Agent": "klawty/1.0.0",
     });
   });
 });

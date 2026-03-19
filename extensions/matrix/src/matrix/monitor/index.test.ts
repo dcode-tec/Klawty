@@ -33,7 +33,7 @@ const hoisted = vi.hoisted(() => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/matrix", () => ({
+vi.mock("klawty/plugin-sdk/matrix", () => ({
   GROUP_POLICY_BLOCKED_LABEL: {
     room: "room",
   },
@@ -137,7 +137,7 @@ vi.mock("../config-update.js", () => ({
 
 vi.mock("../device-health.js", () => ({
   summarizeMatrixDeviceHealth: vi.fn(() => ({
-    staleOpenClawDevices: [],
+    staleKlawtyDevices: [],
   })),
 }));
 

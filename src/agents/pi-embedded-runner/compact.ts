@@ -10,11 +10,11 @@ import {
 import {
   resolveTelegramInlineButtonsScope,
   resolveTelegramReactionLevel,
-} from "openclaw/plugin-sdk/telegram";
+} from "klawty/plugin-sdk/telegram";
 import { resolveHeartbeatPrompt } from "../../auto-reply/heartbeat.js";
 import type { ReasoningLevel, ThinkLevel } from "../../auto-reply/thinking.js";
 import { resolveChannelCapabilities } from "../../config/channel-capabilities.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import {
   ensureContextEnginesInitialized,
   resolveContextEngine,
@@ -33,7 +33,7 @@ import { buildTtsSystemPromptHint } from "../../tts/tts.js";
 import { resolveUserPath } from "../../utils.js";
 import { normalizeMessageChannel } from "../../utils/message-channel.js";
 import { isReasoningTagProvider } from "../../utils/provider-utils.js";
-import { resolveOpenClawAgentDir } from "../agent-paths.js";
+import { resolveKlawtyAgentDir } from "../agent-paths.js";
 import { resolveSessionAgentId, resolveSessionAgentIds } from "../agent-scope.js";
 import type { ExecElevatedDefaults } from "../bash-tools.js";
 import { makeBootstrapWarn, resolveBootstrapContextForRun } from "../bootstrap-files.js";
@@ -42,7 +42,7 @@ import { resolveContextWindowInfo } from "../context-window-guard.js";
 import { ensureCustomApiRegistered } from "../custom-api-registry.js";
 import { formatUserTime, resolveUserTimeFormat, resolveUserTimezone } from "../date-time.js";
 import { DEFAULT_CONTEXT_TOKENS, DEFAULT_MODEL, DEFAULT_PROVIDER } from "../defaults.js";
-import { resolveOpenClawDocsPath } from "../docs-path.js";
+import { resolveKlawtyDocsPath } from "../docs-path.js";
 import { resolveMemorySearchConfig } from "../memory-search.js";
 import {
   applyLocalNoAuthHeaderOverride,
@@ -50,7 +50,7 @@ import {
   resolveModelAuthMode,
 } from "../model-auth.js";
 import { supportsModelTools } from "../model-tool-support.js";
-import { ensureOpenClawModelsJson } from "../models-config.js";
+import { ensureKlawtyModelsJson } from "../models-config.js";
 import { createConfiguredOllamaStreamFn } from "../ollama-stream.js";
 import { resolveOwnerDisplaySetting } from "../owner-display.js";
 import { createBundleLspToolRuntime } from "../pi-bundle-lsp-runtime.js";
@@ -61,7 +61,7 @@ import {
   validateGeminiTurns,
 } from "../pi-embedded-helpers.js";
 import { createPreparedEmbeddedPiSettingsManager } from "../pi-project-settings.js";
-import { createOpenClawCodingTools } from "../pi-tools.js";
+import { createKlawtyCodingTools } from "../pi-tools.js";
 import { ensureRuntimePluginsLoaded } from "../runtime-plugins.js";
 import { resolveSandboxContext } from "../sandbox.js";
 import { repairSessionFileIfNeeded } from "../session-file-repair.js";
@@ -136,7 +136,7 @@ export type CompactEmbeddedPiSessionParams = {
   currentTokenCount?: number;
   workspaceDir: string;
   agentDir?: string;
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   skillsSnapshot?: SkillSnapshot;
   provider?: string;
   model?: string;
@@ -288,7 +288,7 @@ function classifyCompactionReason(reason?: string): string {
   return "unknown";
 }
 
-function resolvePostCompactionIndexSyncMode(config?: OpenClawConfig): "off" | "async" | "await" {
+function resolvePostCompactionIndexSyncMode(config?: KlawtyConfig): "off" | "async" | "await" {
   const mode = config?.agents?.defaults?.compaction?.postIndexSync;
   if (mode === "off" || mode === "async" || mode === "await") {
     return mode;
@@ -297,7 +297,7 @@ function resolvePostCompactionIndexSyncMode(config?: OpenClawConfig): "off" | "a
 }
 
 async function runPostCompactionSessionMemorySync(params: {
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   sessionKey?: string;
   sessionFile: string;
 }): Promise<void> {
@@ -338,7 +338,7 @@ async function runPostCompactionSessionMemorySync(params: {
 }
 
 function syncPostCompactionSessionMemory(params: {
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   sessionKey?: string;
   sessionFile: string;
   mode: "off" | "async" | "await";
@@ -360,7 +360,7 @@ function syncPostCompactionSessionMemory(params: {
 }
 
 async function runPostCompactionSideEffects(params: {
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   sessionKey?: string;
   sessionFile: string;
 }): Promise<void> {
@@ -436,8 +436,8 @@ export async function compactEmbeddedPiSessionDirect(
       reason,
     };
   };
-  const agentDir = params.agentDir ?? resolveOpenClawAgentDir();
-  await ensureOpenClawModelsJson(params.config, agentDir);
+  const agentDir = params.agentDir ?? resolveKlawtyAgentDir();
+  await ensureKlawtyModelsJson(params.config, agentDir);
   const { model, error, authStorage, modelRegistry } = await resolveModelAsync(
     provider,
     modelId,
@@ -566,7 +566,7 @@ export async function compactEmbeddedPiSessionDirect(
     );
 
     const runAbortController = new AbortController();
-    const toolsRaw = createOpenClawCodingTools({
+    const toolsRaw = createKlawtyCodingTools({
       exec: {
         elevated: params.bashElevated,
       },
@@ -718,7 +718,7 @@ export async function compactEmbeddedPiSessionDirect(
       isSubagentSessionKey(params.sessionKey) || isCronSessionKey(params.sessionKey)
         ? "minimal"
         : "full";
-    const docsPath = await resolveOpenClawDocsPath({
+    const docsPath = await resolveKlawtyDocsPath({
       workspaceDir: effectiveWorkspace,
       argv1: process.argv[1],
       cwd: process.cwd(),
@@ -1145,7 +1145,7 @@ export async function compactEmbeddedPiSession(
         // automatically, but the /compact command path needs to compute it here.
         const ceProvider = (params.provider ?? DEFAULT_PROVIDER).trim() || DEFAULT_PROVIDER;
         const ceModelId = (params.model ?? DEFAULT_MODEL).trim() || DEFAULT_MODEL;
-        const agentDir = params.agentDir ?? resolveOpenClawAgentDir();
+        const agentDir = params.agentDir ?? resolveKlawtyAgentDir();
         const { model: ceModel } = await resolveModelAsync(
           ceProvider,
           ceModelId,

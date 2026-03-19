@@ -14,7 +14,7 @@ import {
   withTrustedWebToolsEndpoint,
   wrapWebContent,
   writeCache,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "klawty/plugin-sdk/provider-web-search";
 
 const XAI_WEB_SEARCH_ENDPOINT = "https://api.x.ai/v1/responses";
 const XAI_DEFAULT_WEB_SEARCH_MODEL = "grok-4-1-fast";
@@ -209,7 +209,7 @@ export function createXaiWebSearchProvider(): WebSearchProviderPlugin {
     envVars: ["XAI_API_KEY"],
     placeholder: "xai-...",
     signupUrl: "https://console.x.ai/",
-    docsUrl: "https://docs.openclaw.ai/tools/web",
+    docsUrl: "https://docs.klawty.ai/tools/web",
     autoDetectOrder: 30,
     credentialPath: "plugins.entries.xai.config.webSearch.apiKey",
     inactiveSecretPaths: ["plugins.entries.xai.config.webSearch.apiKey"],
@@ -242,7 +242,7 @@ export function createXaiWebSearchProvider(): WebSearchProviderPlugin {
             error: "missing_xai_api_key",
             message:
               "web_search (grok) needs an xAI API key. Set XAI_API_KEY in the Gateway environment, or configure plugins.entries.xai.config.webSearch.apiKey.",
-            docs: "https://docs.openclaw.ai/tools/web",
+            docs: "https://docs.klawty.ai/tools/web",
           };
         }
 

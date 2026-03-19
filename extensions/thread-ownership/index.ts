@@ -1,11 +1,11 @@
-import { definePluginEntry, type OpenClawConfig, type OpenClawPluginApi } from "./api.js";
+import { definePluginEntry, type KlawtyConfig, type KlawtyPluginApi } from "./api.js";
 
 type ThreadOwnershipConfig = {
   forwarderUrl?: string;
   abTestChannels?: string[];
 };
 
-type AgentEntry = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
+type AgentEntry = NonNullable<NonNullable<KlawtyConfig["agents"]>["list"]>[number];
 
 // In-memory set of {channel}:{thread} keys where this agent was @-mentioned.
 // Entries expire after 5 minutes.
@@ -21,7 +21,7 @@ function cleanExpiredMentions(): void {
   }
 }
 
-function resolveOwnershipAgent(config: OpenClawConfig): { id: string; name: string } {
+function resolveOwnershipAgent(config: KlawtyConfig): { id: string; name: string } {
   const list = Array.isArray(config.agents?.list)
     ? config.agents.list.filter((entry): entry is AgentEntry =>
         Boolean(entry && typeof entry === "object"),
@@ -43,7 +43,7 @@ export default definePluginEntry({
   id: "thread-ownership",
   name: "Thread Ownership",
   description: "Slack thread claim coordination for multi-agent setups",
-  register(api: OpenClawPluginApi) {
+  register(api: KlawtyPluginApi) {
     const pluginCfg = (api.pluginConfig ?? {}) as ThreadOwnershipConfig;
     const forwarderUrl = (
       pluginCfg.forwarderUrl ??

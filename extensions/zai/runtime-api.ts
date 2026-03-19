@@ -1,1 +1,1 @@
-export * from "openclaw/plugin-sdk/zai";
+export * from "klawty/plugin-sdk/zai";

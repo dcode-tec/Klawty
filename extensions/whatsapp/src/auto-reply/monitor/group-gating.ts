@@ -1,9 +1,9 @@
-import { resolveMentionGating } from "openclaw/plugin-sdk/channel-runtime";
-import type { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { hasControlCommand } from "openclaw/plugin-sdk/reply-runtime";
-import { parseActivationCommand } from "openclaw/plugin-sdk/reply-runtime";
-import { recordPendingHistoryEntryIfEnabled } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeE164 } from "openclaw/plugin-sdk/text-runtime";
+import { resolveMentionGating } from "klawty/plugin-sdk/channel-runtime";
+import type { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { hasControlCommand } from "klawty/plugin-sdk/reply-runtime";
+import { parseActivationCommand } from "klawty/plugin-sdk/reply-runtime";
+import { recordPendingHistoryEntryIfEnabled } from "klawty/plugin-sdk/reply-runtime";
+import { normalizeE164 } from "klawty/plugin-sdk/text-runtime";
 import type { MentionConfig } from "../mentions.js";
 import { buildMentionConfig, debugMention, resolveOwnerList } from "../mentions.js";
 import type { WebInboundMsg } from "../types.js";

@@ -6,11 +6,11 @@ import { withEnvAsync } from "../test-utils/env.js";
 const readBestEffortConfig = vi.fn(async () => ({
   gateway: {
     mode: "remote",
-    remote: { url: "wss://remote.example:18789", token: "rtok" },
+    remote: { url: "wss://remote.example:2508", token: "rtok" },
     auth: { token: "ltok" },
   },
 }));
-const resolveGatewayPort = vi.fn((_cfg?: unknown) => 18789);
+const resolveGatewayPort = vi.fn((_cfg?: unknown) => 2508);
 const discoverGatewayBeacons = vi.fn(
   async (_opts?: unknown): Promise<Array<{ tailnetDns: string }>> => [],
 );
@@ -28,8 +28,8 @@ const resolveSshConfig = vi.fn(
 );
 const startSshPortForward = vi.fn(async (_opts?: unknown) => ({
   parsedTarget: { user: "me", host: "studio", port: 22 },
-  localPort: 18789,
-  remotePort: 18789,
+  localPort: 2508,
+  remotePort: 2508,
   pid: 123,
   stderr: [],
   stop: sshStop,
@@ -230,7 +230,7 @@ describe("gateway-status command", () => {
     } as never);
     probeGateway.mockResolvedValueOnce({
       ok: false,
-      url: "ws://127.0.0.1:18789",
+      url: "ws://127.0.0.1:2508",
       connectLatencyMs: 51,
       error: "missing scope: operator.read",
       close: null,
@@ -294,7 +294,7 @@ describe("gateway-status command", () => {
       mockLocalTokenEnvRefConfig();
       probeGateway.mockResolvedValueOnce({
         ok: false,
-        url: "ws://127.0.0.1:18789",
+        url: "ws://127.0.0.1:2508",
         connectLatencyMs: null,
         error: "connection refused",
         close: null,
@@ -323,11 +323,11 @@ describe("gateway-status command", () => {
     expect(unresolvedWarning?.message).not.toContain("missing or empty");
   });
 
-  it("does not resolve local token SecretRef when OPENCLAW_GATEWAY_TOKEN is set", async () => {
+  it("does not resolve local token SecretRef when KLAWTY_GATEWAY_TOKEN is set", async () => {
     const { runtime, runtimeLogs, runtimeErrors } = createRuntimeCapture();
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_TOKEN: "env-token",
+        KLAWTY_GATEWAY_TOKEN: "env-token",
         MISSING_GATEWAY_TOKEN: undefined,
       },
       async () => {
@@ -360,7 +360,7 @@ describe("gateway-status command", () => {
     const { runtime, runtimeLogs, runtimeErrors } = createRuntimeCapture();
     await withEnvAsync(
       {
-        OPENCLAW_GATEWAY_TOKEN: "env-token",
+        KLAWTY_GATEWAY_TOKEN: "env-token",
         MISSING_GATEWAY_PASSWORD: undefined,
       },
       async () => {
@@ -401,7 +401,7 @@ describe("gateway-status command", () => {
     await withEnvAsync(
       {
         CUSTOM_GATEWAY_TOKEN: "resolved-gateway-token",
-        OPENCLAW_GATEWAY_TOKEN: undefined,
+        KLAWTY_GATEWAY_TOKEN: undefined,
         CLAWDBOT_GATEWAY_TOKEN: undefined,
       },
       async () => {
@@ -484,11 +484,11 @@ describe("gateway-status command", () => {
             mode: "remote",
             auth: {
               mode: "token",
-              token: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_TOKEN" },
-              password: { source: "env", provider: "default", id: "OPENCLAW_GATEWAY_PASSWORD" },
+              token: { source: "env", provider: "default", id: "KLAWTY_GATEWAY_TOKEN" },
+              password: { source: "env", provider: "default", id: "KLAWTY_GATEWAY_PASSWORD" },
             },
             remote: {
-              url: "wss://remote.example:18789",
+              url: "wss://remote.example:2508",
               token: { source: "env", provider: "default", id: "REMOTE_GATEWAY_TOKEN" },
               password: { source: "env", provider: "default", id: "REMOTE_GATEWAY_PASSWORD" },
             },
@@ -534,7 +534,7 @@ describe("gateway-status command", () => {
           "port": null,
           "remotePasswordConfigured": true,
           "remoteTokenConfigured": true,
-          "remoteUrl": "wss://remote.example:18789",
+          "remoteUrl": "wss://remote.example:2508",
           "tailscaleMode": null,
         },
         "issues": [],
@@ -589,7 +589,7 @@ describe("gateway-status command", () => {
     const { runtime } = createRuntimeCapture();
     await withEnvAsync({ USER: "steipete" }, async () => {
       readBestEffortConfig.mockResolvedValueOnce(
-        makeRemoteGatewayConfig("ws://peters-mac-studio-1.sheep-coho.ts.net:18789"),
+        makeRemoteGatewayConfig("ws://peters-mac-studio-1.sheep-coho.ts.net:2508"),
       );
       resolveSshConfig.mockResolvedValueOnce({
         user: "steipete",
@@ -615,7 +615,7 @@ describe("gateway-status command", () => {
     const { runtime } = createRuntimeCapture();
     await withEnvAsync({ USER: "" }, async () => {
       readBestEffortConfig.mockResolvedValueOnce(
-        makeRemoteGatewayConfig("wss://studio.example:18789"),
+        makeRemoteGatewayConfig("wss://studio.example:2508"),
       );
       resolveSshConfig.mockResolvedValueOnce(null);
 
@@ -633,7 +633,7 @@ describe("gateway-status command", () => {
     const { runtime } = createRuntimeCapture();
 
     readBestEffortConfig.mockResolvedValueOnce(
-      makeRemoteGatewayConfig("wss://studio.example:18789"),
+      makeRemoteGatewayConfig("wss://studio.example:2508"),
     );
     resolveSshConfig.mockResolvedValueOnce({
       user: "me",

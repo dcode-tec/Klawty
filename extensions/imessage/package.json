@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/imessage",
-  "version": "2026.3.14",
+  "name": "@klawty/imessage",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw iMessage channel plugin",
+  "description": "Klawty iMessage channel plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../../../src/config/config.js";
 import {
   __testing as sessionBindingTesting,
   registerSessionBindingAdapter,
@@ -15,9 +15,9 @@ const baseCfg = {
   agents: {
     list: [{ id: "main" }, { id: "sender-agent" }, { id: "room-agent" }, { id: "acp-agent" }],
   },
-} satisfies OpenClawConfig;
+} satisfies KlawtyConfig;
 
-function resolveDmRoute(cfg: OpenClawConfig) {
+function resolveDmRoute(cfg: KlawtyConfig) {
   return resolveMatrixInboundRoute({
     cfg,
     accountId: "ops",
@@ -58,7 +58,7 @@ describe("resolveMatrixInboundRoute", () => {
           },
         },
       ],
-    } satisfies OpenClawConfig;
+    } satisfies KlawtyConfig;
 
     const { route, configuredBinding } = resolveDmRoute(cfg);
 
@@ -88,7 +88,7 @@ describe("resolveMatrixInboundRoute", () => {
           },
         },
       ],
-    } satisfies OpenClawConfig;
+    } satisfies KlawtyConfig;
 
     const { route, configuredBinding } = resolveDmRoute(cfg);
 
@@ -120,7 +120,7 @@ describe("resolveMatrixInboundRoute", () => {
           },
         },
       ],
-    } satisfies OpenClawConfig;
+    } satisfies KlawtyConfig;
 
     const { route, configuredBinding } = resolveDmRoute(cfg);
 
@@ -174,7 +174,7 @@ describe("resolveMatrixInboundRoute", () => {
           },
         },
       ],
-    } satisfies OpenClawConfig;
+    } satisfies KlawtyConfig;
 
     const { route, configuredBinding } = resolveDmRoute(cfg);
 

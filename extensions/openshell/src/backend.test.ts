@@ -20,7 +20,7 @@ describe("openshell backend manager", () => {
     vi.clearAllMocks();
   });
 
-  it("checks runtime status with config override from OpenClaw config", async () => {
+  it("checks runtime status with config override from Klawty config", async () => {
     cliMocks.runOpenShellCli.mockResolvedValue({
       code: 0,
       stdout: "{}",
@@ -30,15 +30,15 @@ describe("openshell backend manager", () => {
     const manager = createOpenShellSandboxBackendManager({
       pluginConfig: resolveOpenShellPluginConfig({
         command: "openshell",
-        from: "openclaw",
+        from: "klawty",
       }),
     });
 
     const result = await manager.describeRuntime({
       entry: {
-        containerName: "openclaw-session-1234",
+        containerName: "klawty-session-1234",
         backendId: "openshell",
-        runtimeLabel: "openclaw-session-1234",
+        runtimeLabel: "klawty-session-1234",
         sessionKey: "agent:main",
         createdAtMs: 1,
         lastUsedAtMs: 1,
@@ -67,12 +67,12 @@ describe("openshell backend manager", () => {
     });
     expect(cliMocks.runOpenShellCli).toHaveBeenCalledWith({
       context: expect.objectContaining({
-        sandboxName: "openclaw-session-1234",
+        sandboxName: "klawty-session-1234",
         config: expect.objectContaining({
           from: "custom-source",
         }),
       }),
-      args: ["sandbox", "get", "openclaw-session-1234"],
+      args: ["sandbox", "get", "klawty-session-1234"],
     });
   });
 
@@ -92,13 +92,13 @@ describe("openshell backend manager", () => {
 
     await manager.removeRuntime({
       entry: {
-        containerName: "openclaw-session-5678",
+        containerName: "klawty-session-5678",
         backendId: "openshell",
-        runtimeLabel: "openclaw-session-5678",
+        runtimeLabel: "klawty-session-5678",
         sessionKey: "agent:main",
         createdAtMs: 1,
         lastUsedAtMs: 1,
-        image: "openclaw",
+        image: "klawty",
         configLabelKind: "Source",
       },
       config: {},
@@ -106,13 +106,13 @@ describe("openshell backend manager", () => {
 
     expect(cliMocks.runOpenShellCli).toHaveBeenCalledWith({
       context: expect.objectContaining({
-        sandboxName: "openclaw-session-5678",
+        sandboxName: "klawty-session-5678",
         config: expect.objectContaining({
           command: "/usr/local/bin/openshell",
           gateway: "lab",
         }),
       }),
-      args: ["sandbox", "delete", "openclaw-session-5678"],
+      args: ["sandbox", "delete", "klawty-session-5678"],
     });
   });
 });

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import type { SecretInput } from "../config/types.secrets.js";
 import { isSecureWebSocketUrl } from "../gateway/net.js";
 import type { GatewayBonjourBeacon } from "../infra/bonjour-discovery.js";
@@ -12,7 +12,7 @@ import {
 import { detectBinary } from "./onboard-helpers.js";
 import type { SecretInputMode } from "./onboard-types.js";
 
-const DEFAULT_GATEWAY_URL = "ws://127.0.0.1:18789";
+const DEFAULT_GATEWAY_URL = "ws://127.0.0.1:2508";
 
 function pickHost(beacon: GatewayBonjourBeacon): string | undefined {
   // Security: TXT is unauthenticated. Prefer the resolved service endpoint host.
@@ -22,7 +22,7 @@ function pickHost(beacon: GatewayBonjourBeacon): string | undefined {
 function buildLabel(beacon: GatewayBonjourBeacon): string {
   const host = pickHost(beacon);
   // Security: Prefer the resolved service endpoint port.
-  const port = beacon.port ?? beacon.gatewayPort ?? 18789;
+  const port = beacon.port ?? beacon.gatewayPort ?? 2508;
   const title = beacon.displayName ?? beacon.instanceName;
   const hint = host ? `${host}:${port}` : "host unknown";
   return `${title} (${hint})`;
@@ -43,22 +43,22 @@ function validateGatewayWebSocketUrl(value: string): string | undefined {
   }
   if (
     !isSecureWebSocketUrl(trimmed, {
-      allowPrivateWs: process.env.OPENCLAW_ALLOW_INSECURE_PRIVATE_WS === "1",
+      allowPrivateWs: process.env.KLAWTY_ALLOW_INSECURE_PRIVATE_WS === "1",
     })
   ) {
     return (
       "Use wss:// for remote hosts, or ws://127.0.0.1/localhost via SSH tunnel. " +
-      "Break-glass: OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1 for trusted private networks."
+      "Break-glass: KLAWTY_ALLOW_INSECURE_PRIVATE_WS=1 for trusted private networks."
     );
   }
   return undefined;
 }
 
 export async function promptRemoteGatewayConfig(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   prompter: WizardPrompter,
   options?: { secretInputMode?: SecretInputMode },
-): Promise<OpenClawConfig> {
+): Promise<KlawtyConfig> {
   let selectedBeacon: GatewayBonjourBeacon | null = null;
   let suggestedUrl = cfg.gateway?.remote?.url ?? DEFAULT_GATEWAY_URL;
 
@@ -74,7 +74,7 @@ export async function promptRemoteGatewayConfig(
     await prompter.note(
       [
         "Bonjour discovery requires dns-sd (macOS) or avahi-browse (Linux).",
-        "Docs: https://docs.openclaw.ai/gateway/discovery",
+        "Docs: https://docs.klawty.ai/gateway/discovery",
       ].join("\n"),
       "Discovery",
     );
@@ -108,7 +108,7 @@ export async function promptRemoteGatewayConfig(
 
   if (selectedBeacon) {
     const host = pickHost(selectedBeacon);
-    const port = selectedBeacon.port ?? selectedBeacon.gatewayPort ?? 18789;
+    const port = selectedBeacon.port ?? selectedBeacon.gatewayPort ?? 2508;
     if (host) {
       const mode = await prompter.select({
         message: "Connection method",
@@ -126,7 +126,7 @@ export async function promptRemoteGatewayConfig(
           [
             "Direct remote access defaults to TLS.",
             `Using: ${suggestedUrl}`,
-            "If your gateway is loopback-only, choose SSH tunnel and keep ws://127.0.0.1:18789.",
+            "If your gateway is loopback-only, choose SSH tunnel and keep ws://127.0.0.1:2508.",
           ].join("\n"),
           "Direct remote",
         );
@@ -135,10 +135,10 @@ export async function promptRemoteGatewayConfig(
         await prompter.note(
           [
             "Start a tunnel before using the CLI:",
-            `ssh -N -L 18789:127.0.0.1:18789 <user>@${host}${
+            `ssh -N -L 2508:127.0.0.1:2508 <user>@${host}${
               selectedBeacon.sshPort ? ` -p ${selectedBeacon.sshPort}` : ""
             }`,
-            "Docs: https://docs.openclaw.ai/gateway/remote",
+            "Docs: https://docs.klawty.ai/gateway/remote",
           ].join("\n"),
           "SSH tunnel",
         );
@@ -171,7 +171,7 @@ export async function promptRemoteGatewayConfig(
       copy: {
         modeMessage: "How do you want to provide this gateway token?",
         plaintextLabel: "Enter token now",
-        plaintextHint: "Stores the token directly in OpenClaw config",
+        plaintextHint: "Stores the token directly in Klawty config",
       },
     });
     if (selectedMode === "ref") {
@@ -179,10 +179,10 @@ export async function promptRemoteGatewayConfig(
         provider: "gateway-remote-token",
         config: cfg,
         prompter,
-        preferredEnvVar: "OPENCLAW_GATEWAY_TOKEN",
+        preferredEnvVar: "KLAWTY_GATEWAY_TOKEN",
         copy: {
           sourceMessage: "Where is this gateway token stored?",
-          envVarPlaceholder: "OPENCLAW_GATEWAY_TOKEN",
+          envVarPlaceholder: "KLAWTY_GATEWAY_TOKEN",
         },
       });
       token = resolved.ref;
@@ -203,7 +203,7 @@ export async function promptRemoteGatewayConfig(
       copy: {
         modeMessage: "How do you want to provide this gateway password?",
         plaintextLabel: "Enter password now",
-        plaintextHint: "Stores the password directly in OpenClaw config",
+        plaintextHint: "Stores the password directly in Klawty config",
       },
     });
     if (selectedMode === "ref") {
@@ -211,10 +211,10 @@ export async function promptRemoteGatewayConfig(
         provider: "gateway-remote-password",
         config: cfg,
         prompter,
-        preferredEnvVar: "OPENCLAW_GATEWAY_PASSWORD",
+        preferredEnvVar: "KLAWTY_GATEWAY_PASSWORD",
         copy: {
           sourceMessage: "Where is this gateway password stored?",
-          envVarPlaceholder: "OPENCLAW_GATEWAY_PASSWORD",
+          envVarPlaceholder: "KLAWTY_GATEWAY_PASSWORD",
         },
       });
       password = resolved.ref;

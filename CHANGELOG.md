@@ -3444,7 +3444,7 @@ Docs: https://docs.openclaw.ai
 - Gateway: clarify Control UI/WebChat auth error hints for missing tokens. (#1690)
 - Gateway: listen on IPv6 loopback when bound to 127.0.0.1 so localhost webhooks work.
 - Gateway: store lock files in the temp directory to avoid stale locks on persistent volumes. (#1676)
-- macOS: default direct-transport `ws://` URLs to port 18789; document `gateway.remote.transport`. (#1603) Thanks @ngutman.
+- macOS: default direct-transport `ws://` URLs to port 2508; document `gateway.remote.transport`. (#1603) Thanks @ngutman.
 - Tests: cap Vitest workers on CI macOS to reduce timeouts. (#1597) Thanks @rohannagpal.
 - Tests: avoid fake-timer dependency in embedded runner stream mock to reduce CI flakes. (#1597) Thanks @rohannagpal.
 - Tests: increase embedded runner ordering test timeout to reduce CI flakes. (#1597) Thanks @rohannagpal.

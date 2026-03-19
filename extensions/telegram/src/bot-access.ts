@@ -2,9 +2,9 @@ import {
   firstDefined,
   isSenderIdAllowed,
   mergeDmAllowFromSources,
-} from "openclaw/plugin-sdk/channel-runtime";
-import type { AllowlistMatch } from "openclaw/plugin-sdk/channel-runtime";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
+} from "klawty/plugin-sdk/channel-runtime";
+import type { AllowlistMatch } from "klawty/plugin-sdk/channel-runtime";
+import { createSubsystemLogger } from "klawty/plugin-sdk/runtime-env";
 
 export type NormalizedAllowFrom = {
   entries: string[];

@@ -1,9 +1,9 @@
-import { formatNormalizedAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
+import { formatNormalizedAllowFromEntries } from "klawty/plugin-sdk/allow-from";
 import {
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { createAllowlistProviderRestrictSendersWarningCollector } from "openclaw/plugin-sdk/channel-policy";
+} from "klawty/plugin-sdk/channel-config-helpers";
+import { createAllowlistProviderRestrictSendersWarningCollector } from "klawty/plugin-sdk/channel-policy";
 import {
   createAttachedChannelResultAdapter,
   createChannelDirectoryAdapter,
@@ -11,8 +11,8 @@ import {
   createMessageToolButtonsSchema,
   createScopedAccountReplyToModeResolver,
   type ChannelMessageToolDiscovery,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
+} from "klawty/plugin-sdk/channel-runtime";
+import { buildPassiveProbedChannelStatusSummary } from "klawty/plugin-sdk/extension-shared";
 import { MattermostConfigSchema } from "./config-schema.js";
 import { resolveMattermostGroupRequireMention } from "./group-mentions.js";
 import {

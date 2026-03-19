@@ -1,29 +1,29 @@
-import { appendCronStyleCurrentTimeLine } from "openclaw/plugin-sdk/agent-runtime";
-import { resolveWhatsAppHeartbeatRecipients } from "openclaw/plugin-sdk/channel-runtime";
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
+import { appendCronStyleCurrentTimeLine } from "klawty/plugin-sdk/agent-runtime";
+import { resolveWhatsAppHeartbeatRecipients } from "klawty/plugin-sdk/channel-runtime";
+import { loadConfig } from "klawty/plugin-sdk/config-runtime";
 import {
   loadSessionStore,
   resolveSessionKey,
   resolveStorePath,
   updateSessionStore,
-} from "openclaw/plugin-sdk/config-runtime";
-import { emitHeartbeatEvent, resolveIndicatorType } from "openclaw/plugin-sdk/infra-runtime";
-import { resolveHeartbeatVisibility } from "openclaw/plugin-sdk/infra-runtime";
+} from "klawty/plugin-sdk/config-runtime";
+import { emitHeartbeatEvent, resolveIndicatorType } from "klawty/plugin-sdk/infra-runtime";
+import { resolveHeartbeatVisibility } from "klawty/plugin-sdk/infra-runtime";
 import {
   hasOutboundReplyContent,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
-import { resolveHeartbeatReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-payload";
+import { resolveHeartbeatReplyPayload } from "klawty/plugin-sdk/reply-runtime";
 import {
   DEFAULT_HEARTBEAT_ACK_MAX_CHARS,
   resolveHeartbeatPrompt,
   stripHeartbeatToken,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { getReplyFromConfig } from "openclaw/plugin-sdk/reply-runtime";
-import { HEARTBEAT_TOKEN } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeMainKey } from "openclaw/plugin-sdk/routing";
-import { getChildLogger } from "openclaw/plugin-sdk/runtime-env";
-import { redactIdentifier } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
+import { getReplyFromConfig } from "klawty/plugin-sdk/reply-runtime";
+import { HEARTBEAT_TOKEN } from "klawty/plugin-sdk/reply-runtime";
+import { normalizeMainKey } from "klawty/plugin-sdk/routing";
+import { getChildLogger } from "klawty/plugin-sdk/runtime-env";
+import { redactIdentifier } from "klawty/plugin-sdk/text-runtime";
 import { newConnectionId } from "../reconnect.js";
 import { sendMessageWhatsApp } from "../send.js";
 import { formatError } from "../session.js";

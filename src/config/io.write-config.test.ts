@@ -3,7 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { createConfigIO } from "./io.js";
-import type { OpenClawConfig } from "./types.js";
+import type { KlawtyConfig } from "./types.js";
 
 describe("config io write", () => {
   let fixtureRoot = "";
@@ -20,7 +20,7 @@ describe("config io write", () => {
   }
 
   beforeAll(async () => {
-    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-config-io-"));
+    fixtureRoot = await fs.mkdtemp(path.join(os.tmpdir(), "klawty-config-io-"));
   });
 
   afterAll(async () => {
@@ -33,7 +33,7 @@ describe("config io write", () => {
     env?: NodeJS.ProcessEnv;
     logger?: { warn: (msg: string) => void; error: (msg: string) => void };
   }) {
-    const configPath = path.join(params.home, ".openclaw", "openclaw.json");
+    const configPath = path.join(params.home, ".klawty", "klawty.json");
     await fs.mkdir(path.dirname(configPath), { recursive: true });
     await fs.writeFile(configPath, JSON.stringify(params.initialConfig, null, 2), "utf-8");
 
@@ -80,7 +80,7 @@ describe("config io write", () => {
         error: vi.fn(),
       },
     });
-    const auditPath = path.join(params.home, ".openclaw", "logs", "config-audit.jsonl");
+    const auditPath = path.join(params.home, ".klawty", "logs", "config-audit.jsonl");
     const next = structuredClone(snapshot.config);
     const gateway =
       next.gateway && typeof next.gateway === "object"
@@ -129,11 +129,11 @@ describe("config io write", () => {
     await withSuiteHome(async (home) => {
       const { configPath, io, snapshot } = await writeConfigAndCreateIo({
         home,
-        initialConfig: { gateway: { port: 18789 } },
+        initialConfig: { gateway: { port: 2508 } },
       });
       const persisted = await writeTokenAuthAndReadConfig({ io, snapshot, configPath });
       expect(persisted.gateway).toEqual({
-        port: 18789,
+        port: 2508,
         auth: { mode: "token" },
       });
       expect(persisted).not.toHaveProperty("agents.defaults");
@@ -146,7 +146,7 @@ describe("config io write", () => {
     "tightens world-writable state dir when writing the default config",
     async () => {
       await withSuiteHome(async (home) => {
-        const stateDir = path.join(home, ".openclaw");
+        const stateDir = path.join(home, ".klawty");
         await fs.mkdir(stateDir, { recursive: true, mode: 0o777 });
         await fs.chmod(stateDir, 0o777);
 
@@ -172,20 +172,20 @@ describe("config io write", () => {
         logger: silentLogger,
       });
 
-      const invalidConfig: OpenClawConfig = {
+      const invalidConfig: KlawtyConfig = {
         channels: {
           telegram: {
             dmPolicy: "open",
             allowFrom: [],
           },
         },
-      } satisfies OpenClawConfig;
+      } satisfies KlawtyConfig;
 
       await expect(io.writeConfigFile(invalidConfig)).rejects.toThrow(
-        "openclaw config set channels.telegram.allowFrom '[\"*\"]'",
+        "klawty config set channels.telegram.allowFrom '[\"*\"]'",
       );
       await expect(io.writeConfigFile(invalidConfig)).rejects.toThrow(
-        'openclaw config set channels.telegram.dmPolicy "pairing"',
+        'klawty config set channels.telegram.dmPolicy "pairing"',
       );
     });
   });
@@ -220,7 +220,7 @@ describe("config io write", () => {
 
   it("does not mutate caller config when unsetPaths is applied on first write", async () => {
     await withSuiteHome(async (home) => {
-      const configPath = path.join(home, ".openclaw", "openclaw.json");
+      const configPath = path.join(home, ".klawty", "klawty.json");
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
         homedir: () => home,
@@ -322,7 +322,7 @@ describe("config io write", () => {
               },
             },
           },
-          gateway: { port: 18789 },
+          gateway: { port: 2508 },
         },
       });
       const persisted = (await writeTokenAuthAndReadConfig({ io, snapshot, configPath })) as {
@@ -333,7 +333,7 @@ describe("config io write", () => {
         "${OPENAI_API_KEY}",
       );
       expect(persisted.gateway).toEqual({
-        port: 18789,
+        port: 2508,
         auth: { mode: "token" },
       });
     });
@@ -354,7 +354,7 @@ describe("config io write", () => {
               dm: { enabled: true, policy: "pairing" },
             },
           },
-          gateway: { port: 18789 },
+          gateway: { port: 2508 },
         },
       });
 
@@ -387,7 +387,7 @@ describe("config io write", () => {
 
   it("keeps env refs in arrays when appending entries", async () => {
     await withSuiteHome(async (home) => {
-      const configPath = path.join(home, ".openclaw", "openclaw.json");
+      const configPath = path.join(home, ".klawty", "klawty.json");
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.writeFile(
         configPath,
@@ -463,7 +463,7 @@ describe("config io write", () => {
       const warn = vi.fn();
       const { configPath, io, snapshot } = await writeConfigAndCreateIo({
         home,
-        initialConfig: { gateway: { port: 18789 } },
+        initialConfig: { gateway: { port: 2508 } },
         env: {} as NodeJS.ProcessEnv,
         logger: {
           warn: warn as (msg: string) => void,
@@ -515,7 +515,7 @@ describe("config io write", () => {
     await withSuiteHome(async (home) => {
       const { configPath, lines, last } = await writeGatewayPatchAndReadLastAuditEntry({
         home,
-        initialConfig: { gateway: { port: 18789 } },
+        initialConfig: { gateway: { port: 2508 } },
         gatewayPatch: { mode: "local" },
         env: {} as NodeJS.ProcessEnv,
       });
@@ -538,9 +538,9 @@ describe("config io write", () => {
         initialConfig: { gateway: { mode: "local" } },
         gatewayPatch: { bind: "loopback" },
         env: {
-          OPENCLAW_WATCH_MODE: "1",
-          OPENCLAW_WATCH_SESSION: "watch-session-1",
-          OPENCLAW_WATCH_COMMAND: "gateway --force",
+          KLAWTY_WATCH_MODE: "1",
+          KLAWTY_WATCH_SESSION: "watch-session-1",
+          KLAWTY_WATCH_COMMAND: "gateway --force",
         } as NodeJS.ProcessEnv,
       });
       expect(last.watchMode).toBe(true);

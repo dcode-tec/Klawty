@@ -1,7 +1,7 @@
-import type { BackoffPolicy } from "openclaw/plugin-sdk/infra-runtime";
-import { computeBackoff, sleepWithAbort } from "openclaw/plugin-sdk/infra-runtime";
-import { logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { BackoffPolicy } from "klawty/plugin-sdk/infra-runtime";
+import { computeBackoff, sleepWithAbort } from "klawty/plugin-sdk/infra-runtime";
+import { logVerbose, shouldLogVerbose } from "klawty/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
 import { type SignalSseEvent, streamSignalEvents } from "./client.js";
 
 const DEFAULT_RECONNECT_POLICY: BackoffPolicy = {

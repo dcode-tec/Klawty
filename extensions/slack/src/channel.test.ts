@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/slack";
+import type { KlawtyConfig } from "klawty/plugin-sdk/slack";
 import { describe, expect, it, vi } from "vitest";
 import { createRuntimeEnv } from "../../../test/helpers/extensions/runtime-env.js";
 import { slackOutbound } from "./outbound-adapter.js";
@@ -17,7 +17,7 @@ vi.mock("./runtime.js", () => ({
 
 import { slackPlugin } from "./channel.js";
 
-async function getSlackConfiguredState(cfg: OpenClawConfig) {
+async function getSlackConfiguredState(cfg: KlawtyConfig) {
   const account = slackPlugin.config.resolveAccount(cfg, "default");
   return {
     configured: slackPlugin.config.isConfigured?.(account, cfg),
@@ -388,7 +388,7 @@ describe("slackPlugin outbound new targets", () => {
 
 describe("slackPlugin config", () => {
   it("treats HTTP mode accounts with bot token + signing secret as configured", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: KlawtyConfig = {
       channels: {
         slack: {
           mode: "http",
@@ -405,7 +405,7 @@ describe("slackPlugin config", () => {
   });
 
   it("keeps socket mode requiring app token", async () => {
-    const cfg: OpenClawConfig = {
+    const cfg: KlawtyConfig = {
       channels: {
         slack: {
           mode: "socket",
@@ -433,7 +433,7 @@ describe("slackPlugin config", () => {
         appTokenSource: "none",
         config: {},
       } as never,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime: undefined,
     });
 
@@ -460,7 +460,7 @@ describe("slackPlugin config", () => {
           signingSecret: { source: "env", provider: "default", id: "SLACK_SIGNING_SECRET" },
         },
       } as never,
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime: undefined,
     });
 

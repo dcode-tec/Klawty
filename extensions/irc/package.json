@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/irc",
-  "version": "2026.3.14",
-  "description": "OpenClaw IRC channel plugin",
+  "name": "@klawty/irc",
+  "version": "1.0.0",
+  "description": "Klawty IRC channel plugin",
   "type": "module",
   "dependencies": {
     "zod": "^4.3.6"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],

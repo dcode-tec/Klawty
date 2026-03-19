@@ -5,7 +5,7 @@ import { createCliRuntimeCapture } from "./test-runtime-capture.js";
 
 const callGateway = vi.fn(async (..._args: unknown[]) => ({ ok: true }));
 const resolveGatewayProgramArguments = vi.fn(async (_opts?: unknown) => ({
-  programArguments: ["/bin/node", "cli", "gateway", "--port", "18789"],
+  programArguments: ["/bin/node", "cli", "gateway", "--port", "2508"],
 }));
 const serviceInstall = vi.fn().mockResolvedValue(undefined);
 const serviceUninstall = vi.fn().mockResolvedValue(undefined);
@@ -27,8 +27,8 @@ const buildGatewayInstallPlan = vi.fn(
     programArguments: ["/bin/node", "cli", "gateway", "--port", String(params.port)],
     workingDirectory: process.cwd(),
     environment: {
-      OPENCLAW_GATEWAY_PORT: String(params.port),
-      ...(params.token ? { OPENCLAW_GATEWAY_TOKEN: params.token } : {}),
+      KLAWTY_GATEWAY_PORT: String(params.port),
+      ...(params.token ? { KLAWTY_GATEWAY_TOKEN: params.token } : {}),
     },
   }),
 );
@@ -78,7 +78,7 @@ vi.mock("../daemon/inspect.js", () => ({
 
 vi.mock("../infra/ports.js", () => ({
   inspectPortUsage: (port: number) => inspectPortUsage(port),
-  formatPortDiagnostics: () => ["Port 18789 is already in use."],
+  formatPortDiagnostics: () => ["Port 2508 is already in use."],
 }));
 
 vi.mock("../runtime.js", () => ({
@@ -123,15 +123,15 @@ describe("daemon-cli coverage", () => {
   beforeEach(() => {
     daemonProgram = createDaemonProgram();
     envSnapshot = captureEnv([
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_GATEWAY_PORT",
-      "OPENCLAW_PROFILE",
+      "KLAWTY_STATE_DIR",
+      "KLAWTY_CONFIG_PATH",
+      "KLAWTY_GATEWAY_PORT",
+      "KLAWTY_PROFILE",
     ]);
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-cli-state";
-    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-cli-state/openclaw.json";
-    delete process.env.OPENCLAW_GATEWAY_PORT;
-    delete process.env.OPENCLAW_PROFILE;
+    process.env.KLAWTY_STATE_DIR = "/tmp/klawty-cli-state";
+    process.env.KLAWTY_CONFIG_PATH = "/tmp/klawty-cli-state/klawty.json";
+    delete process.env.KLAWTY_GATEWAY_PORT;
+    delete process.env.KLAWTY_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
     resolveGatewayProbeAuthWithSecretInputs.mockClear();
     buildGatewayInstallPlan.mockClear();
@@ -161,12 +161,12 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19001",
+        KLAWTY_PROFILE: "dev",
+        KLAWTY_STATE_DIR: "/tmp/klawty-daemon-state",
+        KLAWTY_CONFIG_PATH: "/tmp/klawty-daemon-state/klawty.json",
+        KLAWTY_GATEWAY_PORT: "19001",
       },
-      sourcePath: "/tmp/ai.openclaw.gateway.plist",
+      sourcePath: "/tmp/ai.klawty.gateway.plist",
     });
 
     await runDaemonCommand(["daemon", "status", "--json"]);
@@ -212,7 +212,7 @@ describe("daemon-cli coverage", () => {
       "daemon",
       "install",
       "--port",
-      "18789",
+      "2508",
       "--token",
       "test-token",
       "--json",

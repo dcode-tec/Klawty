@@ -1,19 +1,19 @@
-import { formatNormalizedAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
+import { formatNormalizedAllowFromEntries } from "klawty/plugin-sdk/allow-from";
 import {
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { createAccountStatusSink } from "openclaw/plugin-sdk/channel-lifecycle";
+} from "klawty/plugin-sdk/channel-config-helpers";
+import { createAccountStatusSink } from "klawty/plugin-sdk/channel-lifecycle";
 import {
   createOpenGroupPolicyRestrictSendersWarningCollector,
   projectWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "klawty/plugin-sdk/channel-policy";
 import {
   createAttachedChannelResultAdapter,
   createPairingPrefixStripper,
   createTextPairingAdapter,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import { createLazyRuntimeNamedExport } from "klawty/plugin-sdk/lazy-runtime";
 import {
   listBlueBubblesAccountIds,
   type ResolvedBlueBubblesAccount,

@@ -2,20 +2,20 @@ import {
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
   mapAllowFromEntries,
-} from "openclaw/plugin-sdk/channel-config-helpers";
+} from "klawty/plugin-sdk/channel-config-helpers";
 import {
   buildOpenGroupPolicyRestrictSendersWarning,
   buildOpenGroupPolicyWarning,
   createOpenProviderGroupPolicyWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "klawty/plugin-sdk/channel-policy";
 import {
   createChannelDirectoryAdapter,
   createEmptyChannelResult,
   createRawChannelSendResultAdapter,
   createStaticReplyToModeResolver,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { listResolvedDirectoryUserEntriesFromAllowFrom } from "openclaw/plugin-sdk/directory-runtime";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import { listResolvedDirectoryUserEntriesFromAllowFrom } from "klawty/plugin-sdk/directory-runtime";
+import { createLazyRuntimeModule } from "klawty/plugin-sdk/lazy-runtime";
 import {
   listZaloAccountIds,
   resolveDefaultZaloAccountId,
@@ -36,7 +36,7 @@ import {
   sendPayloadWithChunkedTextAndMedia,
   type ChannelAccountSnapshot,
   type ChannelPlugin,
-  type OpenClawConfig,
+  type KlawtyConfig,
 } from "./runtime-api.js";
 import { resolveZaloOutboundSessionRoute } from "./session-route.js";
 import { zaloSetupAdapter } from "./setup-core.js";
@@ -85,7 +85,7 @@ const resolveZaloDmPolicy = createScopedDmSecurityResolver<ResolvedZaloAccount>(
 });
 
 const collectZaloSecurityWarnings = createOpenProviderGroupPolicyWarningCollector<{
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   account: ResolvedZaloAccount;
 }>({
   providerConfigPresent: (cfg) => cfg.channels?.zalo !== undefined,

@@ -1,6 +1,6 @@
-import { markdownToText, truncateText } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { withTrustedWebToolsEndpoint } from "openclaw/plugin-sdk/provider-web-search";
+import { markdownToText, truncateText } from "klawty/plugin-sdk/agent-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import { withTrustedWebToolsEndpoint } from "klawty/plugin-sdk/provider-web-search";
 import {
   DEFAULT_CACHE_TTL_MINUTES,
   normalizeCacheKey,
@@ -8,8 +8,8 @@ import {
   readResponseText,
   resolveCacheTtlMs,
   writeCache,
-} from "openclaw/plugin-sdk/provider-web-search";
-import { wrapExternalContent, wrapWebContent } from "openclaw/plugin-sdk/security-runtime";
+} from "klawty/plugin-sdk/provider-web-search";
+import { wrapExternalContent, wrapWebContent } from "klawty/plugin-sdk/security-runtime";
 import {
   resolveFirecrawlApiKey,
   resolveFirecrawlBaseUrl,
@@ -41,7 +41,7 @@ type FirecrawlSearchItem = {
 };
 
 export type FirecrawlSearchParams = {
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   query: string;
   count?: number;
   timeoutSeconds?: number;
@@ -51,7 +51,7 @@ export type FirecrawlSearchParams = {
 };
 
 export type FirecrawlScrapeParams = {
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   url: string;
   extractMode: "markdown" | "text";
   maxChars?: number;

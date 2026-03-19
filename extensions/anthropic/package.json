@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/anthropic-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/anthropic-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Anthropic provider plugin",
+  "description": "Klawty Anthropic provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

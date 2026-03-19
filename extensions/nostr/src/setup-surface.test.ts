@@ -5,7 +5,7 @@ import {
   createTestWizardPrompter,
   type WizardPrompter,
 } from "../../../test/helpers/extensions/setup-wizard.js";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { KlawtyConfig } from "../runtime-api.js";
 import { nostrPlugin } from "./channel.js";
 
 const nostrConfigureAdapter = buildChannelSetupWizardAdapterFromSetupWizard({
@@ -28,7 +28,7 @@ describe("nostr setup wizard", () => {
     });
 
     const result = await nostrConfigureAdapter.configure({
-      cfg: {} as OpenClawConfig,
+      cfg: {} as KlawtyConfig,
       runtime: createRuntimeEnv(),
       prompter,
       options: {},

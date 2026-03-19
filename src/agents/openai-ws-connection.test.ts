@@ -234,15 +234,15 @@ describe("OpenAIWebSocketManager", () => {
       await connectPromise;
     });
 
-    it("adds OpenClaw attribution headers on the native OpenAI websocket", async () => {
+    it("adds Klawty attribution headers on the native OpenAI websocket", async () => {
       const manager = buildManager();
       const connectPromise = manager.connect("sk-test-key");
 
       const sock = lastSocket();
       expect(sock.options).toMatchObject({
         headers: expect.objectContaining({
-          originator: "openclaw",
-          "User-Agent": expect.stringMatching(/^openclaw\//),
+          originator: "klawty",
+          "User-Agent": expect.stringMatching(/^klawty\//),
         }),
       });
 

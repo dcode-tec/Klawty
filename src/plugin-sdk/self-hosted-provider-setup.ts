@@ -1,5 +1,5 @@
 export type {
-  OpenClawPluginApi,
+  KlawtyPluginApi,
   ProviderAuthContext,
   ProviderAuthMethodNonInteractiveContext,
   ProviderAuthResult,

@@ -97,7 +97,7 @@ function getJiti(modulePath: string) {
     modulePath: modulePath,
   });
   const aliasMap = {
-    ...(pluginSdkAlias ? { "openclaw/plugin-sdk": pluginSdkAlias } : {}),
+    ...(pluginSdkAlias ? { "klawty/plugin-sdk": pluginSdkAlias } : {}),
     ...resolvePluginSdkScopedAliasMap({ modulePath }),
   };
   const loader = createJiti(import.meta.url, {

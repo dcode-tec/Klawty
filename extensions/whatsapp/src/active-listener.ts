@@ -1,6 +1,6 @@
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import type { PollInput } from "openclaw/plugin-sdk/media-runtime";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
+import { formatCliCommand } from "klawty/plugin-sdk/cli-runtime";
+import type { PollInput } from "klawty/plugin-sdk/media-runtime";
+import { DEFAULT_ACCOUNT_ID } from "klawty/plugin-sdk/routing";
 
 export type ActiveWebSendOptions = {
   gifPlayback?: boolean;
@@ -34,9 +34,9 @@ export type ActiveWebListener = {
 // Map via setActiveWebListener(), but the outbound send path reads from a
 // different chunk's Map via requireActiveWebListener() — so the listener is
 // never found. Pinning the Map to globalThis ensures all chunks share one
-// instance.  See: https://github.com/openclaw/openclaw/issues/14406
-const GLOBAL_KEY = "__openclaw_wa_listeners" as const;
-const GLOBAL_CURRENT_KEY = "__openclaw_wa_current_listener" as const;
+// instance.  See: https://github.com/klawty/klawty/issues/14406
+const GLOBAL_KEY = "__klawty_wa_listeners" as const;
+const GLOBAL_CURRENT_KEY = "__klawty_wa_current_listener" as const;
 
 type GlobalWithListeners = typeof globalThis & {
   [GLOBAL_KEY]?: Map<string, ActiveWebListener>;
@@ -70,7 +70,7 @@ export function requireActiveWebListener(accountId?: string | null): {
   const listener = listeners.get(id) ?? null;
   if (!listener) {
     throw new Error(
-      `No active WhatsApp Web listener (account: ${id}). Start the gateway, then link WhatsApp with: ${formatCliCommand(`openclaw channels login --channel whatsapp --account ${id}`)}.`,
+      `No active WhatsApp Web listener (account: ${id}). Start the gateway, then link WhatsApp with: ${formatCliCommand(`klawty channels login --channel whatsapp --account ${id}`)}.`,
     );
   }
   return { accountId: id, listener };

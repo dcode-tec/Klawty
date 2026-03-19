@@ -79,14 +79,14 @@ describe("browser CSRF loopback mutation guard", () => {
     expect(
       shouldRejectBrowserMutation({
         method: "POST",
-        origin: "http://127.0.0.1:18789",
+        origin: "http://127.0.0.1:2508",
       }),
     ).toBe(false);
 
     expect(
       shouldRejectBrowserMutation({
         method: "POST",
-        origin: "http://localhost:18789",
+        origin: "http://localhost:2508",
       }),
     ).toBe(false);
   });
@@ -215,14 +215,14 @@ describe("fetchBrowserJson loopback auth (bridge auth registry)", () => {
 describe("browser server-context listKnownProfileNames", () => {
   it("includes configured and runtime-only profile names", () => {
     const resolved = resolveBrowserConfig({
-      defaultProfile: "openclaw",
+      defaultProfile: "klawty",
       profiles: {
-        openclaw: { cdpPort: 18800, color: "#FF4500" },
+        klawty: { cdpPort: 18800, color: "#FF4500" },
       },
     });
-    const openclaw = resolveProfile(resolved, "openclaw");
-    if (!openclaw) {
-      throw new Error("expected openclaw profile");
+    const klawty = resolveProfile(resolved, "klawty");
+    if (!klawty) {
+      throw new Error("expected klawty profile");
     }
 
     const state: BrowserServerState = {
@@ -233,13 +233,13 @@ describe("browser server-context listKnownProfileNames", () => {
         [
           "stale-removed",
           {
-            profile: { ...openclaw, name: "stale-removed" },
+            profile: { ...klawty, name: "stale-removed" },
             running: null,
           },
         ],
       ]),
     };
 
-    expect(listKnownProfileNames(state).toSorted()).toEqual(["openclaw", "stale-removed", "user"]);
+    expect(listKnownProfileNames(state).toSorted()).toEqual(["klawty", "stale-removed", "user"]);
   });
 });

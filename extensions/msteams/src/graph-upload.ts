@@ -79,8 +79,8 @@ export async function uploadToOneDrive(params: {
   tokenProvider: MSTeamsAccessTokenProvider;
   fetchFn?: typeof fetch;
 }): Promise<OneDriveUploadResult> {
-  // Use "OpenClawShared" folder to organize bot-uploaded files
-  const uploadPath = `/OpenClawShared/${encodeURIComponent(params.filename)}`;
+  // Use "KlawtyShared" folder to organize bot-uploaded files
+  const uploadPath = `/KlawtyShared/${encodeURIComponent(params.filename)}`;
   return await uploadDriveItem({
     ...params,
     url: `${GRAPH_ROOT}/me/drive/root:${uploadPath}:/content`,
@@ -194,8 +194,8 @@ export async function uploadToSharePoint(params: {
   siteId: string;
   fetchFn?: typeof fetch;
 }): Promise<OneDriveUploadResult> {
-  // Use "OpenClawShared" folder to organize bot-uploaded files
-  const uploadPath = `/OpenClawShared/${encodeURIComponent(params.filename)}`;
+  // Use "KlawtyShared" folder to organize bot-uploaded files
+  const uploadPath = `/KlawtyShared/${encodeURIComponent(params.filename)}`;
   return await uploadDriveItem({
     ...params,
     url: `${GRAPH_ROOT}/sites/${params.siteId}/drive/root:${uploadPath}:/content`,

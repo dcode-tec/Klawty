@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/brave-plugin",
-  "version": "2026.3.14",
+  "name": "@klawty/brave-plugin",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Brave plugin",
+  "description": "Klawty Brave plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/firecrawl-plugin",
-  "version": "2026.3.14",
+  "name": "@klawty/firecrawl-plugin",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Firecrawl plugin",
+  "description": "Klawty Firecrawl plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

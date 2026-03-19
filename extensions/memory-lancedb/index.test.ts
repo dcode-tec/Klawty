@@ -15,7 +15,7 @@ import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY ?? "test-key";
 const HAS_OPENAI_KEY = Boolean(process.env.OPENAI_API_KEY);
-const liveEnabled = HAS_OPENAI_KEY && process.env.OPENCLAW_LIVE_TEST === "1";
+const liveEnabled = HAS_OPENAI_KEY && process.env.KLAWTY_LIVE_TEST === "1";
 const describeLive = liveEnabled ? describe : describe.skip;
 
 type MemoryPluginTestConfig = {
@@ -52,7 +52,7 @@ function installTmpDirHarness(params: { prefix: string }) {
 }
 
 describe("memory plugin e2e", () => {
-  const { getDbPath } = installTmpDirHarness({ prefix: "openclaw-memory-test-" });
+  const { getDbPath } = installTmpDirHarness({ prefix: "klawty-memory-test-" });
 
   async function parseConfig(overrides: Record<string, unknown> = {}) {
     const { default: memoryPlugin } = await import("./index.js");
@@ -290,7 +290,7 @@ describe("memory plugin e2e", () => {
 
 // Live tests that require OpenAI API key and actually use LanceDB
 describeLive("memory plugin live tests", () => {
-  const { getDbPath } = installTmpDirHarness({ prefix: "openclaw-memory-live-" });
+  const { getDbPath } = installTmpDirHarness({ prefix: "klawty-memory-live-" });
 
   test("memory tools work end-to-end", async () => {
     const { default: memoryPlugin } = await import("./index.js");

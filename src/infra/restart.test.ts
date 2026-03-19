@@ -29,7 +29,7 @@ beforeEach(async () => {
   resolveGatewayPortMock.mockReset();
 
   resolveLsofCommandSyncMock.mockReturnValue("/usr/sbin/lsof");
-  resolveGatewayPortMock.mockReturnValue(18789);
+  resolveGatewayPortMock.mockReturnValue(2508);
   __testing.setSleepSyncOverride(() => {});
 });
 
@@ -39,28 +39,28 @@ afterEach(() => {
 });
 
 describe.runIf(process.platform !== "win32")("findGatewayPidsOnPortSync", () => {
-  it("parses lsof output and filters non-openclaw/current processes", () => {
+  it("parses lsof output and filters non-klawty/current processes", () => {
     spawnSyncMock.mockReturnValue({
       error: undefined,
       status: 0,
       stdout: [
         `p${process.pid}`,
-        "copenclaw",
+        "cklawty",
         "p4100",
-        "copenclaw-gateway",
+        "cklawty-gateway",
         "p4200",
         "cnode",
         "p4300",
-        "cOpenClaw",
+        "cKlawty",
       ].join("\n"),
     });
 
-    const pids = findGatewayPidsOnPortSync(18789);
+    const pids = findGatewayPidsOnPortSync(2508);
 
     expect(pids).toEqual([4100, 4300]);
     expect(spawnSyncMock).toHaveBeenCalledWith(
       "/usr/sbin/lsof",
-      ["-nP", "-iTCP:18789", "-sTCP:LISTEN", "-Fpc"],
+      ["-nP", "-iTCP:2508", "-sTCP:LISTEN", "-Fpc"],
       expect.objectContaining({ encoding: "utf8", timeout: 2000 }),
     );
   });
@@ -73,7 +73,7 @@ describe.runIf(process.platform !== "win32")("findGatewayPidsOnPortSync", () => 
       stderr: "lsof failed",
     });
 
-    expect(findGatewayPidsOnPortSync(18789)).toEqual([]);
+    expect(findGatewayPidsOnPortSync(2508)).toEqual([]);
   });
 });
 
@@ -82,7 +82,7 @@ describe.runIf(process.platform !== "win32")("cleanStaleGatewayProcessesSync", (
     spawnSyncMock.mockReturnValue({
       error: undefined,
       status: 0,
-      stdout: ["p6001", "copenclaw", "p6002", "copenclaw-gateway"].join("\n"),
+      stdout: ["p6001", "cklawty", "p6002", "cklawty-gateway"].join("\n"),
     });
     const killSpy = vi.spyOn(process, "kill").mockImplementation(() => true);
 
@@ -100,7 +100,7 @@ describe.runIf(process.platform !== "win32")("cleanStaleGatewayProcessesSync", (
     spawnSyncMock.mockReturnValue({
       error: undefined,
       status: 0,
-      stdout: ["p7001", "copenclaw"].join("\n"),
+      stdout: ["p7001", "cklawty"].join("\n"),
     });
     const killSpy = vi.spyOn(process, "kill").mockImplementation(() => true);
 

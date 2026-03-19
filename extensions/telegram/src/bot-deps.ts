@@ -1,12 +1,12 @@
-import { loadConfig, resolveStorePath } from "openclaw/plugin-sdk/config-runtime";
-import { readChannelAllowFromStore } from "openclaw/plugin-sdk/conversation-runtime";
-import { upsertChannelPairingRequest } from "openclaw/plugin-sdk/conversation-runtime";
-import { enqueueSystemEvent } from "openclaw/plugin-sdk/infra-runtime";
+import { loadConfig, resolveStorePath } from "klawty/plugin-sdk/config-runtime";
+import { readChannelAllowFromStore } from "klawty/plugin-sdk/conversation-runtime";
+import { upsertChannelPairingRequest } from "klawty/plugin-sdk/conversation-runtime";
+import { enqueueSystemEvent } from "klawty/plugin-sdk/infra-runtime";
 import {
   buildModelsProviderData,
   dispatchReplyWithBufferedBlockDispatcher,
   listSkillCommandsForAgents,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
 import { wasSentByBot } from "./sent-message-cache.js";
 
 export type TelegramBotDeps = {

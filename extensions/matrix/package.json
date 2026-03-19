@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/matrix",
+  "name": "@klawty/matrix",
   "version": "2026.3.11",
-  "description": "OpenClaw Matrix channel plugin",
+  "description": "Klawty Matrix channel plugin",
   "type": "module",
   "dependencies": {
     "@matrix-org/matrix-sdk-crypto-nodejs": "^0.4.0",
@@ -12,9 +12,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "openclaw": "workspace:*"
+    "klawty": "workspace:*"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],
@@ -30,7 +30,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/matrix",
+      "npmSpec": "@klawty/matrix",
       "localPath": "extensions/matrix",
       "defaultChoice": "npm"
     },

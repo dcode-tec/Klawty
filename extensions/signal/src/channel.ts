@@ -1,16 +1,16 @@
-import { buildDmGroupAccountAllowlistAdapter } from "openclaw/plugin-sdk/allowlist-config-edit";
+import { buildDmGroupAccountAllowlistAdapter } from "klawty/plugin-sdk/allowlist-config-edit";
 import {
   attachChannelToResult,
   createAttachedChannelResultAdapter,
   createPairingPrefixStripper,
   createTextPairingAdapter,
   resolveOutboundSendDep,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { attachChannelToResults } from "openclaw/plugin-sdk/channel-send-result";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/config-runtime";
-import { buildOutboundBaseSessionKey } from "openclaw/plugin-sdk/core";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-runtime";
-import { type RoutePeer } from "openclaw/plugin-sdk/routing";
+} from "klawty/plugin-sdk/channel-runtime";
+import { attachChannelToResults } from "klawty/plugin-sdk/channel-send-result";
+import { resolveMarkdownTableMode } from "klawty/plugin-sdk/config-runtime";
+import { buildOutboundBaseSessionKey } from "klawty/plugin-sdk/core";
+import { resolveTextChunkLimit } from "klawty/plugin-sdk/reply-runtime";
+import { type RoutePeer } from "klawty/plugin-sdk/routing";
 import { resolveSignalAccount, type ResolvedSignalAccount } from "./accounts.js";
 import { markdownToSignalTextChunks } from "./format.js";
 import {

@@ -6,25 +6,25 @@ import {
   mergeAllowlist,
   patchAllowlistUsersInConfigEntries,
   summarizeMapping,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/config-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { isDangerousNameMatchingEnabled } from "klawty/plugin-sdk/config-runtime";
 import {
   resolveOpenProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/config-runtime";
-import type { SessionScope } from "openclaw/plugin-sdk/config-runtime";
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/config-runtime";
-import { createConnectedChannelStatusPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { computeBackoff, sleepWithAbort } from "openclaw/plugin-sdk/infra-runtime";
-import { installRequestBodyLimitGuard } from "openclaw/plugin-sdk/infra-runtime";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-runtime";
-import { DEFAULT_GROUP_HISTORY_LIMIT } from "openclaw/plugin-sdk/reply-runtime";
-import { normalizeMainKey } from "openclaw/plugin-sdk/routing";
-import { warn } from "openclaw/plugin-sdk/runtime-env";
-import { createNonExitingRuntime, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { normalizeStringEntries } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/config-runtime";
+import type { SessionScope } from "klawty/plugin-sdk/config-runtime";
+import { normalizeResolvedSecretInputString } from "klawty/plugin-sdk/config-runtime";
+import { createConnectedChannelStatusPatch } from "klawty/plugin-sdk/gateway-runtime";
+import { computeBackoff, sleepWithAbort } from "klawty/plugin-sdk/infra-runtime";
+import { installRequestBodyLimitGuard } from "klawty/plugin-sdk/infra-runtime";
+import { resolveTextChunkLimit } from "klawty/plugin-sdk/reply-runtime";
+import { DEFAULT_GROUP_HISTORY_LIMIT } from "klawty/plugin-sdk/reply-runtime";
+import { normalizeMainKey } from "klawty/plugin-sdk/routing";
+import { warn } from "klawty/plugin-sdk/runtime-env";
+import { createNonExitingRuntime, type RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
+import { normalizeStringEntries } from "klawty/plugin-sdk/text-runtime";
 import { resolveSlackAccount } from "../accounts.js";
 import { resolveSlackWebClientOptions } from "../client.js";
 import { normalizeSlackWebhookPath, registerSlackHttpHandler } from "../http/index.js";

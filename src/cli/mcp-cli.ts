@@ -18,7 +18,7 @@ function printJson(value: unknown): void {
 }
 
 export function registerMcpCli(program: Command) {
-  const mcp = program.command("mcp").description("Manage OpenClaw MCP server config");
+  const mcp = program.command("mcp").description("Manage Klawty MCP server config");
 
   mcp
     .command("list")

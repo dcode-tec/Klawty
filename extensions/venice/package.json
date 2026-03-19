@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/venice-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/venice-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Venice provider plugin",
+  "description": "Klawty Venice provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

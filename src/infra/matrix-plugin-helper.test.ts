@@ -10,7 +10,7 @@ import {
 function writeMatrixPluginFixture(rootDir: string, helperBody: string): void {
   fs.mkdirSync(rootDir, { recursive: true });
   fs.writeFileSync(
-    path.join(rootDir, "openclaw.plugin.json"),
+    path.join(rootDir, "klawty.plugin.json"),
     JSON.stringify({
       id: "matrix",
       configSchema: {
@@ -61,7 +61,7 @@ describe("matrix plugin helper resolution", () => {
       },
       {
         env: {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: (home) => path.join(home, "bundled"),
+          KLAWTY_BUNDLED_PLUGINS_DIR: (home) => path.join(home, "bundled"),
         },
       },
     );
@@ -118,7 +118,7 @@ describe("matrix plugin helper resolution", () => {
       },
       {
         env: {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: (home) => path.join(home, "bundled"),
+          KLAWTY_BUNDLED_PLUGINS_DIR: (home) => path.join(home, "bundled"),
         },
       },
     );
@@ -132,7 +132,7 @@ describe("matrix plugin helper resolution", () => {
         fs.mkdirSync(customRoot, { recursive: true });
         fs.mkdirSync(outsideRoot, { recursive: true });
         fs.writeFileSync(
-          path.join(customRoot, "openclaw.plugin.json"),
+          path.join(customRoot, "klawty.plugin.json"),
           JSON.stringify({
             id: "matrix",
             configSchema: {
@@ -178,7 +178,7 @@ describe("matrix plugin helper resolution", () => {
       },
       {
         env: {
-          OPENCLAW_BUNDLED_PLUGINS_DIR: (home) => path.join(home, "empty-bundled"),
+          KLAWTY_BUNDLED_PLUGINS_DIR: (home) => path.join(home, "empty-bundled"),
         },
       },
     );

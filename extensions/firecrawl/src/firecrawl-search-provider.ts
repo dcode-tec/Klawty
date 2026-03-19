@@ -4,7 +4,7 @@ import {
   resolveProviderWebSearchPluginConfig,
   setProviderWebSearchPluginConfigValue,
   type WebSearchProviderPlugin,
-} from "openclaw/plugin-sdk/provider-web-search";
+} from "klawty/plugin-sdk/provider-web-search";
 import { runFirecrawlSearch } from "./firecrawl-client.js";
 
 const GenericFirecrawlSearchSchema = Type.Object(
@@ -49,7 +49,7 @@ export function createFirecrawlWebSearchProvider(): WebSearchProviderPlugin {
     envVars: ["FIRECRAWL_API_KEY"],
     placeholder: "fc-...",
     signupUrl: "https://www.firecrawl.dev/",
-    docsUrl: "https://docs.openclaw.ai/tools/firecrawl",
+    docsUrl: "https://docs.klawty.ai/tools/firecrawl",
     autoDetectOrder: 60,
     credentialPath: "plugins.entries.firecrawl.config.webSearch.apiKey",
     inactiveSecretPaths: ["plugins.entries.firecrawl.config.webSearch.apiKey"],
