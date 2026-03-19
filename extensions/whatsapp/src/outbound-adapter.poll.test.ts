@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../src/config/config.js";
 
 const hoisted = vi.hoisted(() => ({
   sendPollWhatsApp: vi.fn(async () => ({ messageId: "poll-1", toJid: "1555@s.whatsapp.net" })),
@@ -19,7 +19,7 @@ import { whatsappOutbound } from "./outbound-adapter.js";
 
 describe("whatsappOutbound sendPoll", () => {
   it("threads cfg through poll send options", async () => {
-    const cfg = { marker: "resolved-cfg" } as OpenClawConfig;
+    const cfg = { marker: "resolved-cfg" } as KlawtyConfig;
     const poll = {
       question: "Lunch?",
       options: ["Pizza", "Sushi"],

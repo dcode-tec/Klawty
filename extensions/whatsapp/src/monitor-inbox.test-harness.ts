@@ -2,7 +2,7 @@ import { EventEmitter } from "node:events";
 import fsSync from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { resetLogger, setLoggerOverride } from "openclaw/plugin-sdk/runtime-env";
+import { resetLogger, setLoggerOverride } from "klawty/plugin-sdk/runtime-env";
 import { afterEach, beforeEach, expect, vi } from "vitest";
 
 // Avoid exporting vitest mock types (TS2742 under pnpm + d.ts emit).
@@ -72,8 +72,8 @@ function createMockSock(): MockSock {
 
 const sock: MockSock = createMockSock();
 
-vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/media-runtime")>();
+vi.mock("klawty/plugin-sdk/media-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/media-runtime")>();
   return {
     ...actual,
     saveMediaBuffer: vi.fn().mockResolvedValue({
@@ -85,24 +85,24 @@ vi.mock("openclaw/plugin-sdk/media-runtime", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/config-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/config-runtime")>();
+vi.mock("klawty/plugin-sdk/config-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/config-runtime")>();
   return {
     ...actual,
     loadConfig: () => mockLoadConfig(),
   };
 });
 
-vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/conversation-runtime")>();
+vi.mock("klawty/plugin-sdk/conversation-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/conversation-runtime")>();
   return {
     ...actual,
     upsertChannelPairingRequest: (...args: unknown[]) => upsertPairingRequestMock(...args),
   };
 });
 
-vi.mock("openclaw/plugin-sdk/security-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/security-runtime")>();
+vi.mock("klawty/plugin-sdk/security-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/security-runtime")>();
   return {
     ...actual,
     readStoreAllowFromForDmPolicy: async (
@@ -159,7 +159,7 @@ export function installWebMonitorInboxUnitTestHooks(opts?: { authDir?: boolean }
     const { resetWebInboundDedupe } = await import("./inbound.js");
     resetWebInboundDedupe();
     if (createAuthDir) {
-      authDir = fsSync.mkdtempSync(path.join(os.tmpdir(), "openclaw-auth-"));
+      authDir = fsSync.mkdtempSync(path.join(os.tmpdir(), "klawty-auth-"));
     } else {
       authDir = undefined;
     }

@@ -1,4 +1,4 @@
-import { buildDmGroupAccountAllowlistAdapter } from "openclaw/plugin-sdk/allowlist-config-edit";
+import { buildDmGroupAccountAllowlistAdapter } from "klawty/plugin-sdk/allowlist-config-edit";
 // WhatsApp-specific imports from local extension code (moved from src/web/ and src/channels/plugins/)
 import { resolveWhatsAppAccount, type ResolvedWhatsAppAccount } from "./accounts.js";
 import type { WebChannelStatus } from "./auto-reply/types.js";

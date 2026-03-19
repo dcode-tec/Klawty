@@ -1,9 +1,9 @@
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
+import { createLazyRuntimeNamedExport } from "klawty/plugin-sdk/lazy-runtime";
 import { listEnabledZaloAccounts } from "./accounts.js";
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
-  OpenClawConfig,
+  KlawtyConfig,
 } from "./runtime-api.js";
 import { extractToolSend, jsonResult, readStringParam } from "./runtime-api.js";
 
@@ -14,7 +14,7 @@ const loadZaloActionsRuntime = createLazyRuntimeNamedExport(
 
 const providerId = "zalo";
 
-function listEnabledAccounts(cfg: OpenClawConfig) {
+function listEnabledAccounts(cfg: KlawtyConfig) {
   return listEnabledZaloAccounts(cfg).filter(
     (account) => account.enabled && account.tokenSource !== "none",
   );

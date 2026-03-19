@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import { normalizeProviderId } from "../model-selection.js";
 import type { AuthProfileStore } from "./types.js";
 
@@ -12,7 +12,7 @@ function loadProviderRuntime() {
 }
 
 export async function formatAuthDoctorHint(params: {
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   store: AuthProfileStore;
   provider: string;
   profileId?: string;

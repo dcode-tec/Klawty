@@ -1,5 +1,5 @@
 import { ChannelType, PermissionFlagsBits, Routes } from "discord-api-types/v10";
-import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+import { loadWebMedia } from "klawty/plugin-sdk/web-media";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   __resetDiscordDirectoryCacheForTest,
@@ -21,7 +21,7 @@ import {
 } from "./send.js";
 import { makeDiscordRest } from "./send.test-harness.js";
 
-vi.mock("openclaw/plugin-sdk/web-media", async () => {
+vi.mock("klawty/plugin-sdk/web-media", async () => {
   const { discordWebMediaMockFactory } = await import("./send.test-harness.js");
   return discordWebMediaMockFactory();
 });

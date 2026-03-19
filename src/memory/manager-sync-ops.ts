@@ -6,7 +6,7 @@ import type { DatabaseSync } from "node:sqlite";
 import chokidar, { FSWatcher } from "chokidar";
 import { resolveAgentDir } from "../agents/agent-scope.js";
 import { ResolvedMemorySearchConfig } from "../agents/memory-search.js";
-import { type OpenClawConfig } from "../config/config.js";
+import { type KlawtyConfig } from "../config/config.js";
 import { resolveSessionTranscriptsDirForAgent } from "../config/sessions/paths.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { onSessionTranscriptUpdate } from "../sessions/transcript-events.js";
@@ -95,7 +95,7 @@ function shouldIgnoreMemoryWatchPath(watchPath: string): boolean {
 }
 
 export abstract class MemoryManagerSyncOps {
-  protected abstract readonly cfg: OpenClawConfig;
+  protected abstract readonly cfg: KlawtyConfig;
   protected abstract readonly agentId: string;
   protected abstract readonly workspaceDir: string;
   protected abstract readonly settings: ResolvedMemorySearchConfig;
@@ -968,8 +968,8 @@ export abstract class MemoryManagerSyncOps {
           this.shouldFallbackOnError(reason) && (await this.activateFallbackProvider(reason));
         if (activated) {
           if (
-            process.env.OPENCLAW_TEST_FAST === "1" &&
-            process.env.OPENCLAW_TEST_MEMORY_UNSAFE_REINDEX === "1"
+            process.env.KLAWTY_TEST_FAST === "1" &&
+            process.env.KLAWTY_TEST_MEMORY_UNSAFE_REINDEX === "1"
           ) {
             await this.runUnsafeReindex({
               reason: params?.reason,
@@ -1003,8 +1003,8 @@ export abstract class MemoryManagerSyncOps {
     try {
       if (needsFullReindex) {
         if (
-          process.env.OPENCLAW_TEST_FAST === "1" &&
-          process.env.OPENCLAW_TEST_MEMORY_UNSAFE_REINDEX === "1"
+          process.env.KLAWTY_TEST_FAST === "1" &&
+          process.env.KLAWTY_TEST_MEMORY_UNSAFE_REINDEX === "1"
         ) {
           await this.runUnsafeReindex({
             reason: params?.reason,

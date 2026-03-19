@@ -1,4 +1,4 @@
-export type { OpenClawConfig } from "../config/config.js";
+export type { KlawtyConfig } from "../config/config.js";
 export type { LineConfig } from "../line/types.js";
 export {
   createTopLevelChannelDmPolicy,

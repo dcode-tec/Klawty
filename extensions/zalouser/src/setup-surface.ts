@@ -11,8 +11,8 @@ import {
   type ChannelSetupDmPolicy,
   type ChannelSetupWizard,
   type DmPolicy,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/setup";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/setup";
 import {
   listZalouserAccountIds,
   resolveDefaultZalouserAccountId,
@@ -47,35 +47,35 @@ function parseZalouserEntries(raw: string): string[] {
 }
 
 function setZalouserAccountScopedConfig(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   accountId: string,
   defaultPatch: Record<string, unknown>,
   accountPatch: Record<string, unknown> = defaultPatch,
-): OpenClawConfig {
+): KlawtyConfig {
   return patchScopedAccountConfig({
     cfg,
     channelKey: channel,
     accountId,
     patch: defaultPatch,
     accountPatch,
-  }) as OpenClawConfig;
+  }) as KlawtyConfig;
 }
 
 function setZalouserGroupPolicy(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   accountId: string,
   groupPolicy: "open" | "allowlist" | "disabled",
-): OpenClawConfig {
+): KlawtyConfig {
   return setZalouserAccountScopedConfig(cfg, accountId, {
     groupPolicy,
   });
 }
 
 function setZalouserGroupAllowlist(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   accountId: string,
   groupKeys: string[],
-): OpenClawConfig {
+): KlawtyConfig {
   const groups = Object.fromEntries(
     groupKeys.map((key) => [key, { allow: true, requireMention: true }]),
   );
@@ -84,8 +84,8 @@ function setZalouserGroupAllowlist(
   });
 }
 
-function ensureZalouserPluginEnabled(cfg: OpenClawConfig): OpenClawConfig {
-  const next: OpenClawConfig = {
+function ensureZalouserPluginEnabled(cfg: KlawtyConfig): KlawtyConfig {
+  const next: KlawtyConfig = {
     ...cfg,
     plugins: {
       ...cfg.plugins,
@@ -127,10 +127,10 @@ async function noteZalouserHelp(
 }
 
 async function promptZalouserAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   prompter: Parameters<NonNullable<ChannelSetupDmPolicy["promptAllowFrom"]>>[0]["prompter"];
   accountId: string;
-}): Promise<OpenClawConfig> {
+}): Promise<KlawtyConfig> {
   const { cfg, prompter, accountId } = params;
   const resolved = resolveZalouserAccountSync({ cfg, accountId });
   const existingAllowFrom = resolved.config.allowFrom ?? [];
@@ -147,7 +147,7 @@ async function promptZalouserAllowFrom(params: {
         [
           "No DM allowlist entries added yet.",
           "Direct chats will stay blocked until you add people later.",
-          `Tip: use \`${formatCliCommand("openclaw directory peers list --channel zalouser")}\` to look up people after onboarding.`,
+          `Tip: use \`${formatCliCommand("klawty directory peers list --channel zalouser")}\` to look up people after onboarding.`,
         ].join("\n"),
         ZALOUSER_ALLOWLIST_TITLE,
       );
@@ -199,9 +199,9 @@ const zalouserDmPolicy: ChannelSetupDmPolicy = createTopLevelChannelDmPolicy({
     const id =
       accountId && normalizeAccountId(accountId)
         ? (normalizeAccountId(accountId) ?? DEFAULT_ACCOUNT_ID)
-        : resolveDefaultZalouserAccountId(cfg as OpenClawConfig);
+        : resolveDefaultZalouserAccountId(cfg as KlawtyConfig);
     return await promptZalouserAllowFrom({
-      cfg: cfg as OpenClawConfig,
+      cfg: cfg as KlawtyConfig,
       prompter,
       accountId: id,
     });
@@ -209,10 +209,10 @@ const zalouserDmPolicy: ChannelSetupDmPolicy = createTopLevelChannelDmPolicy({
 });
 
 async function promptZalouserQuickstartDmPolicy(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   prompter: Parameters<NonNullable<ChannelSetupWizard["prepare"]>>[0]["prompter"];
   accountId: string;
-}): Promise<OpenClawConfig> {
+}): Promise<KlawtyConfig> {
   const { cfg, prompter, accountId } = params;
   const resolved = resolveZalouserAccountSync({ cfg, accountId });
   const existingPolicy = (cfg.channels?.zalouser?.dmPolicy ?? "pairing") as DmPolicy;
@@ -375,21 +375,21 @@ export const zalouserSetupWizard: ChannelSetupWizard = {
     updatePrompt: ({ cfg, accountId }) =>
       Boolean(resolveZalouserAccountSync({ cfg, accountId }).config.groups),
     setPolicy: ({ cfg, accountId, policy }) =>
-      setZalouserGroupPolicy(cfg as OpenClawConfig, accountId, policy),
+      setZalouserGroupPolicy(cfg as KlawtyConfig, accountId, policy),
     resolveAllowlist: async ({ cfg, accountId, entries, prompter }) => {
       if (entries.length === 0) {
         await prompter.note(
           [
             "No group allowlist entries added yet.",
             "Group chats will stay blocked until you add groups later.",
-            `Tip: use \`${formatCliCommand("openclaw directory groups list --channel zalouser")}\` after onboarding to find group IDs.`,
+            `Tip: use \`${formatCliCommand("klawty directory groups list --channel zalouser")}\` after onboarding to find group IDs.`,
             "Mention requirement stays on by default for groups you allow later.",
           ].join("\n"),
           ZALOUSER_GROUPS_TITLE,
         );
         return [];
       }
-      const updatedAccount = resolveZalouserAccountSync({ cfg: cfg as OpenClawConfig, accountId });
+      const updatedAccount = resolveZalouserAccountSync({ cfg: cfg as KlawtyConfig, accountId });
       try {
         const resolved = await resolveZaloGroupsByEntries({
           profile: updatedAccount.profile,
@@ -417,7 +417,7 @@ export const zalouserSetupWizard: ChannelSetupWizard = {
       }
     },
     applyAllowlist: ({ cfg, accountId, resolved }) =>
-      setZalouserGroupAllowlist(cfg as OpenClawConfig, accountId, resolved as string[]),
+      setZalouserGroupAllowlist(cfg as KlawtyConfig, accountId, resolved as string[]),
   },
   finalize: async ({ cfg, accountId, forceAllowFrom, options, prompter }) => {
     let next = cfg;

@@ -1,7 +1,7 @@
 import {
   buildChannelOutboundSessionRoute,
   type ChannelOutboundSessionRouteParams,
-} from "openclaw/plugin-sdk/core";
+} from "klawty/plugin-sdk/core";
 
 function stripZalouserTargetPrefix(raw: string): string {
   return raw

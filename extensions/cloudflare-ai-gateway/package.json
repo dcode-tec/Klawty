@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/cloudflare-ai-gateway-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/cloudflare-ai-gateway-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Cloudflare AI Gateway provider plugin",
+  "description": "Klawty Cloudflare AI Gateway provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

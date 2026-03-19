@@ -72,7 +72,7 @@ vi.mock("../api.js", () => ({
     }
     return undefined;
   },
-  resolvePreferredOpenClawTmpDir: () => "/tmp",
+  resolvePreferredKlawtyTmpDir: () => "/tmp",
   supportsXHighThinking: () => false,
 }));
 

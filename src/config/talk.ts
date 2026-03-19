@@ -7,7 +7,7 @@ import type {
   TalkConfigResponse,
   TalkProviderConfig,
 } from "./types.gateway.js";
-import type { OpenClawConfig } from "./types.js";
+import type { KlawtyConfig } from "./types.js";
 import { coerceSecretRef } from "./types.secrets.js";
 
 type TalkApiKeyDeps = {
@@ -242,7 +242,7 @@ export function normalizeTalkSection(value: TalkConfig | undefined): TalkConfig 
   return Object.keys(normalized).length > 0 ? normalized : undefined;
 }
 
-export function normalizeTalkConfig(config: OpenClawConfig): OpenClawConfig {
+export function normalizeTalkConfig(config: KlawtyConfig): KlawtyConfig {
   if (!config.talk) {
     return config;
   }

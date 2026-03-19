@@ -11,7 +11,7 @@ import type { CoreAgentDeps, CoreConfig } from "./core-bridge.js";
 export type VoiceResponseParams = {
   /** Voice call config */
   voiceConfig: VoiceCallConfig;
-  /** Core OpenClaw config */
+  /** Core Klawty config */
   coreConfig: CoreConfig;
   /** Injected host agent runtime */
   agentRuntime: CoreAgentDeps;

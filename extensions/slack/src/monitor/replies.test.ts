@@ -62,7 +62,7 @@ describe("deliverReplies identity passthrough", () => {
         elements: [
           {
             type: "button",
-            action_id: "openclaw:reply_button",
+            action_id: "klawty:reply_button",
             text: { type: "plain_text", text: "Option A" },
             value: "reply_1_option_a",
           },

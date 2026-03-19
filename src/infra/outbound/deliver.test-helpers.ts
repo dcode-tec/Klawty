@@ -4,7 +4,7 @@ import {
   telegramOutbound,
   whatsappOutbound,
 } from "../../../test/channel-outbounds.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { createOutboundTestPlugin, createTestRegistry } from "../../test-utils/channel-plugins.js";
 import { createIMessageTestPlugin } from "../../test-utils/imessage-test-plugin.js";
@@ -143,7 +143,7 @@ vi.mock("../../logging/subsystem.js", () => ({
   },
 }));
 
-export const whatsappChunkConfig: OpenClawConfig = {
+export const whatsappChunkConfig: KlawtyConfig = {
   channels: { whatsapp: { textChunkLimit: 4000 } },
 };
 
@@ -227,7 +227,7 @@ export async function runChunkedWhatsAppDelivery(params: {
     >()
     .mockResolvedValueOnce({ messageId: "w1", toJid: "jid" })
     .mockResolvedValueOnce({ messageId: "w2", toJid: "jid" });
-  const cfg: OpenClawConfig = {
+  const cfg: KlawtyConfig = {
     channels: { whatsapp: { textChunkLimit: 2 } },
   };
   const results = await params.deliverOutboundPayloads({

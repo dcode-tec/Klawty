@@ -1,4 +1,4 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk/matrix";
+import type { PluginRuntime } from "klawty/plugin-sdk/matrix";
 import { beforeEach, describe, expect, it } from "vitest";
 import { matrixMessageActions } from "./actions.js";
 import { setMatrixRuntime } from "./runtime.js";
@@ -18,7 +18,7 @@ const runtimeStub = {
     resizeToJpeg: async () => Buffer.from(""),
   },
   state: {
-    resolveStateDir: () => "/tmp/openclaw-matrix-test",
+    resolveStateDir: () => "/tmp/klawty-matrix-test",
   },
   channel: {
     text: {

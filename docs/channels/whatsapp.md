@@ -11,17 +11,17 @@ Status: production-ready via WhatsApp Web (Baileys). Gateway owns linked session
 
 ## Install (on demand)
 
-- Onboarding (`openclaw onboard`) and `openclaw channels add --channel whatsapp`
+- Onboarding (`klawty onboard`) and `klawty channels add --channel whatsapp`
   prompt to install the WhatsApp plugin the first time you select it.
-- `openclaw channels login --channel whatsapp` also offers the install flow when
+- `klawty channels login --channel whatsapp` also offers the install flow when
   the plugin is not present yet.
 - Dev channel + git checkout: defaults to the local plugin path.
-- Stable/Beta: defaults to the npm package `@openclaw/whatsapp`.
+- Stable/Beta: defaults to the npm package `@klawty/whatsapp`.
 
 Manual install stays available:
 
 ```bash
-openclaw plugins install @openclaw/whatsapp
+klawty plugins install @klawty/whatsapp
 ```
 
 <CardGroup cols={3}>
@@ -59,13 +59,13 @@ openclaw plugins install @openclaw/whatsapp
   <Step title="Link WhatsApp (QR)">
 
 ```bash
-openclaw channels login --channel whatsapp
+klawty channels login --channel whatsapp
 ```
 
     For a specific account:
 
 ```bash
-openclaw channels login --channel whatsapp --account work
+klawty channels login --channel whatsapp --account work
 ```
 
   </Step>
@@ -73,7 +73,7 @@ openclaw channels login --channel whatsapp --account work
   <Step title="Start the gateway">
 
 ```bash
-openclaw gateway
+klawty gateway
 ```
 
   </Step>
@@ -81,8 +81,8 @@ openclaw gateway
   <Step title="Approve first pairing request (if using pairing mode)">
 
 ```bash
-openclaw pairing list whatsapp
-openclaw pairing approve whatsapp <CODE>
+klawty pairing list whatsapp
+klawty pairing approve whatsapp <CODE>
 ```
 
     Pairing requests expire after 1 hour. Pending requests are capped at 3 per channel.
@@ -91,7 +91,7 @@ openclaw pairing approve whatsapp <CODE>
 </Steps>
 
 <Note>
-OpenClaw recommends running WhatsApp on a separate number when possible. (The channel metadata and setup flow are optimized for that setup, but personal-number setups are also supported.)
+Klawty recommends running WhatsApp on a separate number when possible. (The channel metadata and setup flow are optimized for that setup, but personal-number setups are also supported.)
 </Note>
 
 ## Deployment patterns
@@ -100,7 +100,7 @@ OpenClaw recommends running WhatsApp on a separate number when possible. (The ch
   <Accordion title="Dedicated number (recommended)">
     This is the cleanest operational mode:
 
-    - separate WhatsApp identity for OpenClaw
+    - separate WhatsApp identity for Klawty
     - clearer DM allowlists and routing boundaries
     - lower chance of self-chat confusion
 
@@ -131,7 +131,7 @@ OpenClaw recommends running WhatsApp on a separate number when possible. (The ch
   </Accordion>
 
   <Accordion title="WhatsApp Web-only channel scope">
-    The messaging platform channel is WhatsApp Web-based (`Baileys`) in current OpenClaw channel architecture.
+    The messaging platform channel is WhatsApp Web-based (`Baileys`) in current Klawty channel architecture.
 
     There is no separate Twilio WhatsApp messaging channel in the built-in chat-channel registry.
 
@@ -220,7 +220,7 @@ When the linked self number is also present in `allowFrom`, WhatsApp self-chat s
 
 - skip read receipts for self-chat turns
 - ignore mention-JID auto-trigger behavior that would otherwise ping yourself
-- if `messages.responsePrefix` is unset, self-chat replies default to `[{identity.name}]` or `[openclaw]`
+- if `messages.responsePrefix` is unset, self-chat replies default to `[{identity.name}]` or `[klawty]`
 
 ## Message normalization and context
 
@@ -365,13 +365,13 @@ Behavior notes:
   </Accordion>
 
   <Accordion title="Credential paths and legacy compatibility">
-    - current auth path: `~/.openclaw/credentials/whatsapp/<accountId>/creds.json`
+    - current auth path: `~/.klawty/credentials/whatsapp/<accountId>/creds.json`
     - backup file: `creds.json.bak`
-    - legacy default auth in `~/.openclaw/credentials/` is still recognized/migrated for default-account flows
+    - legacy default auth in `~/.klawty/credentials/` is still recognized/migrated for default-account flows
   </Accordion>
 
   <Accordion title="Logout behavior">
-    `openclaw channels logout --channel whatsapp [--account <id>]` clears WhatsApp auth state for that account.
+    `klawty channels logout --channel whatsapp [--account <id>]` clears WhatsApp auth state for that account.
 
     In legacy auth directories, `oauth.json` is preserved while Baileys auth files are removed.
 
@@ -395,8 +395,8 @@ Behavior notes:
     Fix:
 
     ```bash
-    openclaw channels login --channel whatsapp
-    openclaw channels status
+    klawty channels login --channel whatsapp
+    klawty channels status
     ```
 
   </Accordion>
@@ -407,8 +407,8 @@ Behavior notes:
     Fix:
 
     ```bash
-    openclaw doctor
-    openclaw logs --follow
+    klawty doctor
+    klawty logs --follow
     ```
 
     If needed, re-link with `channels login`.
@@ -429,7 +429,7 @@ Behavior notes:
     - `groupAllowFrom` / `allowFrom`
     - `groups` allowlist entries
     - mention gating (`requireMention` + mention patterns)
-    - duplicate keys in `openclaw.json` (JSON5): later entries override earlier ones, so keep a single `groupPolicy` per scope
+    - duplicate keys in `klawty.json` (JSON5): later entries override earlier ones, so keep a single `groupPolicy` per scope
 
   </Accordion>
 

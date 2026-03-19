@@ -1,13 +1,13 @@
 import {
   applyAgentDefaultModelPrimary,
   applyProviderConfigWithDefaultModels,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/provider-onboard";
 import { buildXiaomiProvider, XIAOMI_DEFAULT_MODEL_ID } from "./provider-catalog.js";
 
 export const XIAOMI_DEFAULT_MODEL_REF = `xiaomi/${XIAOMI_DEFAULT_MODEL_ID}`;
 
-export function applyXiaomiProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyXiaomiProviderConfig(cfg: KlawtyConfig): KlawtyConfig {
   const models = { ...cfg.agents?.defaults?.models };
   models[XIAOMI_DEFAULT_MODEL_REF] = {
     ...models[XIAOMI_DEFAULT_MODEL_REF],
@@ -25,6 +25,6 @@ export function applyXiaomiProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
   });
 }
 
-export function applyXiaomiConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applyXiaomiConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applyAgentDefaultModelPrimary(applyXiaomiProviderConfig(cfg), XIAOMI_DEFAULT_MODEL_REF);
 }

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import { detectBinary as defaultDetectBinary } from "../../plugins/setup-binary.js";
 import type {
   ChannelSetupWizard,
@@ -18,8 +18,8 @@ export function createDetectedBinaryStatus(params: {
   unconfiguredHint: string;
   configuredScore: number;
   unconfiguredScore: number;
-  resolveConfigured: (params: { cfg: OpenClawConfig }) => boolean | Promise<boolean>;
-  resolveBinaryPath: (params: { cfg: OpenClawConfig }) => string;
+  resolveConfigured: (params: { cfg: KlawtyConfig }) => boolean | Promise<boolean>;
+  resolveBinaryPath: (params: { cfg: KlawtyConfig }) => string;
   detectBinary?: (path: string) => Promise<boolean>;
 }): ChannelSetupWizardStatus {
   const detectBinary = params.detectBinary ?? defaultDetectBinary;

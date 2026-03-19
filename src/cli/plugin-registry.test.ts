@@ -4,7 +4,7 @@ const mocks = vi.hoisted(() => ({
   resolveAgentWorkspaceDir: vi.fn(() => "/tmp/workspace"),
   resolveDefaultAgentId: vi.fn(() => "main"),
   loadConfig: vi.fn(),
-  loadOpenClawPlugins: vi.fn(),
+  loadKlawtyPlugins: vi.fn(),
   loadPluginManifestRegistry: vi.fn(),
   getActivePluginRegistry: vi.fn(),
 }));
@@ -19,7 +19,7 @@ vi.mock("../config/config.js", () => ({
 }));
 
 vi.mock("../plugins/loader.js", () => ({
-  loadOpenClawPlugins: mocks.loadOpenClawPlugins,
+  loadKlawtyPlugins: mocks.loadKlawtyPlugins,
 }));
 
 vi.mock("../plugins/manifest-registry.js", () => ({
@@ -57,7 +57,7 @@ describe("ensurePluginRegistryLoaded", () => {
 
     ensurePluginRegistryLoaded({ scope: "configured-channels" });
 
-    expect(mocks.loadOpenClawPlugins).toHaveBeenCalledWith(
+    expect(mocks.loadKlawtyPlugins).toHaveBeenCalledWith(
       expect.objectContaining({
         onlyPluginIds: [],
       }),
@@ -82,12 +82,12 @@ describe("ensurePluginRegistryLoaded", () => {
     ensurePluginRegistryLoaded({ scope: "configured-channels" });
     ensurePluginRegistryLoaded({ scope: "channels" });
 
-    expect(mocks.loadOpenClawPlugins).toHaveBeenCalledTimes(2);
-    expect(mocks.loadOpenClawPlugins).toHaveBeenNthCalledWith(
+    expect(mocks.loadKlawtyPlugins).toHaveBeenCalledTimes(2);
+    expect(mocks.loadKlawtyPlugins).toHaveBeenNthCalledWith(
       1,
       expect.objectContaining({ onlyPluginIds: [] }),
     );
-    expect(mocks.loadOpenClawPlugins).toHaveBeenNthCalledWith(
+    expect(mocks.loadKlawtyPlugins).toHaveBeenNthCalledWith(
       2,
       expect.objectContaining({ onlyPluginIds: ["telegram", "slack"] }),
     );

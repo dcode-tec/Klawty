@@ -13,9 +13,9 @@ describe("formatRuntimeStatusWithDetails", () => {
         status: "running",
         pid: 1234,
         state: "sleeping",
-        details: ["healthy", "", "port 18789"],
+        details: ["healthy", "", "port 2508"],
       }),
-    ).toBe("running (pid 1234, state sleeping, healthy, port 18789)");
+    ).toBe("running (pid 1234, state sleeping, healthy, port 2508)");
   });
 
   it("trims distinct state and detail text before formatting", () => {
@@ -23,9 +23,9 @@ describe("formatRuntimeStatusWithDetails", () => {
       formatRuntimeStatusWithDetails({
         status: "running",
         state: " sleeping ",
-        details: [" healthy ", "  port 18789  "],
+        details: [" healthy ", "  port 2508  "],
       }),
-    ).toBe("running (state sleeping, healthy, port 18789)");
+    ).toBe("running (state sleeping, healthy, port 2508)");
   });
 
   it("omits duplicate state text and falsy pid values", () => {

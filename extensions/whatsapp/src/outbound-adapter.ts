@@ -1,13 +1,13 @@
-import { sendTextMediaPayload } from "openclaw/plugin-sdk/channel-runtime";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveOutboundSendDep } from "openclaw/plugin-sdk/channel-runtime";
+import { sendTextMediaPayload } from "klawty/plugin-sdk/channel-runtime";
+import type { ChannelOutboundAdapter } from "klawty/plugin-sdk/channel-runtime";
+import { resolveOutboundSendDep } from "klawty/plugin-sdk/channel-runtime";
 import {
   createAttachedChannelResultAdapter,
   createEmptyChannelResult,
-} from "openclaw/plugin-sdk/channel-send-result";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import { chunkText } from "openclaw/plugin-sdk/reply-runtime";
-import { shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "klawty/plugin-sdk/channel-send-result";
+import { resolveSendableOutboundReplyParts } from "klawty/plugin-sdk/reply-payload";
+import { chunkText } from "klawty/plugin-sdk/reply-runtime";
+import { shouldLogVerbose } from "klawty/plugin-sdk/runtime-env";
 import { resolveWhatsAppOutboundTarget } from "./runtime-api.js";
 import { sendMessageWhatsApp, sendPollWhatsApp } from "./send.js";
 

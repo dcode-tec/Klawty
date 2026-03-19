@@ -1,20 +1,20 @@
-import { createScopedDmSecurityResolver } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createAccountStatusSink } from "openclaw/plugin-sdk/channel-lifecycle";
+import { createScopedDmSecurityResolver } from "klawty/plugin-sdk/channel-config-helpers";
+import { createAccountStatusSink } from "klawty/plugin-sdk/channel-lifecycle";
 import {
   createEmptyChannelResult,
   createPairingPrefixStripper,
   createRawChannelSendResultAdapter,
   createStaticReplyToModeResolver,
   createTextPairingAdapter,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
+} from "klawty/plugin-sdk/channel-runtime";
+import { buildPassiveProbedChannelStatusSummary } from "klawty/plugin-sdk/extension-shared";
 import type {
   ChannelAccountSnapshot,
   ChannelDirectoryEntry,
   ChannelGroupContext,
   ChannelMessageActionAdapter,
   ChannelPlugin,
-  OpenClawConfig,
+  KlawtyConfig,
   GroupToolPolicyConfig,
 } from "../runtime-api.js";
 import {
@@ -155,11 +155,11 @@ function resolveZalouserQrProfile(accountId?: string | null): string {
   return normalized;
 }
 
-function resolveZalouserOutboundChunkMode(cfg: OpenClawConfig, accountId?: string) {
+function resolveZalouserOutboundChunkMode(cfg: KlawtyConfig, accountId?: string) {
   return getZalouserRuntime().channel.text.resolveChunkMode(cfg, "zalouser", accountId);
 }
 
-function resolveZalouserOutboundTextChunkLimit(cfg: OpenClawConfig, accountId?: string) {
+function resolveZalouserOutboundTextChunkLimit(cfg: KlawtyConfig, accountId?: string) {
   return getZalouserRuntime().channel.text.resolveTextChunkLimit(cfg, "zalouser", accountId, {
     fallbackLimit: ZALOUSER_TEXT_CHUNK_LIMIT,
   });

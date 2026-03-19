@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import type { MemoryIndexManager } from "./index.js";
 
 export async function getRequiredMemoryIndexManager(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   agentId?: string;
 }): Promise<MemoryIndexManager> {
   await import("./embedding.test-mocks.js");

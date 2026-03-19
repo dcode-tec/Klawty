@@ -13,8 +13,8 @@ export {
   ToolAuthorizationError,
   WhatsAppConfigSchema,
   type ChannelPlugin,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/whatsapp-core";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/whatsapp-core";
 
 export {
   createWhatsAppOutboundBase,
@@ -26,6 +26,6 @@ export {
   type DmPolicy,
   type GroupPolicy,
   type WhatsAppAccountConfig,
-} from "openclaw/plugin-sdk/whatsapp-shared";
+} from "klawty/plugin-sdk/whatsapp-shared";
 
 export { monitorWebChannel } from "./channel.runtime.js";

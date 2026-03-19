@@ -1,4 +1,4 @@
-import type { RuntimeEnv } from "openclaw/plugin-sdk/matrix";
+import type { RuntimeEnv } from "klawty/plugin-sdk/matrix";
 import { describe, expect, it, vi } from "vitest";
 import type { CoreConfig, MatrixRoomConfig } from "../../types.js";
 import { resolveMatrixMonitorConfig } from "./config.js";

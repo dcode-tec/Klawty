@@ -1,14 +1,14 @@
 {
-  "name": "@openclaw/slack",
-  "version": "2026.3.14",
+  "name": "@klawty/slack",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Slack channel plugin",
+  "description": "Klawty Slack channel plugin",
   "type": "module",
   "dependencies": {
     "@slack/bolt": "^4.6.0",
     "@slack/web-api": "^7.15.0"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],

@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/moonshot-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/moonshot-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Moonshot provider plugin",
+  "description": "Klawty Moonshot provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

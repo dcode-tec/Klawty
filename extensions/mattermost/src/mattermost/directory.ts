@@ -1,4 +1,4 @@
-import type { ChannelDirectoryEntry, OpenClawConfig, RuntimeEnv } from "../runtime-api.js";
+import type { ChannelDirectoryEntry, KlawtyConfig, RuntimeEnv } from "../runtime-api.js";
 import { listMattermostAccountIds, resolveMattermostAccount } from "./accounts.js";
 import {
   createMattermostClient,
@@ -9,7 +9,7 @@ import {
 } from "./client.js";
 
 export type MattermostDirectoryParams = {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId?: string | null;
   query?: string | null;
   limit?: number | null;
@@ -17,7 +17,7 @@ export type MattermostDirectoryParams = {
 };
 
 function buildClient(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId?: string | null;
 }): MattermostClient | null {
   const account = resolveMattermostAccount({ cfg: params.cfg, accountId: params.accountId });

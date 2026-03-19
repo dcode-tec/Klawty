@@ -1,7 +1,7 @@
 ---
 read_when:
-  - 你想从终端搜索实时 OpenClaw 文档
-summary: "`openclaw docs` 的 CLI 参考（搜索实时文档索引）"
+  - 你想从终端搜索实时 Klawty 文档
+summary: "`klawty docs` 的 CLI 参考（搜索实时文档索引）"
 title: docs
 x-i18n:
   generated_at: "2026-02-03T07:44:50Z"
@@ -12,11 +12,11 @@ x-i18n:
   workflow: 15
 ---
 
-# `openclaw docs`
+# `klawty docs`
 
 搜索实时文档索引。
 
 ```bash
-openclaw docs browser extension
-openclaw docs sandbox allowHostControl
+klawty docs browser extension
+klawty docs sandbox allowHostControl
 ```

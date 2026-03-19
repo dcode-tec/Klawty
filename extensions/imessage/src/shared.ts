@@ -2,9 +2,9 @@ import {
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
   formatTrimmedAllowFromEntries,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { createAllowlistProviderRestrictSendersWarningCollector } from "openclaw/plugin-sdk/channel-policy";
-import { createChannelPluginBase } from "openclaw/plugin-sdk/core";
+} from "klawty/plugin-sdk/channel-config-helpers";
+import { createAllowlistProviderRestrictSendersWarningCollector } from "klawty/plugin-sdk/channel-policy";
+import { createChannelPluginBase } from "klawty/plugin-sdk/core";
 import {
   buildChannelConfigSchema,
   getChatChannelMeta,

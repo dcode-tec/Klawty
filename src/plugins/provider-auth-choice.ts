@@ -1,4 +1,4 @@
-import { resolveOpenClawAgentDir } from "../agents/agent-paths.js";
+import { resolveKlawtyAgentDir } from "../agents/agent-paths.js";
 import {
   resolveDefaultAgentId,
   resolveAgentDir,
@@ -6,7 +6,7 @@ import {
 } from "../agents/agent-scope.js";
 import { upsertAuthProfile } from "../agents/auth-profiles.js";
 import { resolveDefaultAgentWorkspaceDir } from "../agents/workspace.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { enablePluginInConfig } from "./enable.js";
@@ -23,7 +23,7 @@ import type { ProviderAuthMethod, ProviderAuthOptionBag } from "./types.js";
 
 export type ApplyProviderAuthChoiceParams = {
   authChoice: string;
-  config: OpenClawConfig;
+  config: KlawtyConfig;
   prompter: WizardPrompter;
   runtime: RuntimeEnv;
   agentDir?: string;
@@ -33,7 +33,7 @@ export type ApplyProviderAuthChoiceParams = {
 };
 
 export type ApplyProviderAuthChoiceResult = {
-  config: OpenClawConfig;
+  config: KlawtyConfig;
   agentModelOverride?: string;
 };
 
@@ -46,9 +46,9 @@ export type PluginProviderAuthChoiceOptions = {
 };
 
 function restoreConfiguredPrimaryModel(
-  nextConfig: OpenClawConfig,
-  originalConfig: OpenClawConfig,
-): OpenClawConfig {
+  nextConfig: KlawtyConfig,
+  originalConfig: KlawtyConfig,
+): KlawtyConfig {
   const originalModel = originalConfig.agents?.defaults?.model;
   const nextAgents = nextConfig.agents;
   const nextDefaults = nextAgents?.defaults;
@@ -82,7 +82,7 @@ async function loadPluginProviderRuntime() {
 }
 
 export async function runProviderPluginAuthMethod(params: {
-  config: OpenClawConfig;
+  config: KlawtyConfig;
   runtime: RuntimeEnv;
   prompter: WizardPrompter;
   method: ProviderAuthMethod;
@@ -93,13 +93,13 @@ export async function runProviderPluginAuthMethod(params: {
   secretInputMode?: ProviderAuthOptionBag["secretInputMode"];
   allowSecretRefPrompt?: boolean;
   opts?: Partial<ProviderAuthOptionBag>;
-}): Promise<{ config: OpenClawConfig; defaultModel?: string }> {
+}): Promise<{ config: KlawtyConfig; defaultModel?: string }> {
   const agentId = params.agentId ?? resolveDefaultAgentId(params.config);
   const defaultAgentId = resolveDefaultAgentId(params.config);
   const agentDir =
     params.agentDir ??
     (agentId === defaultAgentId
-      ? resolveOpenClawAgentDir()
+      ? resolveKlawtyAgentDir()
       : resolveAgentDir(params.config, agentId));
   const workspaceDir =
     params.workspaceDir ??
@@ -238,7 +238,7 @@ export async function applyAuthChoicePluginProvider(
   const defaultAgentId = resolveDefaultAgentId(nextConfig);
   const agentDir =
     params.agentDir ??
-    (agentId === defaultAgentId ? resolveOpenClawAgentDir() : resolveAgentDir(nextConfig, agentId));
+    (agentId === defaultAgentId ? resolveKlawtyAgentDir() : resolveAgentDir(nextConfig, agentId));
   const workspaceDir =
     resolveAgentWorkspaceDir(nextConfig, agentId) ?? resolveDefaultAgentWorkspaceDir();
 

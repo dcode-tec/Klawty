@@ -3,7 +3,7 @@ import path from "node:path";
 import { resolveBlueBubblesServerAccount } from "./account-resolve.js";
 import { assertMultipartActionOk, postMultipartFormData } from "./multipart.js";
 import { getCachedBlueBubblesPrivateApiStatus } from "./probe.js";
-import type { OpenClawConfig } from "./runtime-api.js";
+import type { KlawtyConfig } from "./runtime-api.js";
 import { blueBubblesFetchWithTimeout, buildBlueBubblesApiUrl } from "./types.js";
 
 export type BlueBubblesChatOpts = {
@@ -11,7 +11,7 @@ export type BlueBubblesChatOpts = {
   password?: string;
   accountId?: string;
   timeoutMs?: number;
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
 };
 
 function resolveAccount(params: BlueBubblesChatOpts) {

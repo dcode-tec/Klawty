@@ -1,6 +1,6 @@
 import "./test-helpers.js";
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../src/config/config.js";
 import { installWebAutoReplyUnitTestHooks, makeSessionStore } from "./auto-reply.test-harness.js";
 import { buildMentionConfig } from "./auto-reply/mentions.js";
 import { createEchoTracker } from "./auto-reply/monitor/echo.js";
@@ -18,7 +18,7 @@ vi.mock("./auto-reply/monitor/last-route.js", async (importOriginal) => {
 
 const { awaitBackgroundTasks } = await import("./auto-reply/monitor/last-route.js");
 
-function makeCfg(storePath: string): OpenClawConfig {
+function makeCfg(storePath: string): KlawtyConfig {
   return {
     channels: { whatsapp: { allowFrom: ["*"] } },
     session: { store: storePath },
@@ -34,7 +34,7 @@ function makeReplyLogger() {
   } as unknown as Parameters<typeof createWebOnMessageHandler>[0]["replyLogger"];
 }
 
-function createHandlerForTest(opts: { cfg: OpenClawConfig; replyResolver: unknown }) {
+function createHandlerForTest(opts: { cfg: KlawtyConfig; replyResolver: unknown }) {
   const backgroundTasks = new Set<Promise<unknown>>();
   const handler = createWebOnMessageHandler({
     cfg: opts.cfg,

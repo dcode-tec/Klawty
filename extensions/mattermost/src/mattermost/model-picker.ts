@@ -5,7 +5,7 @@ import {
   resolveStorePath,
   resolveStoredModelOverride,
   type ModelsProviderData,
-  type OpenClawConfig,
+  type KlawtyConfig,
 } from "../runtime-api.js";
 import type { MattermostInteractiveButtonInput } from "./interactions.js";
 
@@ -213,7 +213,7 @@ export function buildMattermostAllowedModelRefs(data: ModelsProviderData): Set<s
 }
 
 export function resolveMattermostModelPickerCurrentModel(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   route: { agentId: string; sessionKey: string };
   data: ModelsProviderData;
   skipCache?: boolean;

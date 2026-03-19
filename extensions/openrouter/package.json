@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/openrouter-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/openrouter-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw OpenRouter provider plugin",
+  "description": "Klawty OpenRouter provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

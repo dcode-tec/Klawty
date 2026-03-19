@@ -207,12 +207,12 @@ describe("resolveInteractionCallbackUrl", () => {
       channels: {
         mattermost: {
           interactions: {
-            callbackBaseUrl: "https://gateway.example.com/openclaw",
+            callbackBaseUrl: "https://gateway.example.com/klawty",
           },
         },
       },
     });
-    expect(url).toBe("https://gateway.example.com/openclaw/mattermost/interactions/default");
+    expect(url).toBe("https://gateway.example.com/klawty/mattermost/interactions/default");
   });
 
   it("trims trailing slashes from callbackBaseUrl", () => {
@@ -497,7 +497,7 @@ describe("createMattermostInteractionHandler", () => {
   }
 
   function createActionContext(actionId = "approve", channelId = "chan-1") {
-    const context = { action_id: actionId, __openclaw_channel_id: channelId };
+    const context = { action_id: actionId, __klawty_channel_id: channelId };
     return { context, token: generateInteractionToken(context, "acct") };
   }
 

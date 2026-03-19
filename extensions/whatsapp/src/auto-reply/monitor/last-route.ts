@@ -1,6 +1,6 @@
-import type { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { resolveStorePath, updateLastRoute } from "openclaw/plugin-sdk/config-runtime";
-import type { MsgContext } from "openclaw/plugin-sdk/reply-runtime";
+import type { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { resolveStorePath, updateLastRoute } from "klawty/plugin-sdk/config-runtime";
+import type { MsgContext } from "klawty/plugin-sdk/reply-runtime";
 import { formatError } from "../../session.js";
 
 export function trackBackgroundTask(

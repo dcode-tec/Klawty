@@ -3,7 +3,7 @@
 
 export { definePluginEntry } from "./core.js";
 export type {
-  OpenClawPluginApi,
+  KlawtyPluginApi,
   ProviderAuthContext,
   ProviderAuthResult,
 } from "../plugins/types.js";

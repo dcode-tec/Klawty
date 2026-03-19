@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/amazon-bedrock-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/amazon-bedrock-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Amazon Bedrock provider plugin",
+  "description": "Klawty Amazon Bedrock provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

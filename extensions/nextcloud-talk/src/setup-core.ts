@@ -1,22 +1,22 @@
-import type { ChannelSetupAdapter } from "openclaw/plugin-sdk/channel-runtime";
-import type { ChannelSetupInput } from "openclaw/plugin-sdk/channel-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "openclaw/plugin-sdk/routing";
+import type { ChannelSetupAdapter } from "klawty/plugin-sdk/channel-runtime";
+import type { ChannelSetupInput } from "klawty/plugin-sdk/channel-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "klawty/plugin-sdk/routing";
 import {
   applyAccountNameToChannelSection,
   patchScopedAccountConfig,
-} from "openclaw/plugin-sdk/setup";
+} from "klawty/plugin-sdk/setup";
 import {
   mergeAllowFromEntries,
   createTopLevelChannelDmPolicy,
   promptParsedAllowFromForAccount,
   resolveSetupAccountId,
   setSetupChannelEnabled,
-} from "openclaw/plugin-sdk/setup";
-import type { ChannelSetupDmPolicy } from "openclaw/plugin-sdk/setup";
-import { type ChannelSetupWizard } from "openclaw/plugin-sdk/setup";
-import { formatDocsLink } from "openclaw/plugin-sdk/setup";
-import type { WizardPrompter } from "openclaw/plugin-sdk/setup";
+} from "klawty/plugin-sdk/setup";
+import type { ChannelSetupDmPolicy } from "klawty/plugin-sdk/setup";
+import { type ChannelSetupWizard } from "klawty/plugin-sdk/setup";
+import { formatDocsLink } from "klawty/plugin-sdk/setup";
+import type { WizardPrompter } from "klawty/plugin-sdk/setup";
 import {
   listNextcloudTalkAccountIds,
   resolveDefaultNextcloudTalkAccountId,
@@ -149,10 +149,10 @@ async function promptNextcloudTalkAllowFrom(params: {
 }
 
 async function promptNextcloudTalkAllowFromForAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   prompter: WizardPrompter;
   accountId?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<KlawtyConfig> {
   const accountId = resolveSetupAccountId({
     accountId: params.accountId,
     defaultAccountId: resolveDefaultNextcloudTalkAccountId(params.cfg as CoreConfig),

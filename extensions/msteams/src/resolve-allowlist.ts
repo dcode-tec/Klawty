@@ -1,4 +1,4 @@
-import { mapAllowlistResolutionInputs } from "openclaw/plugin-sdk/allowlist-resolution";
+import { mapAllowlistResolutionInputs } from "klawty/plugin-sdk/allowlist-resolution";
 import { searchGraphUsers } from "./graph-users.js";
 import {
   listChannelsForTeam,

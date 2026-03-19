@@ -1,11 +1,11 @@
-export type { OpenClawConfig } from "../config/config.js";
+export type { KlawtyConfig } from "../config/config.js";
 export type { SlackAccountConfig } from "../config/types.slack.js";
 export type { InspectedSlackAccount } from "../../extensions/slack/api.js";
 export type { ResolvedSlackAccount } from "../../extensions/slack/api.js";
 export type {
   ChannelMessageActionContext,
   ChannelPlugin,
-  OpenClawPluginApi,
+  KlawtyPluginApi,
   PluginRuntime,
 } from "./channel-plugin-common.js";
 export {

@@ -11,45 +11,45 @@ import {
 import { GatewayCloseCodes, type GatewayPlugin } from "@buape/carbon/gateway";
 import { VoicePlugin } from "@buape/carbon/voice";
 import { Routes } from "discord-api-types/v10";
-import { getAcpSessionManager } from "openclaw/plugin-sdk/acp-runtime";
-import { isAcpRuntimeError } from "openclaw/plugin-sdk/acp-runtime";
+import { getAcpSessionManager } from "klawty/plugin-sdk/acp-runtime";
+import { isAcpRuntimeError } from "klawty/plugin-sdk/acp-runtime";
 import {
   resolveThreadBindingIdleTimeoutMs,
   resolveThreadBindingMaxAgeMs,
   resolveThreadBindingsEnabled,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 import {
   isNativeCommandsExplicitlyDisabled,
   resolveNativeCommandsEnabled,
   resolveNativeSkillsEnabled,
-} from "openclaw/plugin-sdk/config-runtime";
-import type { OpenClawConfig, ReplyToMode } from "openclaw/plugin-sdk/config-runtime";
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/config-runtime";
+} from "klawty/plugin-sdk/config-runtime";
+import type { KlawtyConfig, ReplyToMode } from "klawty/plugin-sdk/config-runtime";
+import { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { isDangerousNameMatchingEnabled } from "klawty/plugin-sdk/config-runtime";
 import {
   GROUP_POLICY_BLOCKED_LABEL,
   resolveOpenProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/config-runtime";
-import { createConnectedChannelStatusPatch } from "openclaw/plugin-sdk/gateway-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/infra-runtime";
-import { getPluginCommandSpecs } from "openclaw/plugin-sdk/plugin-runtime";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-runtime";
-import type { NativeCommandSpec } from "openclaw/plugin-sdk/reply-runtime";
-import { listNativeCommandSpecsForConfig } from "openclaw/plugin-sdk/reply-runtime";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-runtime";
-import { listSkillCommandsForAgents } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/config-runtime";
+import { createConnectedChannelStatusPatch } from "klawty/plugin-sdk/gateway-runtime";
+import { formatErrorMessage } from "klawty/plugin-sdk/infra-runtime";
+import { getPluginCommandSpecs } from "klawty/plugin-sdk/plugin-runtime";
+import { resolveTextChunkLimit } from "klawty/plugin-sdk/reply-runtime";
+import type { NativeCommandSpec } from "klawty/plugin-sdk/reply-runtime";
+import { listNativeCommandSpecsForConfig } from "klawty/plugin-sdk/reply-runtime";
+import type { HistoryEntry } from "klawty/plugin-sdk/reply-runtime";
+import { listSkillCommandsForAgents } from "klawty/plugin-sdk/reply-runtime";
 import {
   danger,
   isVerbose,
   logVerbose,
   shouldLogVerbose,
   warn,
-} from "openclaw/plugin-sdk/runtime-env";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { createNonExitingRuntime, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { summarizeStringEntries } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/runtime-env";
+import { createSubsystemLogger } from "klawty/plugin-sdk/runtime-env";
+import { createNonExitingRuntime, type RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
+import { summarizeStringEntries } from "klawty/plugin-sdk/text-runtime";
 import { resolveDiscordAccount } from "../accounts.js";
 import { getDiscordGatewayEmitter } from "../monitor.gateway.js";
 import { fetchDiscordApplicationId } from "../probe.js";
@@ -101,7 +101,7 @@ import { formatThreadBindingDurationLabel } from "./thread-bindings.messages.js"
 export type MonitorDiscordOpts = {
   token?: string;
   accountId?: string;
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   mediaMaxMb?: number;
@@ -186,7 +186,7 @@ function classifyAcpStatusProbeError(params: { error: unknown; isStaleRunning: b
 }
 
 async function probeDiscordAcpBindingHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   sessionKey: string;
   storedState?: "idle" | "running" | "error";
   lastActivityAt?: number;

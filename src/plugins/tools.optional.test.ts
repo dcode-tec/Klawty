@@ -7,10 +7,10 @@ type MockRegistryToolEntry = {
   factory: (ctx: unknown) => unknown;
 };
 
-const loadOpenClawPluginsMock = vi.fn();
+const loadKlawtyPluginsMock = vi.fn();
 
 vi.mock("./loader.js", () => ({
-  loadOpenClawPlugins: (params: unknown) => loadOpenClawPluginsMock(params),
+  loadKlawtyPlugins: (params: unknown) => loadKlawtyPluginsMock(params),
 }));
 
 let resolvePluginTools: typeof import("./tools.js").resolvePluginTools;
@@ -49,7 +49,7 @@ function setRegistry(entries: MockRegistryToolEntry[]) {
       message: string;
     }>,
   };
-  loadOpenClawPluginsMock.mockReturnValue(registry);
+  loadKlawtyPluginsMock.mockReturnValue(registry);
   return registry;
 }
 
@@ -93,7 +93,7 @@ function resolveOptionalDemoTools(toolAllowlist?: string[]) {
 describe("resolvePluginTools optional tools", () => {
   beforeEach(async () => {
     vi.resetModules();
-    loadOpenClawPluginsMock.mockClear();
+    loadKlawtyPluginsMock.mockClear();
     ({ resolvePluginTools } = await import("./tools.js"));
   });
 
@@ -159,7 +159,7 @@ describe("resolvePluginTools optional tools", () => {
 
   it("forwards an explicit env to plugin loading", () => {
     setOptionalDemoRegistry();
-    const env = { OPENCLAW_HOME: "/srv/openclaw-home" } as NodeJS.ProcessEnv;
+    const env = { KLAWTY_HOME: "/srv/klawty-home" } as NodeJS.ProcessEnv;
 
     resolvePluginTools({
       context: createContext() as never,
@@ -167,7 +167,7 @@ describe("resolvePluginTools optional tools", () => {
       toolAllowlist: ["optional_tool"],
     });
 
-    expect(loadOpenClawPluginsMock).toHaveBeenCalledWith(
+    expect(loadKlawtyPluginsMock).toHaveBeenCalledWith(
       expect.objectContaining({
         env,
       }),
@@ -183,7 +183,7 @@ describe("resolvePluginTools optional tools", () => {
       toolAllowlist: ["optional_tool"],
     });
 
-    expect(loadOpenClawPluginsMock).toHaveBeenCalledWith(
+    expect(loadKlawtyPluginsMock).toHaveBeenCalledWith(
       expect.objectContaining({
         runtimeOptions: {
           allowGatewaySubagentBinding: true,

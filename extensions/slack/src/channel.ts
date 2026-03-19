@@ -2,9 +2,9 @@ import {
   buildLegacyDmAccountAllowlistAdapter,
   createAccountScopedAllowlistNameResolver,
   createFlatAllowlistOverrideResolver,
-} from "openclaw/plugin-sdk/allowlist-config-edit";
-import { createScopedDmSecurityResolver } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createOpenProviderConfiguredRouteWarningCollector } from "openclaw/plugin-sdk/channel-policy";
+} from "klawty/plugin-sdk/allowlist-config-edit";
+import { createScopedDmSecurityResolver } from "klawty/plugin-sdk/channel-config-helpers";
+import { createOpenProviderConfiguredRouteWarningCollector } from "klawty/plugin-sdk/channel-policy";
 import {
   createAttachedChannelResultAdapter,
   createChannelDirectoryAdapter,
@@ -14,10 +14,10 @@ import {
   createTextPairingAdapter,
   resolveOutboundSendDep,
   resolveTargetsWithOptionalToken,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { buildOutboundBaseSessionKey, normalizeOutboundThreadId } from "openclaw/plugin-sdk/core";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
-import { resolveThreadSessionKeys, type RoutePeer } from "openclaw/plugin-sdk/routing";
+} from "klawty/plugin-sdk/channel-runtime";
+import { buildOutboundBaseSessionKey, normalizeOutboundThreadId } from "klawty/plugin-sdk/core";
+import { buildPassiveProbedChannelStatusSummary } from "klawty/plugin-sdk/extension-shared";
+import { resolveThreadSessionKeys, type RoutePeer } from "klawty/plugin-sdk/routing";
 import {
   listEnabledSlackAccounts,
   resolveSlackAccount,
@@ -46,7 +46,7 @@ import {
   projectCredentialSnapshotFields,
   resolveConfiguredFromRequiredCredentialStatuses,
   type ChannelPlugin,
-  type OpenClawConfig,
+  type KlawtyConfig,
 } from "./runtime-api.js";
 import { getSlackRuntime } from "./runtime.js";
 import { fetchSlackScopes } from "./scopes.js";
@@ -151,7 +151,7 @@ function parseSlackExplicitTarget(raw: string) {
 }
 
 function buildSlackBaseSessionKey(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   agentId: string;
   accountId?: string | null;
   peer: RoutePeer;
@@ -160,7 +160,7 @@ function buildSlackBaseSessionKey(params: {
 }
 
 async function resolveSlackChannelType(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId?: string | null;
   channelId: string;
 }): Promise<"channel" | "group" | "dm" | "unknown"> {
@@ -223,7 +223,7 @@ async function resolveSlackChannelType(params: {
 }
 
 async function resolveSlackOutboundSessionRoute(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   agentId: string;
   accountId?: string | null;
   target: string;
@@ -485,7 +485,7 @@ export const slackPlugin: ChannelPlugin<ResolvedSlackAccount> = {
     invoke: async (action, cfg, toolContext) =>
       await getSlackRuntime().channel.slack.handleSlackAction(
         action,
-        cfg as OpenClawConfig,
+        cfg as KlawtyConfig,
         toolContext as SlackActionContext | undefined,
       ),
   }),

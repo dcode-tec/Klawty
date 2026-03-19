@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import { setActivePluginRegistry } from "../../plugins/runtime.js";
 import { defaultRuntime } from "../../runtime.js";
 import {
@@ -80,14 +80,14 @@ describe("message action capability checks", () => {
   it("aggregates capabilities across plugins", () => {
     activateMessageActionTestRegistry();
 
-    expect(listChannelMessageCapabilities({} as OpenClawConfig).toSorted()).toEqual([
+    expect(listChannelMessageCapabilities({} as KlawtyConfig).toSorted()).toEqual([
       "buttons",
       "cards",
       "interactive",
     ]);
-    expect(channelSupportsMessageCapability({} as OpenClawConfig, "interactive")).toBe(true);
-    expect(channelSupportsMessageCapability({} as OpenClawConfig, "buttons")).toBe(true);
-    expect(channelSupportsMessageCapability({} as OpenClawConfig, "cards")).toBe(true);
+    expect(channelSupportsMessageCapability({} as KlawtyConfig, "interactive")).toBe(true);
+    expect(channelSupportsMessageCapability({} as KlawtyConfig, "buttons")).toBe(true);
+    expect(channelSupportsMessageCapability({} as KlawtyConfig, "cards")).toBe(true);
   });
 
   it("checks per-channel capabilities", () => {
@@ -95,47 +95,47 @@ describe("message action capability checks", () => {
 
     expect(
       listChannelMessageCapabilitiesForChannel({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as KlawtyConfig,
         channel: "discord",
       }),
     ).toEqual(["interactive", "buttons"]);
     expect(
       listChannelMessageCapabilitiesForChannel({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as KlawtyConfig,
         channel: "telegram",
       }),
     ).toEqual(["cards"]);
     expect(
       channelSupportsMessageCapabilityForChannel(
-        { cfg: {} as OpenClawConfig, channel: "discord" },
+        { cfg: {} as KlawtyConfig, channel: "discord" },
         "interactive",
       ),
     ).toBe(true);
     expect(
       channelSupportsMessageCapabilityForChannel(
-        { cfg: {} as OpenClawConfig, channel: "telegram" },
+        { cfg: {} as KlawtyConfig, channel: "telegram" },
         "interactive",
       ),
     ).toBe(false);
     expect(
       channelSupportsMessageCapabilityForChannel(
-        { cfg: {} as OpenClawConfig, channel: "discord" },
+        { cfg: {} as KlawtyConfig, channel: "discord" },
         "buttons",
       ),
     ).toBe(true);
     expect(
       channelSupportsMessageCapabilityForChannel(
-        { cfg: {} as OpenClawConfig, channel: "telegram" },
+        { cfg: {} as KlawtyConfig, channel: "telegram" },
         "buttons",
       ),
     ).toBe(false);
     expect(
       channelSupportsMessageCapabilityForChannel(
-        { cfg: {} as OpenClawConfig, channel: "telegram" },
+        { cfg: {} as KlawtyConfig, channel: "telegram" },
         "cards",
       ),
     ).toBe(true);
-    expect(channelSupportsMessageCapabilityForChannel({ cfg: {} as OpenClawConfig }, "cards")).toBe(
+    expect(channelSupportsMessageCapabilityForChannel({ cfg: {} as KlawtyConfig }, "cards")).toBe(
       false,
     );
   });
@@ -157,7 +157,7 @@ describe("message action capability checks", () => {
 
     expect(
       listChannelMessageCapabilitiesForChannel({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as KlawtyConfig,
         channel: "tg",
       }),
     ).toEqual(["cards"]);
@@ -189,11 +189,11 @@ describe("message action capability checks", () => {
       createTestRegistry([{ pluginId: "discord", source: "test", plugin: unifiedPlugin }]),
     );
 
-    expect(listChannelMessageActions({} as OpenClawConfig)).toEqual(["send", "broadcast", "react"]);
-    expect(listChannelMessageCapabilities({} as OpenClawConfig)).toEqual(["interactive"]);
+    expect(listChannelMessageActions({} as KlawtyConfig)).toEqual(["send", "broadcast", "react"]);
+    expect(listChannelMessageCapabilities({} as KlawtyConfig)).toEqual(["interactive"]);
     expect(
       resolveChannelMessageToolSchemaProperties({
-        cfg: {} as OpenClawConfig,
+        cfg: {} as KlawtyConfig,
         channel: "discord",
       }),
     ).toHaveProperty("components");
@@ -219,12 +219,12 @@ describe("message action capability checks", () => {
       createTestRegistry([{ pluginId: "discord", source: "test", plugin: crashingPlugin }]),
     );
 
-    expect(listChannelMessageActions({} as OpenClawConfig)).toEqual(["send", "broadcast"]);
-    expect(listChannelMessageCapabilities({} as OpenClawConfig)).toEqual([]);
+    expect(listChannelMessageActions({} as KlawtyConfig)).toEqual(["send", "broadcast"]);
+    expect(listChannelMessageCapabilities({} as KlawtyConfig)).toEqual([]);
     expect(errorSpy).toHaveBeenCalledTimes(1);
 
-    expect(listChannelMessageActions({} as OpenClawConfig)).toEqual(["send", "broadcast"]);
-    expect(listChannelMessageCapabilities({} as OpenClawConfig)).toEqual([]);
+    expect(listChannelMessageActions({} as KlawtyConfig)).toEqual(["send", "broadcast"]);
+    expect(listChannelMessageCapabilities({} as KlawtyConfig)).toEqual([]);
     expect(errorSpy).toHaveBeenCalledTimes(1);
   });
 });

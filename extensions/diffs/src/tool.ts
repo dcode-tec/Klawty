@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import { Static, Type } from "@sinclair/typebox";
-import type { AnyAgentTool, OpenClawPluginApi, OpenClawPluginToolContext } from "../api.js";
+import type { AnyAgentTool, KlawtyPluginApi, KlawtyPluginToolContext } from "../api.js";
 import { PlaywrightDiffScreenshotter, type DiffScreenshotter } from "./browser.js";
 import { resolveDiffImageRenderOptions } from "./config.js";
 import { renderDiffDocument } from "./render.js";
@@ -134,11 +134,11 @@ type DiffsToolRawParams = DiffsToolParams & {
 };
 
 export function createDiffsTool(params: {
-  api: OpenClawPluginApi;
+  api: KlawtyPluginApi;
   store: DiffArtifactStore;
   defaults: DiffToolDefaults;
   screenshotter?: DiffScreenshotter;
-  context?: OpenClawPluginToolContext;
+  context?: KlawtyPluginToolContext;
 }): AnyAgentTool {
   return {
     name: "diffs",
@@ -392,7 +392,7 @@ async function renderDiffArtifactFile(params: {
 }
 
 function buildArtifactContext(
-  context: OpenClawPluginToolContext | undefined,
+  context: KlawtyPluginToolContext | undefined,
 ): DiffArtifactContext | undefined {
   if (!context) {
     return undefined;

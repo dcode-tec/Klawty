@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 IMAGE_NAME="openclaw-gateway-network-e2e"
 
-PORT="18789"
+PORT="2508"
 TOKEN="e2e-$(date +%s)-$$"
 NET_NAME="openclaw-net-e2e-$$"
 GW_NAME="openclaw-gateway-e2e-$$"

@@ -9,8 +9,8 @@ import {
   splitSetupEntries,
   type ChannelSetupDmPolicy,
   type ChannelSetupWizard,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/setup";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/setup";
 import {
   listGoogleChatAccountIds,
   resolveDefaultGoogleChatAccountId,
@@ -25,9 +25,9 @@ const USE_ENV_FLAG = "__googlechatUseEnv";
 const AUTH_METHOD_FLAG = "__googlechatAuthMethod";
 
 async function promptAllowFrom(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   prompter: Parameters<NonNullable<ChannelSetupDmPolicy["promptAllowFrom"]>>[0]["prompter"];
-}): Promise<OpenClawConfig> {
+}): Promise<KlawtyConfig> {
   const current = params.cfg.channels?.googlechat?.dm?.allowFrom ?? [];
   const entry = await params.prompter.text({
     message: "Google Chat allowFrom (users/<id> or raw email; avoid users/<email>)",

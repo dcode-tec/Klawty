@@ -1,4 +1,4 @@
-import type { PluginRuntime, RuntimeEnv } from "openclaw/plugin-sdk/matrix";
+import type { PluginRuntime, RuntimeEnv } from "klawty/plugin-sdk/matrix";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { MatrixClient } from "../sdk.js";
 
@@ -96,7 +96,7 @@ describe("deliverMatrixReplies", () => {
       runtime: runtimeEnv,
       textLimit: 4000,
       replyToMode: "all",
-      mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+      mediaLocalRoots: ["/tmp/klawty-matrix-test"],
     });
 
     expect(sendMessageMatrixMock).toHaveBeenCalledTimes(3);
@@ -105,7 +105,7 @@ describe("deliverMatrixReplies", () => {
       "caption",
       expect.objectContaining({
         mediaUrl: "https://example.com/a.jpg",
-        mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+        mediaLocalRoots: ["/tmp/klawty-matrix-test"],
         replyToId: "reply-media",
       }),
     ]);
@@ -114,7 +114,7 @@ describe("deliverMatrixReplies", () => {
       "",
       expect.objectContaining({
         mediaUrl: "https://example.com/b.jpg",
-        mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+        mediaLocalRoots: ["/tmp/klawty-matrix-test"],
         replyToId: "reply-media",
       }),
     ]);

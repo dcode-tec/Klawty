@@ -2,12 +2,12 @@
 // Keep this list additive and scoped to symbols used under extensions/diffs.
 
 export { definePluginEntry } from "./core.js";
-export type { OpenClawConfig } from "../config/config.js";
-export { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
+export type { KlawtyConfig } from "../config/config.js";
+export { resolvePreferredKlawtyTmpDir } from "../infra/tmp-klawty-dir.js";
 export type {
   AnyAgentTool,
-  OpenClawPluginApi,
-  OpenClawPluginConfigSchema,
-  OpenClawPluginToolContext,
+  KlawtyPluginApi,
+  KlawtyPluginConfigSchema,
+  KlawtyPluginToolContext,
   PluginLogger,
 } from "../plugins/types.js";

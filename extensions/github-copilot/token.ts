@@ -1,6 +1,6 @@
 import path from "node:path";
-import { loadJsonFile, saveJsonFile } from "openclaw/plugin-sdk/json-store";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import { loadJsonFile, saveJsonFile } from "klawty/plugin-sdk/json-store";
+import { resolveStateDir } from "klawty/plugin-sdk/state-paths";
 
 const COPILOT_TOKEN_URL = "https://api.github.com/copilot_internal/v2/token";
 

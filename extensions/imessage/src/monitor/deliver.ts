@@ -1,13 +1,13 @@
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { resolveMarkdownTableMode } from "openclaw/plugin-sdk/config-runtime";
+import { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { resolveMarkdownTableMode } from "klawty/plugin-sdk/config-runtime";
 import {
   deliverTextOrMediaReply,
   resolveSendableOutboundReplyParts,
-} from "openclaw/plugin-sdk/reply-payload";
-import { chunkTextWithMode, resolveChunkMode } from "openclaw/plugin-sdk/reply-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { convertMarkdownTables } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/reply-payload";
+import { chunkTextWithMode, resolveChunkMode } from "klawty/plugin-sdk/reply-runtime";
+import type { ReplyPayload } from "klawty/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
+import { convertMarkdownTables } from "klawty/plugin-sdk/text-runtime";
 import type { createIMessageRpcClient } from "../client.js";
 import { sendMessageIMessage } from "../send.js";
 import type { SentMessageCache } from "./echo-cache.js";

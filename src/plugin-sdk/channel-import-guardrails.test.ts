@@ -51,27 +51,27 @@ type GuardedSource = {
 const SAME_CHANNEL_SDK_GUARDS: GuardedSource[] = [
   {
     path: "extensions/discord/src/shared.ts",
-    forbiddenPatterns: [/["']openclaw\/plugin-sdk\/discord["']/, /plugin-sdk-internal\/discord/],
+    forbiddenPatterns: [/["']klawty\/plugin-sdk\/discord["']/, /plugin-sdk-internal\/discord/],
   },
   {
     path: "extensions/slack/src/shared.ts",
-    forbiddenPatterns: [/["']openclaw\/plugin-sdk\/slack["']/, /plugin-sdk-internal\/slack/],
+    forbiddenPatterns: [/["']klawty\/plugin-sdk\/slack["']/, /plugin-sdk-internal\/slack/],
   },
   {
     path: "extensions/telegram/src/shared.ts",
-    forbiddenPatterns: [/["']openclaw\/plugin-sdk\/telegram["']/, /plugin-sdk-internal\/telegram/],
+    forbiddenPatterns: [/["']klawty\/plugin-sdk\/telegram["']/, /plugin-sdk-internal\/telegram/],
   },
   {
     path: "extensions/imessage/src/shared.ts",
-    forbiddenPatterns: [/["']openclaw\/plugin-sdk\/imessage["']/, /plugin-sdk-internal\/imessage/],
+    forbiddenPatterns: [/["']klawty\/plugin-sdk\/imessage["']/, /plugin-sdk-internal\/imessage/],
   },
   {
     path: "extensions/whatsapp/src/shared.ts",
-    forbiddenPatterns: [/["']openclaw\/plugin-sdk\/whatsapp["']/, /plugin-sdk-internal\/whatsapp/],
+    forbiddenPatterns: [/["']klawty\/plugin-sdk\/whatsapp["']/, /plugin-sdk-internal\/whatsapp/],
   },
   {
     path: "extensions/signal/src/shared.ts",
-    forbiddenPatterns: [/["']openclaw\/plugin-sdk\/signal["']/, /plugin-sdk-internal\/signal/],
+    forbiddenPatterns: [/["']klawty\/plugin-sdk\/signal["']/, /plugin-sdk-internal\/signal/],
   },
 ];
 
@@ -391,11 +391,11 @@ describe("channel import guardrails", () => {
   it("keeps bundled extension source files off root and compat plugin-sdk imports", () => {
     for (const file of collectExtensionSourceFiles()) {
       const text = readFileSync(file, "utf8");
-      expect(text, `${file} should not import openclaw/plugin-sdk root`).not.toMatch(
-        /["']openclaw\/plugin-sdk["']/,
+      expect(text, `${file} should not import klawty/plugin-sdk root`).not.toMatch(
+        /["']klawty\/plugin-sdk["']/,
       );
-      expect(text, `${file} should not import openclaw/plugin-sdk/compat`).not.toMatch(
-        /["']openclaw\/plugin-sdk\/compat["']/,
+      expect(text, `${file} should not import klawty/plugin-sdk/compat`).not.toMatch(
+        /["']klawty\/plugin-sdk\/compat["']/,
       );
     }
   });
@@ -457,7 +457,7 @@ describe("channel import guardrails", () => {
         expect(
           text,
           `${normalized} should import ${extensionId} helpers via the local api barrel`,
-        ).not.toMatch(new RegExp(`["']openclaw/plugin-sdk/${extensionId}["']`, "u"));
+        ).not.toMatch(new RegExp(`["']klawty/plugin-sdk/${extensionId}["']`, "u"));
       }
     }
   });

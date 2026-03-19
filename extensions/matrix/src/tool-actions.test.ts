@@ -194,14 +194,14 @@ describe("handleMatrixAction pollVote", () => {
         threadId: "$thread",
       },
       cfg,
-      { mediaLocalRoots: ["/tmp/openclaw-matrix-test"] },
+      { mediaLocalRoots: ["/tmp/klawty-matrix-test"] },
     );
 
     expect(mocks.sendMatrixMessage).toHaveBeenCalledWith("room:!room:example", "hello", {
       cfg,
       accountId: "ops",
       mediaUrl: undefined,
-      mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+      mediaLocalRoots: ["/tmp/klawty-matrix-test"],
       replyToId: undefined,
       threadId: "$thread",
     });
@@ -217,14 +217,14 @@ describe("handleMatrixAction pollVote", () => {
         mediaUrl: "file:///tmp/photo.png",
       },
       cfg,
-      { mediaLocalRoots: ["/tmp/openclaw-matrix-test"] },
+      { mediaLocalRoots: ["/tmp/klawty-matrix-test"] },
     );
 
     expect(mocks.sendMatrixMessage).toHaveBeenCalledWith("room:!room:example", undefined, {
       cfg,
       accountId: "ops",
       mediaUrl: "file:///tmp/photo.png",
-      mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+      mediaLocalRoots: ["/tmp/klawty-matrix-test"],
       replyToId: undefined,
       threadId: undefined,
     });
@@ -239,7 +239,7 @@ describe("handleMatrixAction pollVote", () => {
         avatarPath: "/tmp/avatar.jpg",
       },
       cfg,
-      { mediaLocalRoots: ["/tmp/openclaw-matrix-test"] },
+      { mediaLocalRoots: ["/tmp/klawty-matrix-test"] },
     );
 
     expect(mocks.applyMatrixProfileUpdate).toHaveBeenCalledWith(
@@ -247,7 +247,7 @@ describe("handleMatrixAction pollVote", () => {
         cfg,
         account: "ops",
         avatarPath: "/tmp/avatar.jpg",
-        mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+        mediaLocalRoots: ["/tmp/klawty-matrix-test"],
       }),
     );
   });

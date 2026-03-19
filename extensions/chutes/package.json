@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/chutes-provider",
-  "version": "2026.3.14",
+  "name": "@klawty/chutes-provider",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Chutes.ai provider plugin",
+  "description": "Klawty Chutes.ai provider plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

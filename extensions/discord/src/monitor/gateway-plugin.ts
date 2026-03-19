@@ -1,9 +1,9 @@
 import { GatewayIntents, GatewayPlugin } from "@buape/carbon/gateway";
 import type { APIGatewayBotInfo } from "discord-api-types/v10";
 import { HttpsProxyAgent } from "https-proxy-agent";
-import type { DiscordAccountConfig } from "openclaw/plugin-sdk/config-runtime";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+import type { DiscordAccountConfig } from "klawty/plugin-sdk/config-runtime";
+import { danger } from "klawty/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
 import { ProxyAgent, fetch as undiciFetch } from "undici";
 import WebSocket from "ws";
 
@@ -23,7 +23,7 @@ type DiscordGatewayFetch = (
 type DiscordGatewayMetadataError = Error & { transient?: boolean };
 
 export function resolveDiscordGatewayIntents(
-  intentsConfig?: import("openclaw/plugin-sdk/config-runtime").DiscordIntentsConfig,
+  intentsConfig?: import("klawty/plugin-sdk/config-runtime").DiscordIntentsConfig,
 ): number {
   let intents =
     GatewayIntents.Guilds |

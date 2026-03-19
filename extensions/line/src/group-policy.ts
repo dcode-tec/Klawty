@@ -1,8 +1,8 @@
-import { resolveChannelGroupRequireMention } from "openclaw/plugin-sdk/channel-policy";
-import { resolveExactLineGroupConfigKey, type OpenClawConfig } from "../runtime-api.js";
+import { resolveChannelGroupRequireMention } from "klawty/plugin-sdk/channel-policy";
+import { resolveExactLineGroupConfigKey, type KlawtyConfig } from "../runtime-api.js";
 
 type LineGroupContext = {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId?: string | null;
   groupId?: string | null;
 };

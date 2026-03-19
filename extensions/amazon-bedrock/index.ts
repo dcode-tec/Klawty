@@ -1,8 +1,8 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry } from "klawty/plugin-sdk/plugin-entry";
 import {
   createBedrockNoCacheWrapper,
   isAnthropicBedrockModel,
-} from "openclaw/plugin-sdk/provider-stream";
+} from "klawty/plugin-sdk/provider-stream";
 
 const PROVIDER_ID = "amazon-bedrock";
 const CLAUDE_46_MODEL_RE = /claude-(?:opus|sonnet)-4(?:\.|-)6(?:$|[-.])/i;

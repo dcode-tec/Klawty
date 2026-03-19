@@ -1,14 +1,14 @@
 import fsSync from "node:fs";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/routing";
-import { info, success } from "openclaw/plugin-sdk/runtime-env";
-import { getChildLogger } from "openclaw/plugin-sdk/runtime-env";
-import { defaultRuntime, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { resolveOAuthDir } from "openclaw/plugin-sdk/state-paths";
-import type { WebChannel } from "openclaw/plugin-sdk/text-runtime";
-import { jidToE164, resolveUserPath } from "openclaw/plugin-sdk/text-runtime";
+import { formatCliCommand } from "klawty/plugin-sdk/cli-runtime";
+import { DEFAULT_ACCOUNT_ID } from "klawty/plugin-sdk/routing";
+import { info, success } from "klawty/plugin-sdk/runtime-env";
+import { getChildLogger } from "klawty/plugin-sdk/runtime-env";
+import { defaultRuntime, type RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
+import { resolveOAuthDir } from "klawty/plugin-sdk/state-paths";
+import type { WebChannel } from "klawty/plugin-sdk/text-runtime";
+import { jidToE164, resolveUserPath } from "klawty/plugin-sdk/text-runtime";
 
 export function resolveDefaultWebAuthDir(): string {
   return path.join(resolveOAuthDir(), "whatsapp", DEFAULT_ACCOUNT_ID);
@@ -199,7 +199,7 @@ export async function pickWebChannel(
   const hasWeb = await webAuthExists(authDir);
   if (!hasWeb) {
     throw new Error(
-      `No WhatsApp Web session found. Run \`${formatCliCommand("openclaw channels login --channel whatsapp --verbose")}\` to link.`,
+      `No WhatsApp Web session found. Run \`${formatCliCommand("klawty channels login --channel whatsapp --verbose")}\` to link.`,
     );
   }
   return choice;

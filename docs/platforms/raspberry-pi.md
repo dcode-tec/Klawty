@@ -1,17 +1,17 @@
 ---
-summary: "OpenClaw on Raspberry Pi (budget self-hosted setup)"
+summary: "Klawty on Raspberry Pi (budget self-hosted setup)"
 read_when:
-  - Setting up OpenClaw on a Raspberry Pi
-  - Running OpenClaw on ARM devices
+  - Setting up Klawty on a Raspberry Pi
+  - Running Klawty on ARM devices
   - Building a cheap always-on personal AI
 title: "Raspberry Pi"
 ---
 
-# OpenClaw on Raspberry Pi
+# Klawty on Raspberry Pi
 
 ## Goal
 
-Run a persistent, always-on OpenClaw Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
+Run a persistent, always-on Klawty Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
 
 Perfect for:
 
@@ -107,19 +107,19 @@ echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## 6) Install OpenClaw
+## 6) Install Klawty
 
 ### Option A: Standard Install (Recommended)
 
 ```bash
-curl -fsSL https://openclaw.ai/install.sh | bash
+curl -fsSL https://klawty.ai/install.sh | bash
 ```
 
 ### Option B: Hackable Install (For tinkering)
 
 ```bash
-git clone https://github.com/openclaw/openclaw.git
-cd openclaw
+git clone https://github.com/klawty/klawty.git
+cd klawty
 npm install
 npm run build
 npm link
@@ -130,7 +130,7 @@ The hackable install gives you direct access to logs and code — useful for deb
 ## 7) Run Onboarding
 
 ```bash
-openclaw onboard --install-daemon
+klawty onboard --install-daemon
 ```
 
 Follow the wizard:
@@ -144,39 +144,39 @@ Follow the wizard:
 
 ```bash
 # Check status
-openclaw status
+klawty status
 
 # Check service
-sudo systemctl status openclaw
+sudo systemctl status klawty
 
 # View logs
-journalctl -u openclaw -f
+journalctl -u klawty -f
 ```
 
-## 9) Access the OpenClaw Dashboard
+## 9) Access the Klawty Dashboard
 
 Replace `user@gateway-host` with your Pi username and hostname or IP address.
 
 On your computer, ask the Pi to print a fresh dashboard URL:
 
 ```bash
-ssh user@gateway-host 'openclaw dashboard --no-open'
+ssh user@gateway-host 'klawty dashboard --no-open'
 ```
 
 The command prints `Dashboard URL:`. Depending on how `gateway.auth.token`
-is configured, the URL may be a plain `http://127.0.0.1:18789/` link or one
+is configured, the URL may be a plain `http://127.0.0.1:2508/` link or one
 that includes `#token=...`.
 
 In another terminal on your computer, create the SSH tunnel:
 
 ```bash
-ssh -N -L 18789:127.0.0.1:18789 user@gateway-host
+ssh -N -L 2508:127.0.0.1:2508 user@gateway-host
 ```
 
 Then open the printed Dashboard URL in your local browser.
 
 If the UI asks for auth, paste the token from `gateway.auth.token`
-(or `OPENCLAW_GATEWAY_TOKEN`) into Control UI settings.
+(or `KLAWTY_GATEWAY_TOKEN`) into Control UI settings.
 
 For always-on remote access, see [Tailscale](/gateway/tailscale).
 
@@ -200,10 +200,10 @@ See [Pi USB boot guide](https://www.raspberrypi.com/documentation/computers/rasp
 On lower-power Pi hosts, enable Node's module compile cache so repeated CLI runs are faster:
 
 ```bash
-grep -q 'NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache' ~/.bashrc || cat >> ~/.bashrc <<'EOF' # pragma: allowlist secret
-export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
-mkdir -p /var/tmp/openclaw-compile-cache
-export OPENCLAW_NO_RESPAWN=1
+grep -q 'NODE_COMPILE_CACHE=/var/tmp/klawty-compile-cache' ~/.bashrc || cat >> ~/.bashrc <<'EOF' # pragma: allowlist secret
+export NODE_COMPILE_CACHE=/var/tmp/klawty-compile-cache
+mkdir -p /var/tmp/klawty-compile-cache
+export KLAWTY_NO_RESPAWN=1
 EOF
 source ~/.bashrc
 ```
@@ -212,22 +212,22 @@ Notes:
 
 - `NODE_COMPILE_CACHE` speeds up subsequent runs (`status`, `health`, `--help`).
 - `/var/tmp` survives reboots better than `/tmp`.
-- `OPENCLAW_NO_RESPAWN=1` avoids extra startup cost from CLI self-respawn.
+- `KLAWTY_NO_RESPAWN=1` avoids extra startup cost from CLI self-respawn.
 - First run warms the cache; later runs benefit most.
 
 ### systemd startup tuning (optional)
 
-If this Pi is mostly running OpenClaw, add a service drop-in to reduce restart
+If this Pi is mostly running Klawty, add a service drop-in to reduce restart
 jitter and keep startup env stable:
 
 ```bash
-sudo systemctl edit openclaw
+sudo systemctl edit klawty
 ```
 
 ```ini
 [Service]
-Environment=OPENCLAW_NO_RESPAWN=1
-Environment=NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
+Environment=KLAWTY_NO_RESPAWN=1
+Environment=NODE_COMPILE_CACHE=/var/tmp/klawty-compile-cache
 Restart=always
 RestartSec=2
 TimeoutStartSec=90
@@ -237,10 +237,10 @@ Then apply:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl restart openclaw
+sudo systemctl restart klawty
 ```
 
-If possible, keep OpenClaw state/cache on SSD-backed storage to avoid SD-card
+If possible, keep Klawty state/cache on SSD-backed storage to avoid SD-card
 random-I/O bottlenecks during cold starts.
 
 How `Restart=` policies help automated recovery:
@@ -275,7 +275,7 @@ htop
 
 ### Binary Compatibility
 
-Most OpenClaw features work on ARM64, but some external binaries may need ARM builds:
+Most Klawty features work on ARM64, but some external binaries may need ARM builds:
 
 | Tool               | ARM64 Status | Notes                               |
 | ------------------ | ------------ | ----------------------------------- |
@@ -325,13 +325,13 @@ Onboarding sets this up, but to verify:
 
 ```bash
 # Check service is enabled
-sudo systemctl is-enabled openclaw
+sudo systemctl is-enabled klawty
 
 # Enable if not
-sudo systemctl enable openclaw
+sudo systemctl enable klawty
 
 # Start on boot
-sudo systemctl start openclaw
+sudo systemctl start klawty
 ```
 
 ---
@@ -358,12 +358,12 @@ free -h
 
 ```bash
 # Check logs
-journalctl -u openclaw --no-pager -n 100
+journalctl -u klawty --no-pager -n 100
 
 # Common fix: rebuild
-cd ~/openclaw  # if using hackable install
+cd ~/klawty  # if using hackable install
 npm run build
-sudo systemctl restart openclaw
+sudo systemctl restart klawty
 ```
 
 ### ARM Binary Issues

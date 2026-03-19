@@ -89,7 +89,7 @@ Per-agent heartbeat is supported at `agents.list[].heartbeat`.
 ### Anthropic (direct API)
 
 - `cacheRetention` is supported.
-- With Anthropic API-key auth profiles, OpenClaw seeds `cacheRetention: "short"` for Anthropic model refs when unset.
+- With Anthropic API-key auth profiles, Klawty seeds `cacheRetention: "short"` for Anthropic model refs when unset.
 
 ### Amazon Bedrock
 
@@ -98,7 +98,7 @@ Per-agent heartbeat is supported at `agents.list[].heartbeat`.
 
 ### OpenRouter Anthropic models
 
-For `openrouter/anthropic/*` model refs, OpenClaw injects Anthropic `cache_control` on system/developer prompt blocks to improve prompt-cache reuse.
+For `openrouter/anthropic/*` model refs, Klawty injects Anthropic `cache_control` on system/developer prompt blocks to improve prompt-cache reuse.
 
 ### Other providers
 
@@ -137,7 +137,7 @@ agents:
 
 ## Cache diagnostics
 
-OpenClaw exposes dedicated cache-trace diagnostics for embedded agent runs.
+Klawty exposes dedicated cache-trace diagnostics for embedded agent runs.
 
 ### `diagnostics.cacheTrace` config
 
@@ -145,7 +145,7 @@ OpenClaw exposes dedicated cache-trace diagnostics for embedded agent runs.
 diagnostics:
   cacheTrace:
     enabled: true
-    filePath: "~/.openclaw/logs/cache-trace.jsonl" # optional
+    filePath: "~/.klawty/logs/cache-trace.jsonl" # optional
     includeMessages: false # default true
     includePrompt: false # default true
     includeSystem: false # default true
@@ -153,18 +153,18 @@ diagnostics:
 
 Defaults:
 
-- `filePath`: `$OPENCLAW_STATE_DIR/logs/cache-trace.jsonl`
+- `filePath`: `$KLAWTY_STATE_DIR/logs/cache-trace.jsonl`
 - `includeMessages`: `true`
 - `includePrompt`: `true`
 - `includeSystem`: `true`
 
 ### Env toggles (one-off debugging)
 
-- `OPENCLAW_CACHE_TRACE=1` enables cache tracing.
-- `OPENCLAW_CACHE_TRACE_FILE=/path/to/cache-trace.jsonl` overrides output path.
-- `OPENCLAW_CACHE_TRACE_MESSAGES=0|1` toggles full message payload capture.
-- `OPENCLAW_CACHE_TRACE_PROMPT=0|1` toggles prompt text capture.
-- `OPENCLAW_CACHE_TRACE_SYSTEM=0|1` toggles system prompt capture.
+- `KLAWTY_CACHE_TRACE=1` enables cache tracing.
+- `KLAWTY_CACHE_TRACE_FILE=/path/to/cache-trace.jsonl` overrides output path.
+- `KLAWTY_CACHE_TRACE_MESSAGES=0|1` toggles full message payload capture.
+- `KLAWTY_CACHE_TRACE_PROMPT=0|1` toggles prompt text capture.
+- `KLAWTY_CACHE_TRACE_SYSTEM=0|1` toggles system prompt capture.
 
 ### What to inspect
 

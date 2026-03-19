@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../src/config/config.js";
 import { isSlackInteractiveRepliesEnabled } from "./interactive-replies.js";
 
 describe("isSlackInteractiveRepliesEnabled", () => {
@@ -15,7 +15,7 @@ describe("isSlackInteractiveRepliesEnabled", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     expect(isSlackInteractiveRepliesEnabled({ cfg, accountId: undefined })).toBe(false);
   });
@@ -31,7 +31,7 @@ describe("isSlackInteractiveRepliesEnabled", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     expect(isSlackInteractiveRepliesEnabled({ cfg, accountId: undefined })).toBe(true);
   });

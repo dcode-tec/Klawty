@@ -137,3 +137,15 @@ docs/superpowers
 
 # Deprecated changelog fragment workflow
 changelog/fragments/
+
+# Klawty
+workspace/.env
+workspace/.session
+workspace/data/
+workspace/backups/
+workspace/observability/logs/
+workspace/credentials/
+*.db
+*.db-shm
+*.db-wal
+runtime-manifest.json

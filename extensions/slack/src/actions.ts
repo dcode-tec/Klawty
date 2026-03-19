@@ -1,6 +1,6 @@
 import type { Block, KnownBlock, WebClient } from "@slack/web-api";
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { logVerbose } from "klawty/plugin-sdk/runtime-env";
 import { resolveSlackAccount } from "./accounts.js";
 import { buildSlackBlocksFallbackText } from "./blocks-fallback.js";
 import { validateSlackBlocksArray } from "./blocks-input.js";

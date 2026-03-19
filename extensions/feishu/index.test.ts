@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawPluginApi } from "./runtime-api.js";
+import type { KlawtyPluginApi } from "./runtime-api.js";
 
 const registerFeishuDocToolsMock = vi.hoisted(() => vi.fn());
 const registerFeishuChatToolsMock = vi.hoisted(() => vi.fn());
@@ -52,7 +52,7 @@ describe("feishu plugin register", () => {
       on: vi.fn(),
       config: {},
       registrationMode: "full",
-    } as unknown as OpenClawPluginApi;
+    } as unknown as KlawtyPluginApi;
 
     plugin.register(api);
 

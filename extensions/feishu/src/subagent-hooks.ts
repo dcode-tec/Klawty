@@ -1,4 +1,4 @@
-import type { OpenClawPluginApi } from "../runtime-api.js";
+import type { KlawtyPluginApi } from "../runtime-api.js";
 import { buildFeishuConversationId, parseFeishuConversationId } from "./conversation-id.js";
 import { normalizeFeishuTarget } from "./targets.js";
 import { getFeishuThreadBindingManager } from "./thread-bindings.js";
@@ -232,7 +232,7 @@ function resolveMatchingChildBinding(params: {
   return childBindings.length === 1 ? childBindings[0] : null;
 }
 
-export function registerFeishuSubagentHooks(api: OpenClawPluginApi) {
+export function registerFeishuSubagentHooks(api: KlawtyPluginApi) {
   api.on("subagent_spawning", async (event, ctx) => {
     if (!event.threadRequested) {
       return;

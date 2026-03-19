@@ -12,8 +12,8 @@ const mocks = vi.hoisted(() => ({
   resolveStorePathMock: vi.fn(),
 }));
 
-vi.mock("openclaw/plugin-sdk/reply-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/reply-runtime")>();
+vi.mock("klawty/plugin-sdk/reply-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/reply-runtime")>();
   return {
     ...actual,
     dispatchReplyWithDispatcher: (...args: unknown[]) => mocks.dispatchMock(...args),
@@ -21,8 +21,8 @@ vi.mock("openclaw/plugin-sdk/reply-runtime", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/conversation-runtime")>();
+vi.mock("klawty/plugin-sdk/conversation-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/conversation-runtime")>();
   return {
     ...actual,
     readChannelAllowFromStore: (...args: unknown[]) => mocks.readAllowFromStoreMock(...args),
@@ -30,16 +30,16 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/routing", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/routing")>();
+vi.mock("klawty/plugin-sdk/routing", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/routing")>();
   return {
     ...actual,
     resolveAgentRoute: (...args: unknown[]) => mocks.resolveAgentRouteMock(...args),
   };
 });
 
-vi.mock("openclaw/plugin-sdk/channel-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/channel-runtime")>();
+vi.mock("klawty/plugin-sdk/channel-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/channel-runtime")>();
   return {
     ...actual,
     resolveConversationLabel: (...args: unknown[]) => mocks.resolveConversationLabelMock(...args),
@@ -49,8 +49,8 @@ vi.mock("openclaw/plugin-sdk/channel-runtime", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/config-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/config-runtime")>();
+vi.mock("klawty/plugin-sdk/config-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/config-runtime")>();
   return {
     ...actual,
     resolveStorePath: (...args: unknown[]) => mocks.resolveStorePathMock(...args),
@@ -86,5 +86,5 @@ export function resetSlackSlashMocks() {
   mocks.resolveConversationLabelMock.mockReset().mockReturnValue(undefined);
   mocks.createReplyPrefixOptionsMock.mockReset().mockReturnValue({ onModelSelected: () => {} });
   mocks.recordSessionMetaFromInboundMock.mockReset().mockResolvedValue(undefined);
-  mocks.resolveStorePathMock.mockReset().mockReturnValue("/tmp/openclaw-sessions.json");
+  mocks.resolveStorePathMock.mockReset().mockReturnValue("/tmp/klawty-sessions.json");
 }

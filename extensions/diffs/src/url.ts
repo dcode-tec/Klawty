@@ -1,9 +1,9 @@
-import type { OpenClawConfig } from "../api.js";
+import type { KlawtyConfig } from "../api.js";
 
 const DEFAULT_GATEWAY_PORT = 18789;
 
 export function buildViewerUrl(params: {
-  config: OpenClawConfig;
+  config: KlawtyConfig;
   viewerPath: string;
   baseUrl?: string;
 }): string {
@@ -40,7 +40,7 @@ export function normalizeViewerBaseUrl(raw: string): string {
   return withoutTrailingSlash;
 }
 
-function resolveGatewayBaseUrl(config: OpenClawConfig): string {
+function resolveGatewayBaseUrl(config: KlawtyConfig): string {
   const scheme = config.gateway?.tls?.enabled ? "https" : "http";
   const port =
     typeof config.gateway?.port === "number" ? config.gateway.port : DEFAULT_GATEWAY_PORT;

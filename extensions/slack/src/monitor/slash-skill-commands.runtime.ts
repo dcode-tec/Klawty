@@ -1,7 +1,7 @@
-import { listSkillCommandsForAgents as listSkillCommandsForAgentsImpl } from "openclaw/plugin-sdk/reply-runtime";
+import { listSkillCommandsForAgents as listSkillCommandsForAgentsImpl } from "klawty/plugin-sdk/reply-runtime";
 
 type ListSkillCommandsForAgents =
-  typeof import("openclaw/plugin-sdk/reply-runtime").listSkillCommandsForAgents;
+  typeof import("klawty/plugin-sdk/reply-runtime").listSkillCommandsForAgents;
 
 export function listSkillCommandsForAgents(
   ...args: Parameters<ListSkillCommandsForAgents>

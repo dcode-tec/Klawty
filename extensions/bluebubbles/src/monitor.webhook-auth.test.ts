@@ -1,6 +1,6 @@
 import { EventEmitter } from "node:events";
 import type { IncomingMessage, ServerResponse } from "node:http";
-import type { OpenClawConfig, PluginRuntime } from "openclaw/plugin-sdk/bluebubbles";
+import type { KlawtyConfig, PluginRuntime } from "klawty/plugin-sdk/bluebubbles";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createPluginRuntimeMock } from "../../../test/helpers/extensions/plugin-runtime-mock.js";
 import type { ResolvedBlueBubblesAccount } from "./accounts.js";
@@ -263,7 +263,7 @@ describe("BlueBubbles webhook monitor", () => {
 
   function setupWebhookTarget(params?: {
     account?: ResolvedBlueBubblesAccount;
-    config?: OpenClawConfig;
+    config?: KlawtyConfig;
     core?: PluginRuntime;
     statusSink?: (event: unknown) => void;
   }) {
@@ -344,7 +344,7 @@ describe("BlueBubbles webhook monitor", () => {
       statusSink?: (event: unknown) => void;
     }>,
   ) {
-    const config: OpenClawConfig = {};
+    const config: KlawtyConfig = {};
     const core = createMockRuntime();
     setBlueBubblesRuntime(core);
 

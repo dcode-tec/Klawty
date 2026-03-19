@@ -14,7 +14,7 @@ import {
 } from "../agents/auth-profiles.js";
 import { updateAuthProfileStoreWithLock } from "../agents/auth-profiles/store.js";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import { resolvePluginProviders } from "../plugins/providers.js";
 import { note } from "../terminal/note.js";
 import type { DoctorPrompter } from "./doctor-prompter.js";
@@ -24,9 +24,9 @@ import {
 } from "./provider-auth-guidance.js";
 
 export async function maybeRepairAnthropicOAuthProfileId(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   prompter: DoctorPrompter,
-): Promise<OpenClawConfig> {
+): Promise<KlawtyConfig> {
   const store = ensureAuthProfileStore();
   const repair = repairOAuthProfileIdMismatch({
     cfg,
@@ -71,9 +71,9 @@ function pruneAuthOrder(
 }
 
 function pruneAuthProfiles(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   profileIds: Set<string>,
-): { next: OpenClawConfig; changed: boolean } {
+): { next: KlawtyConfig; changed: boolean } {
   const profiles = cfg.auth?.profiles;
   const order = cfg.auth?.order;
   const nextProfiles = profiles ? { ...profiles } : undefined;
@@ -116,9 +116,9 @@ function pruneAuthProfiles(
 }
 
 export async function maybeRemoveDeprecatedCliAuthProfiles(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   prompter: DoctorPrompter,
-): Promise<OpenClawConfig> {
+): Promise<KlawtyConfig> {
   const store = ensureAuthProfileStore(undefined, { allowKeychainPrompt: false });
   const providers = resolvePluginProviders({
     config: cfg,
@@ -148,7 +148,7 @@ export async function maybeRemoveDeprecatedCliAuthProfiles(
         provider: entry.providerId,
         config: cfg,
         env: process.env,
-      }) ?? formatCliCommand("openclaw configure");
+      }) ?? formatCliCommand("klawty configure");
     lines.push(`- ${entry.profileId} (${entry.providerLabel}): use ${authCommand}`);
   }
   note(lines.join("\n"), "Auth profiles");
@@ -262,7 +262,7 @@ function formatAuthIssueLine(issue: AuthIssue): string {
 }
 
 export async function noteAuthProfileHealth(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   prompter: DoctorPrompter;
   allowKeychainPrompt: boolean;
 }): Promise<void> {

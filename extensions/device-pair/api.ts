@@ -1,1 +1,1 @@
-export * from "openclaw/plugin-sdk/device-pair";
+export * from "klawty/plugin-sdk/device-pair";

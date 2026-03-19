@@ -1,5 +1,5 @@
 ---
-summary: "Run multiple OpenClaw Gateways on one host (isolation, ports, and profiles)"
+summary: "Run multiple Klawty Gateways on one host (isolation, ports, and profiles)"
 read_when:
   - Running more than one Gateway on the same machine
   - You need isolated config/state/ports per Gateway
@@ -12,8 +12,8 @@ Most setups should use one Gateway because a single Gateway can handle multiple 
 
 ## Isolation checklist (required)
 
-- `OPENCLAW_CONFIG_PATH` — per-instance config file
-- `OPENCLAW_STATE_DIR` — per-instance sessions, creds, caches
+- `KLAWTY_CONFIG_PATH` — per-instance config file
+- `KLAWTY_STATE_DIR` — per-instance sessions, creds, caches
 - `agents.defaults.workspace` — per-instance workspace root
 - `gateway.port` (or `--port`) — unique per instance
 - Derived ports (browser/canvas) must not overlap
@@ -22,23 +22,23 @@ If these are shared, you will hit config races and port conflicts.
 
 ## Recommended: profiles (`--profile`)
 
-Profiles auto-scope `OPENCLAW_STATE_DIR` + `OPENCLAW_CONFIG_PATH` and suffix service names.
+Profiles auto-scope `KLAWTY_STATE_DIR` + `KLAWTY_CONFIG_PATH` and suffix service names.
 
 ```bash
 # main
-openclaw --profile main setup
-openclaw --profile main gateway --port 18789
+klawty --profile main setup
+klawty --profile main gateway --port 2508
 
 # rescue
-openclaw --profile rescue setup
-openclaw --profile rescue gateway --port 19001
+klawty --profile rescue setup
+klawty --profile rescue gateway --port 19001
 ```
 
 Per-profile services:
 
 ```bash
-openclaw --profile main gateway install
-openclaw --profile rescue gateway install
+klawty --profile main gateway install
+klawty --profile rescue gateway install
 ```
 
 ## Rescue-bot guide
@@ -58,25 +58,25 @@ Port spacing: leave at least 20 ports between base ports so the derived browser/
 
 ```bash
 # Main bot (existing or fresh, without --profile param)
-# Runs on port 18789 + Chrome CDC/Canvas/... Ports
-openclaw onboard
-openclaw gateway install
+# Runs on port 2508 + Chrome CDC/Canvas/... Ports
+klawty onboard
+klawty gateway install
 
 # Rescue bot (isolated profile + ports)
-openclaw --profile rescue onboard
+klawty --profile rescue onboard
 # Notes:
 # - workspace name will be postfixed with -rescue per default
-# - Port should be at least 18789 + 20 Ports,
+# - Port should be at least 2508 + 20 Ports,
 #   better choose completely different base port, like 19789,
 # - rest of the onboarding is the same as normal
 
 # To install the service (if not happened automatically during setup)
-openclaw --profile rescue gateway install
+klawty --profile rescue gateway install
 ```
 
 ## Port mapping (derived)
 
-Base port = `gateway.port` (or `OPENCLAW_GATEWAY_PORT` / `--port`).
+Base port = `gateway.port` (or `KLAWTY_GATEWAY_PORT` / `--port`).
 
 - browser control service port = base + 2 (loopback only)
 - canvas host is served on the Gateway HTTP server (same port as `gateway.port`)
@@ -94,19 +94,19 @@ If you override any of these in config or env, you must keep them unique per ins
 ## Manual env example
 
 ```bash
-OPENCLAW_CONFIG_PATH=~/.openclaw/main.json \
-OPENCLAW_STATE_DIR=~/.openclaw-main \
-openclaw gateway --port 18789
+KLAWTY_CONFIG_PATH=~/.klawty/main.json \
+KLAWTY_STATE_DIR=~/.klawty-main \
+klawty gateway --port 2508
 
-OPENCLAW_CONFIG_PATH=~/.openclaw/rescue.json \
-OPENCLAW_STATE_DIR=~/.openclaw-rescue \
-openclaw gateway --port 19001
+KLAWTY_CONFIG_PATH=~/.klawty/rescue.json \
+KLAWTY_STATE_DIR=~/.klawty-rescue \
+klawty gateway --port 19001
 ```
 
 ## Quick checks
 
 ```bash
-openclaw --profile main status
-openclaw --profile rescue status
-openclaw --profile rescue browser status
+klawty --profile main status
+klawty --profile rescue status
+klawty --profile rescue browser status
 ```

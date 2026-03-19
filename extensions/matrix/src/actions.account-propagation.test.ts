@@ -1,4 +1,4 @@
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/matrix";
+import type { ChannelMessageActionContext } from "klawty/plugin-sdk/matrix";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { CoreConfig } from "./types.js";
 
@@ -136,7 +136,7 @@ describe("matrixMessageActions account propagation", () => {
       createContext({
         action: "send",
         accountId: "ops",
-        mediaLocalRoots: ["/tmp/openclaw-matrix-test"],
+        mediaLocalRoots: ["/tmp/klawty-matrix-test"],
         params: {
           to: "room:!room:example",
           message: "hello",
@@ -152,7 +152,7 @@ describe("matrixMessageActions account propagation", () => {
         mediaUrl: "file:///tmp/photo.png",
       }),
       expect.any(Object),
-      { mediaLocalRoots: ["/tmp/openclaw-matrix-test"] },
+      { mediaLocalRoots: ["/tmp/klawty-matrix-test"] },
     );
   });
 

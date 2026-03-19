@@ -1,21 +1,21 @@
 {
-  "name": "@openclaw/googlechat",
-  "version": "2026.3.14",
+  "name": "@klawty/googlechat",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Google Chat channel plugin",
+  "description": "Klawty Google Chat channel plugin",
   "type": "module",
   "dependencies": {
     "google-auth-library": "^10.6.2"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.11"
+    "klawty": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "klawty": {
       "optional": true
     }
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],
@@ -35,7 +35,7 @@
       "order": 55
     },
     "install": {
-      "npmSpec": "@openclaw/googlechat",
+      "npmSpec": "@klawty/googlechat",
       "localPath": "extensions/googlechat",
       "defaultChoice": "npm"
     }

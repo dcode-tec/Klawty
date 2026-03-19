@@ -11,32 +11,32 @@ import {
   type StringSelectMenuInteraction,
 } from "@buape/carbon";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
-import { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
-import { resolveCommandAuthorizedFromAuthorizers } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveNativeCommandSessionTargets } from "openclaw/plugin-sdk/channel-runtime";
-import type { OpenClawConfig, loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/config-runtime";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/config-runtime";
+import { resolveHumanDelayConfig } from "klawty/plugin-sdk/agent-runtime";
+import { createChannelReplyPipeline } from "klawty/plugin-sdk/channel-reply-pipeline";
+import { resolveCommandAuthorizedFromAuthorizers } from "klawty/plugin-sdk/channel-runtime";
+import { resolveNativeCommandSessionTargets } from "klawty/plugin-sdk/channel-runtime";
+import type { KlawtyConfig, loadConfig } from "klawty/plugin-sdk/config-runtime";
+import { isDangerousNameMatchingEnabled } from "klawty/plugin-sdk/config-runtime";
+import { resolveOpenProviderRuntimeGroupPolicy } from "klawty/plugin-sdk/config-runtime";
 import {
   ensureConfiguredBindingRouteReady,
   resolveConfiguredBindingRoute,
-} from "openclaw/plugin-sdk/conversation-runtime";
-import { buildPairingReply } from "openclaw/plugin-sdk/conversation-runtime";
-import { getAgentScopedMediaLocalRoots } from "openclaw/plugin-sdk/media-runtime";
-import { executePluginCommand, matchPluginCommand } from "openclaw/plugin-sdk/plugin-runtime";
+} from "klawty/plugin-sdk/conversation-runtime";
+import { buildPairingReply } from "klawty/plugin-sdk/conversation-runtime";
+import { getAgentScopedMediaLocalRoots } from "klawty/plugin-sdk/media-runtime";
+import { executePluginCommand, matchPluginCommand } from "klawty/plugin-sdk/plugin-runtime";
 import {
   resolveSendableOutboundReplyParts,
   resolveTextChunksWithFallback,
-} from "openclaw/plugin-sdk/reply-payload";
-import { resolveChunkMode, resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-payload";
+import { resolveChunkMode, resolveTextChunkLimit } from "klawty/plugin-sdk/reply-runtime";
 import type {
   ChatCommandDefinition,
   CommandArgDefinition,
   CommandArgValues,
   CommandArgs,
   NativeCommandSpec,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
 import {
   buildCommandTextFromArgs,
   findCommandByNativeName,
@@ -45,12 +45,12 @@ import {
   resolveCommandArgChoices,
   resolveCommandArgMenu,
   serializeCommandArgs,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { dispatchReplyWithDispatcher } from "openclaw/plugin-sdk/reply-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { createSubsystemLogger } from "openclaw/plugin-sdk/runtime-env";
-import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+} from "klawty/plugin-sdk/reply-runtime";
+import { dispatchReplyWithDispatcher } from "klawty/plugin-sdk/reply-runtime";
+import type { ReplyPayload } from "klawty/plugin-sdk/reply-runtime";
+import { logVerbose } from "klawty/plugin-sdk/runtime-env";
+import { createSubsystemLogger } from "klawty/plugin-sdk/runtime-env";
+import { loadWebMedia } from "klawty/plugin-sdk/web-media";
 import { resolveDiscordMaxLinesPerMessage } from "../accounts.js";
 import { chunkDiscordTextWithMode } from "../chunk.js";
 import {
@@ -85,11 +85,11 @@ import { resolveDiscordSenderIdentity } from "./sender-identity.js";
 import type { ThreadBindingManager } from "./thread-bindings.js";
 import { resolveDiscordThreadParentInfo } from "./threading.js";
 
-type DiscordConfig = NonNullable<OpenClawConfig["channels"]>["discord"];
+type DiscordConfig = NonNullable<KlawtyConfig["channels"]>["discord"];
 const log = createSubsystemLogger("discord/native-command");
 
 function resolveDiscordNativeCommandAllowlistAccess(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId?: string | null;
   sender: { id: string; name?: string; tag?: string };
   chatType: "direct" | "group" | "thread" | "channel";

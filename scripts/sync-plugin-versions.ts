@@ -15,7 +15,7 @@ function ensureChangelogEntry(changelogPath: string, version: string): boolean {
   if (content.includes(`## ${version}`)) {
     return false;
   }
-  const entry = `## ${version}\n\n### Changes\n- Version alignment with core OpenClaw release numbers.\n\n`;
+  const entry = `## ${version}\n\n### Changes\n- Version alignment with core Klawty release numbers.\n\n`;
   if (content.startsWith("# Changelog\n\n")) {
     const next = content.replace("# Changelog\n\n", `# Changelog\n\n${entry}`);
     writeFileSync(changelogPath, next);
@@ -26,12 +26,12 @@ function ensureChangelogEntry(changelogPath: string, version: string): boolean {
   return true;
 }
 
-function stripWorkspaceOpenclawDevDependency(pkg: PackageJson): boolean {
+function stripWorkspaceKlawtyDevDependency(pkg: PackageJson): boolean {
   const devDeps = pkg.devDependencies;
-  if (!devDeps || devDeps.openclaw !== "workspace:*") {
+  if (!devDeps || devDeps.klawty !== "workspace:*") {
     return false;
   }
-  delete devDeps.openclaw;
+  delete devDeps.klawty;
   if (Object.keys(devDeps).length === 0) {
     delete pkg.devDependencies;
   }
@@ -75,7 +75,7 @@ export function syncPluginVersions(rootDir = resolve(".")) {
       changelogged.push(pkg.name);
     }
 
-    const removedWorkspaceDevDependency = stripWorkspaceOpenclawDevDependency(pkg);
+    const removedWorkspaceDevDependency = stripWorkspaceKlawtyDevDependency(pkg);
     if (removedWorkspaceDevDependency) {
       strippedWorkspaceDevDeps.push(pkg.name);
     }

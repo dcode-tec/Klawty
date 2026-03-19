@@ -40,7 +40,7 @@ function resolveStartupEntryPath(env: Record<string, string>) {
     "Start Menu",
     "Programs",
     "Startup",
-    "OpenClaw Gateway.cmd",
+    "Klawty Gateway.cmd",
   );
 }
 
@@ -88,7 +88,7 @@ afterEach(() => {
 
 describe("Windows startup fallback", () => {
   it("falls back to a Startup-folder launcher when schtasks create is denied", async () => {
-    await withWindowsEnv("openclaw-win-startup-", async ({ env }) => {
+    await withWindowsEnv("klawty-win-startup-", async ({ env }) => {
       schtasksResponses.push(
         { code: 0, stdout: "", stderr: "" },
         { code: 5, stdout: "", stderr: "ERROR: Access is denied." },
@@ -103,8 +103,8 @@ describe("Windows startup fallback", () => {
       const result = await installScheduledTask({
         env,
         stdout,
-        programArguments: ["node", "gateway.js", "--port", "18789"],
-        environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+        programArguments: ["node", "gateway.js", "--port", "2508"],
+        environment: { KLAWTY_GATEWAY_PORT: "2508" },
       });
 
       const startupEntryPath = resolveStartupEntryPath(env);
@@ -123,7 +123,7 @@ describe("Windows startup fallback", () => {
   });
 
   it("falls back to a Startup-folder launcher when schtasks create hangs", async () => {
-    await withWindowsEnv("openclaw-win-startup-", async ({ env }) => {
+    await withWindowsEnv("klawty-win-startup-", async ({ env }) => {
       schtasksResponses.push(
         { code: 0, stdout: "", stderr: "" },
         { code: 124, stdout: "", stderr: "schtasks timed out after 15000ms" },
@@ -133,8 +133,8 @@ describe("Windows startup fallback", () => {
       await installScheduledTask({
         env,
         stdout,
-        programArguments: ["node", "gateway.js", "--port", "18789"],
-        environment: { OPENCLAW_GATEWAY_PORT: "18789" },
+        programArguments: ["node", "gateway.js", "--port", "2508"],
+        environment: { KLAWTY_GATEWAY_PORT: "2508" },
       });
 
       await expect(fs.access(resolveStartupEntryPath(env))).resolves.toBeUndefined();
@@ -143,7 +143,7 @@ describe("Windows startup fallback", () => {
   });
 
   it("treats an installed Startup-folder launcher as loaded", async () => {
-    await withWindowsEnv("openclaw-win-startup-", async ({ env }) => {
+    await withWindowsEnv("klawty-win-startup-", async ({ env }) => {
       addStartupFallbackMissingResponses();
       await writeStartupFallbackEntry(env);
 
@@ -152,11 +152,11 @@ describe("Windows startup fallback", () => {
   });
 
   it("reports runtime from the gateway listener when using the Startup fallback", async () => {
-    await withWindowsEnv("openclaw-win-startup-", async ({ env }) => {
+    await withWindowsEnv("klawty-win-startup-", async ({ env }) => {
       addStartupFallbackMissingResponses();
       await writeStartupFallbackEntry(env);
       inspectPortUsage.mockResolvedValue({
-        port: 18789,
+        port: 2508,
         status: "busy",
         listeners: [{ pid: 4242, command: "node.exe" }],
         hints: [],
@@ -170,14 +170,14 @@ describe("Windows startup fallback", () => {
   });
 
   it("restarts the Startup fallback by killing the current pid and relaunching the entry", async () => {
-    await withWindowsEnv("openclaw-win-startup-", async ({ env }) => {
+    await withWindowsEnv("klawty-win-startup-", async ({ env }) => {
       addStartupFallbackMissingResponses([
         { code: 0, stdout: "", stderr: "" },
         { code: 1, stdout: "", stderr: "not found" },
       ]);
       await writeStartupFallbackEntry(env);
       inspectPortUsage.mockResolvedValue({
-        port: 18789,
+        port: 2508,
         status: "busy",
         listeners: [{ pid: 5151, command: "node.exe" }],
         hints: [],
@@ -193,25 +193,25 @@ describe("Windows startup fallback", () => {
   });
 
   it("kills the Startup fallback runtime even when the CLI env omits the gateway port", async () => {
-    await withWindowsEnv("openclaw-win-startup-", async ({ env }) => {
+    await withWindowsEnv("klawty-win-startup-", async ({ env }) => {
       schtasksResponses.push({ code: 0, stdout: "", stderr: "" });
       await writeGatewayScript(env);
       await writeStartupFallbackEntry(env);
       inspectPortUsage
         .mockResolvedValueOnce({
-          port: 18789,
+          port: 2508,
           status: "busy",
           listeners: [{ pid: 5151, command: "node.exe" }],
           hints: [],
         })
         .mockResolvedValueOnce({
-          port: 18789,
+          port: 2508,
           status: "busy",
           listeners: [{ pid: 5151, command: "node.exe" }],
           hints: [],
         })
         .mockResolvedValueOnce({
-          port: 18789,
+          port: 2508,
           status: "free",
           listeners: [],
           hints: [],
@@ -219,7 +219,7 @@ describe("Windows startup fallback", () => {
 
       const stdout = new PassThrough();
       const envWithoutPort = { ...env };
-      delete envWithoutPort.OPENCLAW_GATEWAY_PORT;
+      delete envWithoutPort.KLAWTY_GATEWAY_PORT;
       await stopScheduledTask({ env: envWithoutPort, stdout });
 
       expectGatewayTermination(5151);

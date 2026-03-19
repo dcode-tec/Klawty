@@ -9,19 +9,19 @@ title: "Discovery and Transports"
 
 # Discovery & transports
 
-OpenClaw has two distinct problems that look similar on the surface:
+Klawty has two distinct problems that look similar on the surface:
 
 1. **Operator remote control**: the macOS menu bar app controlling a gateway running elsewhere.
 2. **Node pairing**: iOS/Android (and future nodes) finding a gateway and pairing securely.
 
-The design goal is to keep all network discovery/advertising in the **Node Gateway** (`openclaw gateway`) and keep clients (mac app, iOS) as consumers.
+The design goal is to keep all network discovery/advertising in the **Node Gateway** (`klawty gateway`) and keep clients (mac app, iOS) as consumers.
 
 ## Terms
 
 - **Gateway**: a single long-running gateway process that owns state (sessions, pairing, node registry) and runs channels. Most setups use one per host; isolated multi-gateway setups are possible.
-- **Gateway WS (control plane)**: the WebSocket endpoint on `127.0.0.1:18789` by default; can be bound to LAN/tailnet via `gateway.bind`.
+- **Gateway WS (control plane)**: the WebSocket endpoint on `127.0.0.1:2508` by default; can be bound to LAN/tailnet via `gateway.bind`.
 - **Direct WS transport**: a LAN/tailnet-facing Gateway WS endpoint (no SSH).
-- **SSH transport (fallback)**: remote control by forwarding `127.0.0.1:18789` over SSH.
+- **SSH transport (fallback)**: remote control by forwarding `127.0.0.1:2508` over SSH.
 - **Legacy TCP bridge (deprecated/removed)**: older node transport (see [Bridge protocol](/gateway/bridge-protocol)); no longer advertised for discovery.
 
 Protocol details:
@@ -56,16 +56,16 @@ Troubleshooting and beacon details: [Bonjour](/gateway/bonjour).
 #### Service beacon details
 
 - Service types:
-  - `_openclaw-gw._tcp` (gateway transport beacon)
+  - `_klawty-gw._tcp` (gateway transport beacon)
 - TXT keys (non-secret):
   - `role=gateway`
   - `lanHost=<hostname>.local`
   - `sshPort=22` (or whatever is advertised)
-  - `gatewayPort=18789` (Gateway WS + HTTP)
+  - `gatewayPort=2508` (Gateway WS + HTTP)
   - `gatewayTls=1` (only when TLS is enabled)
   - `gatewayTlsSha256=<sha256>` (only when TLS is enabled and fingerprint is available)
   - `canvasPort=<port>` (canvas host port; currently the same as `gatewayPort` when the canvas host is enabled)
-  - `cliPath=<path>` (optional; absolute path to a runnable `openclaw` entrypoint or binary)
+  - `cliPath=<path>` (optional; absolute path to a runnable `klawty` entrypoint or binary)
   - `tailnetDns=<magicdns>` (optional hint; auto-detected when Tailscale is available)
 
 Security notes:
@@ -77,11 +77,11 @@ Security notes:
 
 Disable/override:
 
-- `OPENCLAW_DISABLE_BONJOUR=1` disables advertising.
-- `gateway.bind` in `~/.openclaw/openclaw.json` controls the Gateway bind mode.
-- `OPENCLAW_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
-- `OPENCLAW_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
-- `OPENCLAW_CLI_PATH` overrides the advertised CLI path.
+- `KLAWTY_DISABLE_BONJOUR=1` disables advertising.
+- `gateway.bind` in `~/.klawty/klawty.json` controls the Gateway bind mode.
+- `KLAWTY_SSH_PORT` overrides the SSH port advertised in TXT (defaults to 22).
+- `KLAWTY_TAILNET_DNS` publishes a `tailnetDns` hint (MagicDNS).
+- `KLAWTY_CLI_PATH` overrides the advertised CLI path.
 
 ### 2) Tailnet (cross-network)
 

@@ -3,4 +3,4 @@ export {
   resolveThreadBindingFarewellText,
   resolveThreadBindingIntroText,
   resolveThreadBindingThreadName,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";

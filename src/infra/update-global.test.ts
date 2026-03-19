@@ -12,7 +12,7 @@ import {
   globalInstallFallbackArgs,
   isExplicitPackageInstallSpec,
   isMainPackageTarget,
-  OPENCLAW_MAIN_PACKAGE_SPEC,
+  KLAWTY_MAIN_PACKAGE_SPEC,
   resolveGlobalPackageRoot,
   resolveGlobalInstallSpec,
   resolveGlobalRoot,
@@ -28,19 +28,19 @@ describe("update global helpers", () => {
   });
 
   it("prefers explicit package spec overrides", () => {
-    envSnapshot = captureEnv(["OPENCLAW_UPDATE_PACKAGE_SPEC"]);
-    process.env.OPENCLAW_UPDATE_PACKAGE_SPEC = "file:/tmp/openclaw.tgz";
+    envSnapshot = captureEnv(["KLAWTY_UPDATE_PACKAGE_SPEC"]);
+    process.env.KLAWTY_UPDATE_PACKAGE_SPEC = "file:/tmp/klawty.tgz";
 
-    expect(resolveGlobalInstallSpec({ packageName: "openclaw", tag: "latest" })).toBe(
-      "file:/tmp/openclaw.tgz",
+    expect(resolveGlobalInstallSpec({ packageName: "klawty", tag: "latest" })).toBe(
+      "file:/tmp/klawty.tgz",
     );
     expect(
       resolveGlobalInstallSpec({
-        packageName: "openclaw",
+        packageName: "klawty",
         tag: "beta",
-        env: { OPENCLAW_UPDATE_PACKAGE_SPEC: "openclaw@next" },
+        env: { KLAWTY_UPDATE_PACKAGE_SPEC: "klawty@next" },
       }),
-    ).toBe("openclaw@next");
+    ).toBe("klawty@next");
   });
 
   it("resolves global roots and package roots from runner output", async () => {
@@ -60,26 +60,26 @@ describe("update global helpers", () => {
       path.join(".bun", "install", "global", "node_modules"),
     );
     await expect(resolveGlobalPackageRoot("npm", runCommand, 1000)).resolves.toBe(
-      path.join("/tmp/npm-root", "openclaw"),
+      path.join("/tmp/npm-root", "klawty"),
     );
   });
 
   it("maps main and explicit install specs for global installs", () => {
-    expect(resolveGlobalInstallSpec({ packageName: "openclaw", tag: "main" })).toBe(
-      OPENCLAW_MAIN_PACKAGE_SPEC,
+    expect(resolveGlobalInstallSpec({ packageName: "klawty", tag: "main" })).toBe(
+      KLAWTY_MAIN_PACKAGE_SPEC,
     );
     expect(
       resolveGlobalInstallSpec({
-        packageName: "openclaw",
-        tag: "github:openclaw/openclaw#feature/my-branch",
+        packageName: "klawty",
+        tag: "github:klawty/klawty#feature/my-branch",
       }),
-    ).toBe("github:openclaw/openclaw#feature/my-branch");
+    ).toBe("github:klawty/klawty#feature/my-branch");
     expect(
       resolveGlobalInstallSpec({
-        packageName: "openclaw",
-        tag: "https://example.com/openclaw-main.tgz",
+        packageName: "klawty",
+        tag: "https://example.com/klawty-main.tgz",
       }),
-    ).toBe("https://example.com/openclaw-main.tgz");
+    ).toBe("https://example.com/klawty-main.tgz");
   });
 
   it("classifies main and raw install specs separately from registry selectors", () => {
@@ -87,26 +87,26 @@ describe("update global helpers", () => {
     expect(isMainPackageTarget(" MAIN ")).toBe(true);
     expect(isMainPackageTarget("beta")).toBe(false);
 
-    expect(isExplicitPackageInstallSpec("github:openclaw/openclaw#main")).toBe(true);
-    expect(isExplicitPackageInstallSpec("https://example.com/openclaw-main.tgz")).toBe(true);
-    expect(isExplicitPackageInstallSpec("file:/tmp/openclaw-main.tgz")).toBe(true);
+    expect(isExplicitPackageInstallSpec("github:klawty/klawty#main")).toBe(true);
+    expect(isExplicitPackageInstallSpec("https://example.com/klawty-main.tgz")).toBe(true);
+    expect(isExplicitPackageInstallSpec("file:/tmp/klawty-main.tgz")).toBe(true);
     expect(isExplicitPackageInstallSpec("beta")).toBe(false);
 
     expect(canResolveRegistryVersionForPackageTarget("latest")).toBe(true);
-    expect(canResolveRegistryVersionForPackageTarget("2026.3.14")).toBe(true);
+    expect(canResolveRegistryVersionForPackageTarget("1.0.0")).toBe(true);
     expect(canResolveRegistryVersionForPackageTarget("main")).toBe(false);
-    expect(canResolveRegistryVersionForPackageTarget("github:openclaw/openclaw#main")).toBe(false);
+    expect(canResolveRegistryVersionForPackageTarget("github:klawty/klawty#main")).toBe(false);
   });
 
   it("detects install managers from resolved roots and on-disk presence", async () => {
-    const base = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-update-global-"));
+    const base = await fs.mkdtemp(path.join(os.tmpdir(), "klawty-update-global-"));
     const npmRoot = path.join(base, "npm-root");
     const pnpmRoot = path.join(base, "pnpm-root");
     const bunRoot = path.join(base, ".bun", "install", "global", "node_modules");
-    const pkgRoot = path.join(pnpmRoot, "openclaw");
+    const pkgRoot = path.join(pnpmRoot, "klawty");
     await fs.mkdir(pkgRoot, { recursive: true });
-    await fs.mkdir(path.join(npmRoot, "openclaw"), { recursive: true });
-    await fs.mkdir(path.join(bunRoot, "openclaw"), { recursive: true });
+    await fs.mkdir(path.join(npmRoot, "klawty"), { recursive: true });
+    await fs.mkdir(path.join(bunRoot, "klawty"), { recursive: true });
 
     envSnapshot = captureEnv(["BUN_INSTALL"]);
     process.env.BUN_INSTALL = path.join(base, ".bun");
@@ -126,63 +126,63 @@ describe("update global helpers", () => {
     );
     await expect(detectGlobalInstallManagerByPresence(runCommand, 1000)).resolves.toBe("npm");
 
-    await fs.rm(path.join(npmRoot, "openclaw"), { recursive: true, force: true });
-    await fs.rm(path.join(pnpmRoot, "openclaw"), { recursive: true, force: true });
+    await fs.rm(path.join(npmRoot, "klawty"), { recursive: true, force: true });
+    await fs.rm(path.join(pnpmRoot, "klawty"), { recursive: true, force: true });
     await expect(detectGlobalInstallManagerByPresence(runCommand, 1000)).resolves.toBe("bun");
   });
 
   it("builds install argv and npm fallback argv", () => {
-    expect(globalInstallArgs("npm", "openclaw@latest")).toEqual([
+    expect(globalInstallArgs("npm", "klawty@latest")).toEqual([
       "npm",
       "i",
       "-g",
-      "openclaw@latest",
+      "klawty@latest",
       "--no-fund",
       "--no-audit",
       "--loglevel=error",
     ]);
-    expect(globalInstallArgs("pnpm", "openclaw@latest")).toEqual([
+    expect(globalInstallArgs("pnpm", "klawty@latest")).toEqual([
       "pnpm",
       "add",
       "-g",
-      "openclaw@latest",
+      "klawty@latest",
     ]);
-    expect(globalInstallArgs("bun", "openclaw@latest")).toEqual([
+    expect(globalInstallArgs("bun", "klawty@latest")).toEqual([
       "bun",
       "add",
       "-g",
-      "openclaw@latest",
+      "klawty@latest",
     ]);
 
-    expect(globalInstallFallbackArgs("npm", "openclaw@latest")).toEqual([
+    expect(globalInstallFallbackArgs("npm", "klawty@latest")).toEqual([
       "npm",
       "i",
       "-g",
-      "openclaw@latest",
+      "klawty@latest",
       "--omit=optional",
       "--no-fund",
       "--no-audit",
       "--loglevel=error",
     ]);
-    expect(globalInstallFallbackArgs("pnpm", "openclaw@latest")).toBeNull();
+    expect(globalInstallFallbackArgs("pnpm", "klawty@latest")).toBeNull();
   });
 
   it("cleans only renamed package directories", async () => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-update-cleanup-"));
-    await fs.mkdir(path.join(root, ".openclaw-123"), { recursive: true });
-    await fs.mkdir(path.join(root, ".openclaw-456"), { recursive: true });
-    await fs.writeFile(path.join(root, ".openclaw-file"), "nope", "utf8");
-    await fs.mkdir(path.join(root, "openclaw"), { recursive: true });
+    const root = await fs.mkdtemp(path.join(os.tmpdir(), "klawty-update-cleanup-"));
+    await fs.mkdir(path.join(root, ".klawty-123"), { recursive: true });
+    await fs.mkdir(path.join(root, ".klawty-456"), { recursive: true });
+    await fs.writeFile(path.join(root, ".klawty-file"), "nope", "utf8");
+    await fs.mkdir(path.join(root, "klawty"), { recursive: true });
 
     await expect(
       cleanupGlobalRenameDirs({
         globalRoot: root,
-        packageName: "openclaw",
+        packageName: "klawty",
       }),
     ).resolves.toEqual({
-      removed: [".openclaw-123", ".openclaw-456"],
+      removed: [".klawty-123", ".klawty-456"],
     });
-    await expect(fs.stat(path.join(root, "openclaw"))).resolves.toBeDefined();
-    await expect(fs.stat(path.join(root, ".openclaw-file"))).resolves.toBeDefined();
+    await expect(fs.stat(path.join(root, "klawty"))).resolves.toBeDefined();
+    await expect(fs.stat(path.join(root, ".klawty-file"))).resolves.toBeDefined();
   });
 });

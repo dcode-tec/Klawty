@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from "vitest";
-import type { OpenClawPluginApi } from "../runtime-api.js";
+import type { KlawtyPluginApi } from "../runtime-api.js";
 import { registerFeishuDocTools } from "./docx.js";
 import { createToolFactoryHarness } from "./tool-factory-test-harness.js";
 
@@ -21,7 +21,7 @@ vi.mock("@larksuiteoapi/node-sdk", () => {
 });
 
 describe("feishu_doc account selection", () => {
-  function createDocEnabledConfig(): OpenClawPluginApi["config"] {
+  function createDocEnabledConfig(): KlawtyPluginApi["config"] {
     return {
       channels: {
         feishu: {
@@ -32,7 +32,7 @@ describe("feishu_doc account selection", () => {
           },
         },
       },
-    } as OpenClawPluginApi["config"];
+    } as KlawtyPluginApi["config"];
   }
 
   test("uses agentAccountId context when params omit accountId", async () => {

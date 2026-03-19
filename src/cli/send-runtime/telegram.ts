@@ -1,7 +1,7 @@
-import { sendMessageTelegram as sendMessageTelegramImpl } from "openclaw/plugin-sdk/telegram";
+import { sendMessageTelegram as sendMessageTelegramImpl } from "klawty/plugin-sdk/telegram";
 
 type RuntimeSend = {
-  sendMessage: typeof import("openclaw/plugin-sdk/telegram").sendMessageTelegram;
+  sendMessage: typeof import("klawty/plugin-sdk/telegram").sendMessageTelegram;
 };
 
 export const runtimeSend = {

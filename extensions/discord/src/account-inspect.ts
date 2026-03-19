@@ -8,7 +8,7 @@ import {
   normalizeAccountId,
   hasConfiguredSecretInput,
   normalizeSecretInputString,
-  type OpenClawConfig,
+  type KlawtyConfig,
   type DiscordAccountConfig,
 } from "./runtime-api.js";
 
@@ -49,7 +49,7 @@ function inspectDiscordTokenValue(value: unknown): {
 }
 
 export function inspectDiscordAccount(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId?: string | null;
   envToken?: string | null;
 }): InspectedDiscordAccount {

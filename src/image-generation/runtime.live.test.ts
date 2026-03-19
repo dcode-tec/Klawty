@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { resolveOpenClawAgentDir } from "../agents/agent-paths.js";
+import { resolveKlawtyAgentDir } from "../agents/agent-paths.js";
 import { collectProviderApiKeys } from "../agents/live-auth-keys.js";
 import { resolveApiKeyForProvider } from "../agents/model-auth.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import { loadConfig } from "../config/config.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 import { getShellEnvAppliedKeys, loadShellEnvFallback } from "../infra/shell-env.js";
@@ -22,8 +22,8 @@ import {
 } from "./live-test-helpers.js";
 import { generateImage } from "./runtime.js";
 
-const LIVE = isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.OPENCLAW_LIVE_TEST);
-const REQUIRE_PROFILE_KEYS = isTruthyEnvValue(process.env.OPENCLAW_LIVE_REQUIRE_PROFILE_KEYS);
+const LIVE = isTruthyEnvValue(process.env.LIVE) || isTruthyEnvValue(process.env.KLAWTY_LIVE_TEST);
+const REQUIRE_PROFILE_KEYS = isTruthyEnvValue(process.env.KLAWTY_LIVE_REQUIRE_PROFILE_KEYS);
 const describeLive = LIVE ? describe : describe.skip;
 
 type LiveImageCase = {
@@ -62,7 +62,7 @@ function createEditReferencePng(): Buffer {
   return encodePngRgba(buf, width, height);
 }
 
-function withPluginsEnabled(cfg: OpenClawConfig): OpenClawConfig {
+function withPluginsEnabled(cfg: KlawtyConfig): KlawtyConfig {
   return {
     ...cfg,
     plugins: {
@@ -112,10 +112,10 @@ async function resolveLiveAuthForProvider(
 describeLive("image generation live (provider sweep)", () => {
   it("generates images for every configured image-generation variant with available auth", async () => {
     const cfg = withPluginsEnabled(loadConfig());
-    const agentDir = resolveOpenClawAgentDir();
-    const providerFilter = parseCsvFilter(process.env.OPENCLAW_LIVE_IMAGE_GENERATION_PROVIDERS);
-    const caseFilter = parseCaseFilter(process.env.OPENCLAW_LIVE_IMAGE_GENERATION_CASES);
-    const envModelMap = parseProviderModelMap(process.env.OPENCLAW_LIVE_IMAGE_GENERATION_MODELS);
+    const agentDir = resolveKlawtyAgentDir();
+    const providerFilter = parseCsvFilter(process.env.KLAWTY_LIVE_IMAGE_GENERATION_PROVIDERS);
+    const caseFilter = parseCaseFilter(process.env.KLAWTY_LIVE_IMAGE_GENERATION_CASES);
+    const envModelMap = parseProviderModelMap(process.env.KLAWTY_LIVE_IMAGE_GENERATION_MODELS);
     const configuredModels = resolveConfiguredLiveImageModels(cfg);
     const availableProviders = imageGenerationProviderContractRegistry
       .map((entry) => entry.provider.id)

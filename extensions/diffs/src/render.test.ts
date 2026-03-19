@@ -20,7 +20,7 @@ describe("renderDiffDocument", () => {
 
     expect(rendered.title).toBe("src/example.ts");
     expect(rendered.fileCount).toBe(1);
-    expect(rendered.html).toContain("data-openclaw-diff-root");
+    expect(rendered.html).toContain("data-klawty-diff-root");
     expect(rendered.html).toContain("src/example.ts");
     expect(rendered.html).toContain("/plugins/diffs/assets/viewer.js");
     expect(rendered.imageHtml).toContain("/plugins/diffs/assets/viewer.js");

@@ -2,13 +2,13 @@ import {
   createAllowFromSection,
   DEFAULT_ACCOUNT_ID,
   hasConfiguredSecretInput,
-  type OpenClawConfig,
+  type KlawtyConfig,
   patchChannelConfigForAccount,
   setChannelDmPolicyWithAllowFrom,
   setSetupChannelEnabled,
   splitSetupEntries,
-} from "openclaw/plugin-sdk/setup";
-import type { ChannelSetupDmPolicy, ChannelSetupWizard } from "openclaw/plugin-sdk/setup";
+} from "klawty/plugin-sdk/setup";
+import type { ChannelSetupDmPolicy, ChannelSetupWizard } from "klawty/plugin-sdk/setup";
 import { inspectTelegramAccount } from "./account-inspect.js";
 import { listTelegramAccountIds, resolveTelegramAccount } from "./accounts.js";
 import {

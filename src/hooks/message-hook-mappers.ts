@@ -1,5 +1,5 @@
 import type { FinalizedMsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import type {
   PluginHookInboundClaimContext,
   PluginHookInboundClaimEvent,
@@ -343,8 +343,8 @@ export function toInternalMessageReceivedContext(
 
 export function toInternalMessageTranscribedContext(
   canonical: CanonicalInboundMessageHookContext,
-  cfg: OpenClawConfig,
-): MessageTranscribedHookContext & { cfg: OpenClawConfig } {
+  cfg: KlawtyConfig,
+): MessageTranscribedHookContext & { cfg: KlawtyConfig } {
   const shared = toInternalInboundMessageHookContextBase(canonical);
   return {
     ...shared,
@@ -355,8 +355,8 @@ export function toInternalMessageTranscribedContext(
 
 export function toInternalMessagePreprocessedContext(
   canonical: CanonicalInboundMessageHookContext,
-  cfg: OpenClawConfig,
-): MessagePreprocessedHookContext & { cfg: OpenClawConfig } {
+  cfg: KlawtyConfig,
+): MessagePreprocessedHookContext & { cfg: KlawtyConfig } {
   const shared = toInternalInboundMessageHookContextBase(canonical);
   return {
     ...shared,

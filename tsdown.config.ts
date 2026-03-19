@@ -26,7 +26,7 @@ const env = {
 };
 
 function buildInputOptions(options: InputOptionsArg): InputOptionsReturn {
-  if (process.env.OPENCLAW_BUILD_VERBOSE === "1") {
+  if (process.env.KLAWTY_BUILD_VERBOSE === "1") {
     return undefined;
   }
 
@@ -87,7 +87,7 @@ function listBundledPluginBuildEntries(): Record<string, string> {
     }
 
     const pluginDir = path.join(extensionsRoot, dirent.name);
-    const manifestPath = path.join(pluginDir, "openclaw.plugin.json");
+    const manifestPath = path.join(pluginDir, "klawty.plugin.json");
     if (!fs.existsSync(manifestPath)) {
       continue;
     }
@@ -97,17 +97,17 @@ function listBundledPluginBuildEntries(): Record<string, string> {
     if (fs.existsSync(packageJsonPath)) {
       try {
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8")) as {
-          openclaw?: { extensions?: unknown; setupEntry?: unknown };
+          klawty?: { extensions?: unknown; setupEntry?: unknown };
         };
-        packageEntries = Array.isArray(packageJson.openclaw?.extensions)
-          ? packageJson.openclaw.extensions.filter(
+        packageEntries = Array.isArray(packageJson.klawty?.extensions)
+          ? packageJson.klawty.extensions.filter(
               (entry): entry is string => typeof entry === "string" && entry.trim().length > 0,
             )
           : [];
         const setupEntry =
-          typeof packageJson.openclaw?.setupEntry === "string" &&
-          packageJson.openclaw.setupEntry.trim().length > 0
-            ? packageJson.openclaw.setupEntry
+          typeof packageJson.klawty?.setupEntry === "string" &&
+          packageJson.klawty.setupEntry.trim().length > 0
+            ? packageJson.klawty.setupEntry
             : undefined;
         if (setupEntry) {
           packageEntries = Array.from(new Set([...packageEntries, setupEntry]));

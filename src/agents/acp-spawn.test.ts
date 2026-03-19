@@ -3,7 +3,7 @@ import * as acpSessionManager from "../acp/control-plane/manager.js";
 import {
   clearRuntimeConfigSnapshot,
   setRuntimeConfigSnapshot,
-  type OpenClawConfig,
+  type KlawtyConfig,
 } from "../config/config.js";
 import * as sessionConfig from "../config/sessions.js";
 import * as sessionTranscript from "../config/sessions/transcript.js";
@@ -16,7 +16,7 @@ import {
 } from "../infra/outbound/session-binding-service.js";
 import * as acpSpawnParentStream from "./acp-spawn-parent-stream.js";
 
-function createDefaultSpawnConfig(): OpenClawConfig {
+function createDefaultSpawnConfig(): KlawtyConfig {
   return {
     acp: {
       enabled: true,
@@ -90,7 +90,7 @@ const resolveAcpSpawnStreamLogPathSpy = vi.spyOn(
 
 const { spawnAcpDirect } = await import("./acp-spawn.js");
 
-function replaceSpawnConfig(next: OpenClawConfig): void {
+function replaceSpawnConfig(next: KlawtyConfig): void {
   const current = hoisted.state.cfg as Record<string, unknown>;
   for (const key of Object.keys(current)) {
     delete current[key];

@@ -152,7 +152,7 @@ describe("registerQrCli", () => {
   }
 
   function expectLoggedLocalSetupCode(auth?: { token?: string; password?: string }) {
-    expectLoggedSetupCode("ws://gateway.local:18789", auth);
+    expectLoggedSetupCode("ws://gateway.local:2508", auth);
   }
 
   function mockTailscaleStatusLookup() {
@@ -165,9 +165,9 @@ describe("registerQrCli", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "");
+    vi.stubEnv("KLAWTY_GATEWAY_TOKEN", "");
     vi.stubEnv("CLAWDBOT_GATEWAY_TOKEN", "");
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "");
+    vi.stubEnv("KLAWTY_GATEWAY_PASSWORD", "");
     vi.stubEnv("CLAWDBOT_GATEWAY_PASSWORD", "");
   });
 
@@ -187,7 +187,7 @@ describe("registerQrCli", () => {
     await runQr(["--setup-code-only"]);
 
     const expected = encodePairingSetupCode({
-      url: "ws://gateway.local:18789",
+      url: "ws://gateway.local:2508",
       bootstrapToken: "bootstrap-123",
       token: "tok",
     });
@@ -212,7 +212,7 @@ describe("registerQrCli", () => {
     expect(output).toContain("Pairing QR");
     expect(output).toContain("ASCII-QR");
     expect(output).toContain("Gateway:");
-    expect(output).toContain("openclaw devices approve <requestId>");
+    expect(output).toContain("klawty devices approve <requestId>");
   });
 
   it("accepts --token override when config has no auth", async () => {
@@ -254,8 +254,8 @@ describe("registerQrCli", () => {
     expect(resolveCommandSecretRefsViaGateway).not.toHaveBeenCalled();
   });
 
-  it("uses OPENCLAW_GATEWAY_PASSWORD without resolving local password SecretRef", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_PASSWORD", "password-from-env");
+  it("uses KLAWTY_GATEWAY_PASSWORD without resolving local password SecretRef", async () => {
+    vi.stubEnv("KLAWTY_GATEWAY_PASSWORD", "password-from-env");
     loadConfig.mockReturnValue(
       createLocalGatewayConfigWithAuth(
         createLocalGatewayPasswordRefAuth("MISSING_LOCAL_GATEWAY_PASSWORD"),

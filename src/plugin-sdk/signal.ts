@@ -1,11 +1,11 @@
 export type { ChannelMessageActionAdapter } from "../channels/plugins/types.js";
-export type { OpenClawConfig } from "../config/config.js";
+export type { KlawtyConfig } from "../config/config.js";
 export type { SignalAccountConfig } from "../config/types.js";
 export type { ResolvedSignalAccount } from "../../extensions/signal/api.js";
 export type {
   ChannelMessageActionContext,
   ChannelPlugin,
-  OpenClawPluginApi,
+  KlawtyPluginApi,
   PluginRuntime,
 } from "./channel-plugin-common.js";
 export {

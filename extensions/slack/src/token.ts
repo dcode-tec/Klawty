@@ -1,4 +1,4 @@
-import { normalizeResolvedSecretInputString } from "openclaw/plugin-sdk/config-runtime";
+import { normalizeResolvedSecretInputString } from "klawty/plugin-sdk/config-runtime";
 
 export function normalizeSlackToken(raw?: unknown): string | undefined {
   return normalizeResolvedSecretInputString({

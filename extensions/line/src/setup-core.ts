@@ -1,4 +1,4 @@
-import type { ChannelSetupAdapter, OpenClawConfig } from "openclaw/plugin-sdk/setup";
+import type { ChannelSetupAdapter, KlawtyConfig } from "klawty/plugin-sdk/setup";
 import {
   DEFAULT_ACCOUNT_ID,
   listLineAccountIds,
@@ -10,12 +10,12 @@ import {
 const channel = "line" as const;
 
 export function patchLineAccountConfig(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId: string;
   patch: Record<string, unknown>;
   clearFields?: string[];
   enabled?: boolean;
-}): OpenClawConfig {
+}): KlawtyConfig {
   const accountId = normalizeAccountId(params.accountId);
   const lineConfig = (params.cfg.channels?.line ?? {}) as LineConfig;
   const clearFields = params.clearFields ?? [];
@@ -65,7 +65,7 @@ export function patchLineAccountConfig(params: {
   };
 }
 
-export function isLineConfigured(cfg: OpenClawConfig, accountId: string): boolean {
+export function isLineConfigured(cfg: KlawtyConfig, accountId: string): boolean {
   const resolved = resolveLineAccount({ cfg, accountId });
   return Boolean(resolved.channelAccessToken.trim() && resolved.channelSecret.trim());
 }

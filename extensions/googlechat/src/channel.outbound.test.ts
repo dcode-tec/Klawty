@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig, PluginRuntime } from "../runtime-api.js";
+import type { KlawtyConfig, PluginRuntime } from "../runtime-api.js";
 
 const uploadGoogleChatAttachmentMock = vi.hoisted(() => vi.fn());
 const sendGoogleChatMessageMock = vi.hoisted(() => vi.fn());
@@ -16,7 +16,7 @@ vi.mock("./api.js", async (importOriginal) => {
 import { googlechatPlugin } from "./channel.js";
 import { setGoogleChatRuntime } from "./runtime.js";
 
-function createGoogleChatCfg(): OpenClawConfig {
+function createGoogleChatCfg(): KlawtyConfig {
   return {
     channels: {
       googlechat: {

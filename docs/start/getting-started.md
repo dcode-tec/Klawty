@@ -1,5 +1,5 @@
 ---
-summary: "Get OpenClaw installed and run your first chat in minutes."
+summary: "Get Klawty installed and run your first chat in minutes."
 read_when:
   - First time setup from zero
   - You want the fastest path to a working chat
@@ -11,9 +11,9 @@ title: "Getting Started"
 Goal: go from zero to a first working chat with minimal setup.
 
 <Info>
-Fastest chat: open the Control UI (no channel setup needed). Run `openclaw dashboard`
-and chat in the browser, or open `http://127.0.0.1:18789/` on the
-<Tooltip headline="Gateway host" tip="The machine running the OpenClaw gateway service.">gateway host</Tooltip>.
+Fastest chat: open the Control UI (no channel setup needed). Run `klawty dashboard`
+and chat in the browser, or open `http://127.0.0.1:2508/` on the
+<Tooltip headline="Gateway host" tip="The machine running the Klawty gateway service.">gateway host</Tooltip>.
 Docs: [Dashboard](/web/dashboard) and [Control UI](/web/control-ui).
 </Info>
 
@@ -28,11 +28,11 @@ Check your Node version with `node --version` if you are unsure.
 ## Quick setup (CLI)
 
 <Steps>
-  <Step title="Install OpenClaw (recommended)">
+  <Step title="Install Klawty (recommended)">
     <Tabs>
       <Tab title="macOS/Linux">
         ```bash
-        curl -fsSL https://openclaw.ai/install.sh | bash
+        curl -fsSL https://klawty.ai/install.sh | bash
         ```
         <img
   src="/assets/install-script.svg"
@@ -42,7 +42,7 @@ Check your Node version with `node --version` if you are unsure.
       </Tab>
       <Tab title="Windows (PowerShell)">
         ```powershell
-        iwr -useb https://openclaw.ai/install.ps1 | iex
+        iwr -useb https://klawty.ai/install.ps1 | iex
         ```
       </Tab>
     </Tabs>
@@ -54,7 +54,7 @@ Check your Node version with `node --version` if you are unsure.
   </Step>
   <Step title="Run onboarding">
     ```bash
-    openclaw onboard --install-daemon
+    klawty onboard --install-daemon
     ```
 
     Onboarding configures auth, gateway settings, and optional channels.
@@ -65,13 +65,13 @@ Check your Node version with `node --version` if you are unsure.
     If you installed the service, it should already be running:
 
     ```bash
-    openclaw gateway status
+    klawty gateway status
     ```
 
   </Step>
   <Step title="Open the Control UI">
     ```bash
-    openclaw dashboard
+    klawty dashboard
     ```
   </Step>
 </Steps>
@@ -87,7 +87,7 @@ If the Control UI loads, your Gateway is ready for use.
     Useful for quick tests or troubleshooting.
 
     ```bash
-    openclaw gateway --port 18789
+    klawty gateway --port 2508
     ```
 
   </Accordion>
@@ -95,7 +95,7 @@ If the Control UI loads, your Gateway is ready for use.
     Requires a configured channel.
 
     ```bash
-    openclaw message send --target +15555550123 --message "Hello from OpenClaw"
+    klawty message send --target +15555550123 --message "Hello from Klawty"
     ```
 
   </Accordion>
@@ -103,11 +103,11 @@ If the Control UI loads, your Gateway is ready for use.
 
 ## Useful environment variables
 
-If you run OpenClaw as a service account or want custom config/state locations:
+If you run Klawty as a service account or want custom config/state locations:
 
-- `OPENCLAW_HOME` sets the home directory used for internal path resolution.
-- `OPENCLAW_STATE_DIR` overrides the state directory.
-- `OPENCLAW_CONFIG_PATH` overrides the config file path.
+- `KLAWTY_HOME` sets the home directory used for internal path resolution.
+- `KLAWTY_STATE_DIR` overrides the state directory.
+- `KLAWTY_CONFIG_PATH` overrides the config file path.
 
 Full environment variable reference: [Environment vars](/help/environment).
 

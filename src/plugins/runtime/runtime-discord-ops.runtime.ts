@@ -1,12 +1,12 @@
-import { auditDiscordChannelPermissions as auditDiscordChannelPermissionsImpl } from "openclaw/plugin-sdk/discord";
+import { auditDiscordChannelPermissions as auditDiscordChannelPermissionsImpl } from "klawty/plugin-sdk/discord";
 import {
   listDiscordDirectoryGroupsLive as listDiscordDirectoryGroupsLiveImpl,
   listDiscordDirectoryPeersLive as listDiscordDirectoryPeersLiveImpl,
-} from "openclaw/plugin-sdk/discord";
-import { monitorDiscordProvider as monitorDiscordProviderImpl } from "openclaw/plugin-sdk/discord";
-import { probeDiscord as probeDiscordImpl } from "openclaw/plugin-sdk/discord";
-import { resolveDiscordChannelAllowlist as resolveDiscordChannelAllowlistImpl } from "openclaw/plugin-sdk/discord";
-import { resolveDiscordUserAllowlist as resolveDiscordUserAllowlistImpl } from "openclaw/plugin-sdk/discord";
+} from "klawty/plugin-sdk/discord";
+import { monitorDiscordProvider as monitorDiscordProviderImpl } from "klawty/plugin-sdk/discord";
+import { probeDiscord as probeDiscordImpl } from "klawty/plugin-sdk/discord";
+import { resolveDiscordChannelAllowlist as resolveDiscordChannelAllowlistImpl } from "klawty/plugin-sdk/discord";
+import { resolveDiscordUserAllowlist as resolveDiscordUserAllowlistImpl } from "klawty/plugin-sdk/discord";
 import {
   createThreadDiscord as createThreadDiscordImpl,
   deleteMessageDiscord as deleteMessageDiscordImpl,
@@ -18,7 +18,7 @@ import {
   sendPollDiscord as sendPollDiscordImpl,
   sendTypingDiscord as sendTypingDiscordImpl,
   unpinMessageDiscord as unpinMessageDiscordImpl,
-} from "openclaw/plugin-sdk/discord";
+} from "klawty/plugin-sdk/discord";
 import type { PluginRuntimeChannel } from "./types-channel.js";
 
 type RuntimeDiscordOps = Pick<

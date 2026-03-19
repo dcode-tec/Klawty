@@ -1,4 +1,4 @@
-import { loadConfig, type OpenClawConfig } from "../config/config.js";
+import { loadConfig, type KlawtyConfig } from "../config/config.js";
 import { resolveProviderUsageSnapshotWithPlugin } from "../plugins/provider-runtime.js";
 import { resolveFetch } from "./fetch.js";
 import { type ProviderAuth, resolveProviderAuths } from "./provider-usage.auth.js";
@@ -122,14 +122,14 @@ type UsageSummaryOptions = {
   auth?: ProviderAuth[];
   agentDir?: string;
   workspaceDir?: string;
-  config?: OpenClawConfig;
+  config?: KlawtyConfig;
   env?: NodeJS.ProcessEnv;
   fetch?: typeof fetch;
 };
 
 async function fetchProviderUsageSnapshot(params: {
   auth: ProviderAuth;
-  config: OpenClawConfig;
+  config: KlawtyConfig;
   env: NodeJS.ProcessEnv;
   agentDir?: string;
   workspaceDir?: string;

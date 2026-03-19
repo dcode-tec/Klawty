@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import { resolveAccountEntry } from "../../routing/account-lookup.js";
 import { DEFAULT_ACCOUNT_ID } from "../../routing/session-key.js";
 import { normalizeAccountId } from "../../routing/session-key.js";
@@ -34,7 +34,7 @@ export type ConfigWriteAuthorizationResult =
     };
 
 export function resolveChannelConfigWrites(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   channelId?: ChannelId | null;
   accountId?: string | null;
 }): boolean {
@@ -53,7 +53,7 @@ export function resolveChannelConfigWrites(params: {
 }
 
 export function authorizeConfigWrite(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   origin?: ConfigWriteScope;
   target?: ConfigWriteTarget;
   allowBypass?: boolean;

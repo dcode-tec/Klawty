@@ -2,12 +2,12 @@ import {
   asString,
   collectIssuesForEnabledAccounts,
   isRecord,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 import type {
   ChannelAccountSnapshot,
   ChannelStatusIssue,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import { formatCliCommand } from "klawty/plugin-sdk/cli-runtime";
 
 type WhatsAppAccountStatus = {
   accountId?: unknown;
@@ -54,7 +54,7 @@ export function collectWhatsAppStatusIssues(
           accountId,
           kind: "auth",
           message: "Not linked (no WhatsApp Web session).",
-          fix: `Run: ${formatCliCommand("openclaw channels login")} (scan QR on the gateway host).`,
+          fix: `Run: ${formatCliCommand("klawty channels login")} (scan QR on the gateway host).`,
         });
         return;
       }
@@ -65,7 +65,7 @@ export function collectWhatsAppStatusIssues(
           accountId,
           kind: "runtime",
           message: `Linked but disconnected${reconnectAttempts != null ? ` (reconnectAttempts=${reconnectAttempts})` : ""}${lastError ? `: ${lastError}` : "."}`,
-          fix: `Run: ${formatCliCommand("openclaw doctor")} (or restart the gateway). If it persists, relink via channels login and check logs.`,
+          fix: `Run: ${formatCliCommand("klawty doctor")} (or restart the gateway). If it persists, relink via channels login and check logs.`,
         });
       }
     },

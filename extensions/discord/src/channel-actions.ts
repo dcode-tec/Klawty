@@ -1,13 +1,13 @@
 import {
   createUnionActionGate,
   listTokenSourcedAccounts,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
   ChannelMessageToolDiscovery,
-} from "openclaw/plugin-sdk/channel-runtime";
-import type { DiscordActionConfig } from "openclaw/plugin-sdk/config-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import type { DiscordActionConfig } from "klawty/plugin-sdk/config-runtime";
 import { createDiscordActionGate, listEnabledDiscordAccounts } from "./accounts.js";
 import { handleDiscordMessageAction } from "./actions/handle-action.js";
 import { createDiscordMessageToolComponentsSchema } from "./message-tool-schema.js";

@@ -7,9 +7,9 @@ export {
   projectCredentialSnapshotFields,
   resolveConfiguredFromRequiredCredentialStatuses,
   type ChannelPlugin,
-  type OpenClawConfig,
+  type KlawtyConfig,
   type SlackAccountConfig,
-} from "openclaw/plugin-sdk/slack";
+} from "klawty/plugin-sdk/slack";
 export {
   listSlackDirectoryGroupsFromConfig,
   listSlackDirectoryPeersFromConfig,
@@ -25,5 +25,5 @@ export {
   readStringParam,
   SlackConfigSchema,
   withNormalizedTimestamp,
-} from "openclaw/plugin-sdk/slack-core";
+} from "klawty/plugin-sdk/slack-core";
 export { isSlackInteractiveRepliesEnabled } from "./interactive-replies.js";

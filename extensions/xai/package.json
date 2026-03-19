@@ -1,10 +1,10 @@
 {
-  "name": "@openclaw/xai-plugin",
-  "version": "2026.3.14",
+  "name": "@klawty/xai-plugin",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw xAI plugin",
+  "description": "Klawty xAI plugin",
   "type": "module",
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

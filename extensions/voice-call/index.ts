@@ -2,7 +2,7 @@ import { Type } from "@sinclair/typebox";
 import {
   definePluginEntry,
   type GatewayRequestHandlerOptions,
-  type OpenClawPluginApi,
+  type KlawtyPluginApi,
 } from "./api.js";
 import { registerVoiceCallCli } from "./src/cli.js";
 import {
@@ -149,7 +149,7 @@ export default definePluginEntry({
   name: "Voice Call",
   description: "Voice-call plugin with Telnyx/Twilio/Plivo providers",
   configSchema: voiceCallConfigSchema,
-  register(api: OpenClawPluginApi) {
+  register(api: KlawtyPluginApi) {
     const config = resolveVoiceCallConfig(voiceCallConfigSchema.parse(api.pluginConfig));
     const validation = validateProviderConfig(config);
 

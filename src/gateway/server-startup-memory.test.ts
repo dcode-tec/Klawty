@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 
 const { getMemorySearchManagerMock } = vi.hoisted(() => ({
   getMemorySearchManagerMock: vi.fn(),
@@ -11,11 +11,11 @@ vi.mock("../memory/index.js", () => ({
 
 import { startGatewayMemoryBackend } from "./server-startup-memory.js";
 
-function createQmdConfig(agents: OpenClawConfig["agents"]): OpenClawConfig {
+function createQmdConfig(agents: KlawtyConfig["agents"]): KlawtyConfig {
   return {
     agents,
     memory: { backend: "qmd", qmd: {} },
-  } as OpenClawConfig;
+  } as KlawtyConfig;
 }
 
 function createGatewayLogMock() {
@@ -31,7 +31,7 @@ describe("startGatewayMemoryBackend", () => {
     const cfg = {
       agents: { list: [{ id: "main", default: true }] },
       memory: { backend: "builtin" },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
     const log = { info: vi.fn(), warn: vi.fn() };
 
     await startGatewayMemoryBackend({ cfg, log });

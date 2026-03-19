@@ -1,15 +1,15 @@
 import {
   DEFAULT_ACCOUNT_ID,
   type ChannelSetupAdapter,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/setup";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/setup";
 import type { FeishuConfig } from "./types.js";
 
 export function setFeishuNamedAccountEnabled(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   accountId: string,
   enabled: boolean,
-): OpenClawConfig {
+): KlawtyConfig {
   const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
   return {
     ...cfg,

@@ -7,9 +7,9 @@ import {
   type ChannelMessageActionName,
   type ChannelMessageToolDiscovery,
   type ChannelMessageToolSchemaContribution,
-} from "openclaw/plugin-sdk/channel-runtime";
-import type { TelegramActionConfig } from "openclaw/plugin-sdk/config-runtime";
-import { extractToolSend } from "openclaw/plugin-sdk/tool-send";
+} from "klawty/plugin-sdk/channel-runtime";
+import type { TelegramActionConfig } from "klawty/plugin-sdk/config-runtime";
+import { extractToolSend } from "klawty/plugin-sdk/tool-send";
 import {
   createTelegramActionGate,
   listEnabledTelegramAccounts,

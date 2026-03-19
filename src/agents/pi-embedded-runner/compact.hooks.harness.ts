@@ -68,7 +68,7 @@ export const resolveMemorySearchConfigMock = vi.fn(() => ({
 export const resolveSessionAgentIdMock = vi.fn(() => "main");
 export const estimateTokensMock = vi.fn((_message?: unknown) => 10);
 export const sessionAbortCompactionMock: Mock<(reason?: unknown) => void> = vi.fn();
-export const createOpenClawCodingToolsMock = vi.fn(() => []);
+export const createKlawtyCodingToolsMock = vi.fn(() => []);
 
 export function resetCompactHooksHarnessMocks(): void {
   hookRunner.hasHooks.mockReset();
@@ -135,8 +135,8 @@ export function resetCompactHooksHarnessMocks(): void {
   estimateTokensMock.mockReset();
   estimateTokensMock.mockReturnValue(10);
   sessionAbortCompactionMock.mockReset();
-  createOpenClawCodingToolsMock.mockReset();
-  createOpenClawCodingToolsMock.mockReturnValue([]);
+  createKlawtyCodingToolsMock.mockReset();
+  createKlawtyCodingToolsMock.mockReturnValue([]);
 }
 
 export async function loadCompactHooksHarness(): Promise<{
@@ -225,7 +225,7 @@ export async function loadCompactHooksHarness(): Promise<{
   }));
 
   vi.doMock("../models-config.js", () => ({
-    ensureOpenClawModelsJson: vi.fn(async () => {}),
+    ensureKlawtyModelsJson: vi.fn(async () => {}),
   }));
 
   vi.doMock("../model-auth.js", () => ({
@@ -271,7 +271,7 @@ export async function loadCompactHooksHarness(): Promise<{
   }));
 
   vi.doMock("../docs-path.js", () => ({
-    resolveOpenClawDocsPath: vi.fn(async () => undefined),
+    resolveKlawtyDocsPath: vi.fn(async () => undefined),
   }));
 
   vi.doMock("../channel-tools.js", () => ({
@@ -280,7 +280,7 @@ export async function loadCompactHooksHarness(): Promise<{
   }));
 
   vi.doMock("../pi-tools.js", () => ({
-    createOpenClawCodingTools: createOpenClawCodingToolsMock,
+    createKlawtyCodingTools: createKlawtyCodingToolsMock,
   }));
 
   vi.doMock("./google.js", () => ({
@@ -318,7 +318,7 @@ export async function loadCompactHooksHarness(): Promise<{
   }));
 
   vi.doMock("../agent-paths.js", () => ({
-    resolveOpenClawAgentDir: vi.fn(() => "/tmp"),
+    resolveKlawtyAgentDir: vi.fn(() => "/tmp"),
   }));
 
   vi.doMock("../agent-scope.js", () => ({

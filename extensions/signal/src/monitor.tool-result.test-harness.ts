@@ -1,4 +1,4 @@
-import type { MockFn } from "openclaw/plugin-sdk/testing";
+import type { MockFn } from "klawty/plugin-sdk/testing";
 import { beforeEach, vi } from "vitest";
 import type { SignalDaemonExitEvent, SignalDaemonHandle } from "./daemon.js";
 
@@ -66,20 +66,20 @@ export function createMockSignalDaemonHandle(
   };
 }
 
-vi.mock("openclaw/plugin-sdk/config-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/config-runtime")>();
+vi.mock("klawty/plugin-sdk/config-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/config-runtime")>();
   return {
     ...actual,
     loadConfig: () => config,
-    resolveStorePath: vi.fn(() => "/tmp/openclaw-sessions.json"),
+    resolveStorePath: vi.fn(() => "/tmp/klawty-sessions.json"),
     updateLastRoute: (...args: unknown[]) => updateLastRouteMock(...args),
     readSessionUpdatedAt: vi.fn(() => undefined),
     recordSessionMetaFromInbound: vi.fn().mockResolvedValue(undefined),
   };
 });
 
-vi.mock("openclaw/plugin-sdk/reply-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/reply-runtime")>();
+vi.mock("klawty/plugin-sdk/reply-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/reply-runtime")>();
   return {
     ...actual,
     getReplyFromConfig: (...args: unknown[]) => replyMock(...args),
@@ -114,8 +114,8 @@ vi.mock("./send.js", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/conversation-runtime")>();
+vi.mock("klawty/plugin-sdk/conversation-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/conversation-runtime")>();
   return {
     ...actual,
     readChannelAllowFromStore: (...args: unknown[]) => readAllowFromStoreMock(...args),
@@ -123,8 +123,8 @@ vi.mock("openclaw/plugin-sdk/conversation-runtime", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/security-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/security-runtime")>();
+vi.mock("klawty/plugin-sdk/security-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/security-runtime")>();
   return {
     ...actual,
     readStoreAllowFromForDmPolicy: (...args: unknown[]) => readAllowFromStoreMock(...args),
@@ -145,8 +145,8 @@ vi.mock("./daemon.js", async (importOriginal) => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/infra-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/infra-runtime")>();
+vi.mock("klawty/plugin-sdk/infra-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/infra-runtime")>();
   return {
     ...actual,
     waitForTransportReady: (...args: unknown[]) => waitForTransportReadyMock(...args),
@@ -156,8 +156,8 @@ vi.mock("openclaw/plugin-sdk/infra-runtime", async (importOriginal) => {
 export function installSignalToolResultTestHooks() {
   beforeEach(async () => {
     const [{ resetInboundDedupe }, { resetSystemEventsForTest }] = await Promise.all([
-      import("openclaw/plugin-sdk/reply-runtime"),
-      import("openclaw/plugin-sdk/infra-runtime"),
+      import("klawty/plugin-sdk/reply-runtime"),
+      import("klawty/plugin-sdk/infra-runtime"),
     ]);
     resetInboundDedupe();
     config = {

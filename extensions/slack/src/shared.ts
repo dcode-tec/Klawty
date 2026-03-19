@@ -1,11 +1,11 @@
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
-import { createScopedChannelConfigAdapter } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createChannelPluginBase } from "openclaw/plugin-sdk/core";
+import { formatAllowFromLowercase } from "klawty/plugin-sdk/allow-from";
+import { createScopedChannelConfigAdapter } from "klawty/plugin-sdk/channel-config-helpers";
+import { createChannelPluginBase } from "klawty/plugin-sdk/core";
 import {
   formatDocsLink,
   hasConfiguredSecretInput,
   patchChannelConfigForAccount,
-} from "openclaw/plugin-sdk/setup";
+} from "klawty/plugin-sdk/setup";
 import { inspectSlackAccount } from "./account-inspect.js";
 import {
   listSlackAccountIds,
@@ -19,17 +19,17 @@ import {
   getChatChannelMeta,
   SlackConfigSchema,
   type ChannelPlugin,
-  type OpenClawConfig,
+  type KlawtyConfig,
 } from "./runtime-api.js";
 
 export const SLACK_CHANNEL = "slack" as const;
 
 function buildSlackManifest(botName: string) {
-  const safeName = botName.trim() || "OpenClaw";
+  const safeName = botName.trim() || "Klawty";
   const manifest = {
     display_information: {
       name: safeName,
-      description: `${safeName} connector for OpenClaw`,
+      description: `${safeName} connector for Klawty`,
     },
     features: {
       bot_user: {
@@ -42,8 +42,8 @@ function buildSlackManifest(botName: string) {
       },
       slash_commands: [
         {
-          command: "/openclaw",
-          description: "Send a message to OpenClaw",
+          command: "/klawty",
+          description: "Send a message to Klawty",
           should_escape: false,
         },
       ],
@@ -93,7 +93,7 @@ function buildSlackManifest(botName: string) {
   return JSON.stringify(manifest, null, 2);
 }
 
-export function buildSlackSetupLines(botName = "OpenClaw"): string[] {
+export function buildSlackSetupLines(botName = "Klawty"): string[] {
   return [
     "1) Slack API -> Create App -> From scratch or From manifest (with the JSON below)",
     "2) Add Socket Mode + enable it to get the app-level token (xapp-...)",
@@ -109,10 +109,10 @@ export function buildSlackSetupLines(botName = "OpenClaw"): string[] {
 }
 
 export function setSlackChannelAllowlist(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   accountId: string,
   channelKeys: string[],
-): OpenClawConfig {
+): KlawtyConfig {
   const channels = Object.fromEntries(channelKeys.map((key) => [key, { allow: true }]));
   return patchChannelConfigForAccount({
     cfg,

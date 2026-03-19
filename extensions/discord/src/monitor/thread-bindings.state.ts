@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { loadJsonFile, saveJsonFile } from "openclaw/plugin-sdk/json-store";
-import { normalizeAccountId, resolveAgentIdFromSessionKey } from "openclaw/plugin-sdk/routing";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
+import { loadJsonFile, saveJsonFile } from "klawty/plugin-sdk/json-store";
+import { normalizeAccountId, resolveAgentIdFromSessionKey } from "klawty/plugin-sdk/routing";
+import { resolveStateDir } from "klawty/plugin-sdk/state-paths";
 import {
   DEFAULT_THREAD_BINDING_IDLE_TIMEOUT_MS,
   DEFAULT_THREAD_BINDING_MAX_AGE_MS,
@@ -29,7 +29,7 @@ type ThreadBindingsGlobalState = {
 
 // Plugin hooks can load this module via Jiti while core imports it via ESM.
 // Store mutable state on globalThis so both loader paths share one registry.
-const THREAD_BINDINGS_STATE_KEY = "__openclawDiscordThreadBindingsState";
+const THREAD_BINDINGS_STATE_KEY = "__klawtyDiscordThreadBindingsState";
 
 function createThreadBindingsGlobalState(): ThreadBindingsGlobalState {
   return {

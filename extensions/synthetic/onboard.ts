@@ -3,15 +3,15 @@ import {
   SYNTHETIC_BASE_URL,
   SYNTHETIC_DEFAULT_MODEL_REF,
   SYNTHETIC_MODEL_CATALOG,
-} from "openclaw/plugin-sdk/provider-models";
+} from "klawty/plugin-sdk/provider-models";
 import {
   applyProviderConfigWithModelCatalogPreset,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/provider-onboard";
+  type KlawtyConfig,
+} from "klawty/plugin-sdk/provider-onboard";
 
 export { SYNTHETIC_DEFAULT_MODEL_REF };
 
-function applySyntheticPreset(cfg: OpenClawConfig, primaryModelRef?: string): OpenClawConfig {
+function applySyntheticPreset(cfg: KlawtyConfig, primaryModelRef?: string): KlawtyConfig {
   return applyProviderConfigWithModelCatalogPreset(cfg, {
     providerId: "synthetic",
     api: "anthropic-messages",
@@ -22,10 +22,10 @@ function applySyntheticPreset(cfg: OpenClawConfig, primaryModelRef?: string): Op
   });
 }
 
-export function applySyntheticProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applySyntheticProviderConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applySyntheticPreset(cfg);
 }
 
-export function applySyntheticConfig(cfg: OpenClawConfig): OpenClawConfig {
+export function applySyntheticConfig(cfg: KlawtyConfig): KlawtyConfig {
   return applySyntheticPreset(cfg, SYNTHETIC_DEFAULT_MODEL_REF);
 }

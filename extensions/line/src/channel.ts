@@ -1,13 +1,13 @@
-import { createScopedDmSecurityResolver } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createAllowlistProviderRestrictSendersWarningCollector } from "openclaw/plugin-sdk/channel-policy";
+import { createScopedDmSecurityResolver } from "klawty/plugin-sdk/channel-config-helpers";
+import { createAllowlistProviderRestrictSendersWarningCollector } from "klawty/plugin-sdk/channel-policy";
 import {
   createAttachedChannelResultAdapter,
   createEmptyChannelDirectoryAdapter,
   createEmptyChannelResult,
   createPairingPrefixStripper,
   createTextPairingAdapter,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { resolveOutboundMediaUrls } from "openclaw/plugin-sdk/reply-payload";
+} from "klawty/plugin-sdk/channel-runtime";
+import { resolveOutboundMediaUrls } from "klawty/plugin-sdk/reply-payload";
 import {
   buildChannelConfigSchema,
   buildComputedAccountStatusSnapshot,
@@ -20,7 +20,7 @@ import {
   type ChannelStatusIssue,
   type LineConfig,
   type LineChannelData,
-  type OpenClawConfig,
+  type KlawtyConfig,
   type ResolvedLineAccount,
 } from "../api.js";
 import { lineConfigAdapter } from "./config-adapter.js";
@@ -46,7 +46,7 @@ const resolveLineDmPolicy = createScopedDmSecurityResolver<ResolvedLineAccount>(
   resolvePolicy: (account) => account.config.dmPolicy,
   resolveAllowFrom: (account) => account.config.allowFrom,
   policyPathSuffix: "dmPolicy",
-  approveHint: "openclaw pairing approve line <code>",
+  approveHint: "klawty pairing approve line <code>",
   normalizeEntry: (raw) => raw.replace(/^line:(?:user:)?/i, ""),
 });
 
@@ -69,7 +69,7 @@ export const linePlugin: ChannelPlugin<ResolvedLineAccount> = {
   },
   pairing: createTextPairingAdapter({
     idLabel: "lineUserId",
-    message: "OpenClaw: your access has been approved.",
+    message: "Klawty: your access has been approved.",
     // LINE IDs are case-sensitive; only strip prefix variants (line: / line:user:).
     normalizeAllowEntry: createPairingPrefixStripper(/^line:(?:user:)?/i),
     notify: async ({ cfg, id, message }) => {
@@ -458,7 +458,7 @@ export const linePlugin: ChannelPlugin<ResolvedLineAccount> = {
     },
     logoutAccount: async ({ accountId, cfg }) => {
       const envToken = process.env.LINE_CHANNEL_ACCESS_TOKEN?.trim() ?? "";
-      const nextCfg = { ...cfg } as OpenClawConfig;
+      const nextCfg = { ...cfg } as KlawtyConfig;
       const lineConfig = (cfg.channels?.line ?? {}) as LineConfig;
       const nextLine = { ...lineConfig };
       let cleared = false;

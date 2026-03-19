@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildChannelSetupWizardAdapterFromSetupWizard } from "../../../src/channels/plugins/setup-wizard.js";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { KlawtyConfig } from "../runtime-api.js";
 import { feishuPlugin } from "./channel.js";
 
 const feishuConfigureAdapter = buildChannelSetupWizardAdapterFromSetupWizard({
@@ -22,7 +22,7 @@ describe("feishu setup wizard status", () => {
             },
           },
         },
-      } as OpenClawConfig,
+      } as KlawtyConfig,
       accountOverrides: {},
     });
 

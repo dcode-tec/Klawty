@@ -2,15 +2,15 @@ import {
   resolvePayloadMediaUrls,
   sendPayloadMediaSequenceOrFallback,
   sendTextMediaPayload,
-} from "openclaw/plugin-sdk/channel-runtime";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveOutboundSendDep } from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import type { ChannelOutboundAdapter } from "klawty/plugin-sdk/channel-runtime";
+import { resolveOutboundSendDep } from "klawty/plugin-sdk/channel-runtime";
 import {
   attachChannelToResult,
   createAttachedChannelResultAdapter,
-} from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { OutboundIdentity } from "openclaw/plugin-sdk/infra-runtime";
+} from "klawty/plugin-sdk/channel-send-result";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
+import type { OutboundIdentity } from "klawty/plugin-sdk/infra-runtime";
 import type { DiscordComponentMessageSpec } from "./components.js";
 import { getThreadBindingManager, type ThreadBindingRecord } from "./monitor/thread-bindings.js";
 import { normalizeDiscordOutboundTarget } from "./normalize.js";
@@ -50,7 +50,7 @@ function resolveDiscordWebhookIdentity(params: {
 }
 
 async function maybeSendDiscordWebhookText(params: {
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   text: string;
   threadId?: string | number | null;
   accountId?: string | null;

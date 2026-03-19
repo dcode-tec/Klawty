@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig, ConfigFileSnapshot } from "../config/types.openclaw.js";
+import type { KlawtyConfig, ConfigFileSnapshot } from "../config/types.klawty.js";
 import type { UpdateRunResult } from "../infra/update-runner.js";
 import { withEnvAsync } from "../test-utils/env.js";
 
@@ -37,13 +37,13 @@ vi.mock("../infra/update-runner.js", () => ({
   runGatewayUpdate: vi.fn(),
 }));
 
-vi.mock("../infra/openclaw-root.js", () => ({
-  resolveOpenClawPackageRoot: vi.fn(),
+vi.mock("../infra/klawty-root.js", () => ({
+  resolveKlawtyPackageRoot: vi.fn(),
 }));
 
 vi.mock("../config/config.js", () => ({
   readConfigFileSnapshot: vi.fn(),
-  resolveGatewayPort: vi.fn(() => 18789),
+  resolveGatewayPort: vi.fn(() => 2508),
   writeConfigFile: vi.fn(),
 }));
 
@@ -137,7 +137,7 @@ vi.mock("../runtime.js", () => ({
 }));
 
 const { runGatewayUpdate } = await import("../infra/update-runner.js");
-const { resolveOpenClawPackageRoot } = await import("../infra/openclaw-root.js");
+const { resolveKlawtyPackageRoot } = await import("../infra/klawty-root.js");
 const { readConfigFileSnapshot, writeConfigFile } = await import("../config/config.js");
 const { checkUpdateStatus, fetchNpmTagVersion, resolveNpmChannelTag } =
   await import("../infra/update-check.js");
@@ -148,7 +148,7 @@ const { defaultRuntime } = await import("../runtime.js");
 const { updateCommand, updateStatusCommand, updateWizardCommand } = await import("./update-cli.js");
 
 describe("update-cli", () => {
-  const fixtureRoot = "/tmp/openclaw-update-tests";
+  const fixtureRoot = "/tmp/klawty-update-tests";
   let fixtureCount = 0;
 
   const createCaseDir = (prefix: string) => {
@@ -157,9 +157,9 @@ describe("update-cli", () => {
     return dir;
   };
 
-  const baseConfig = {} as OpenClawConfig;
+  const baseConfig = {} as KlawtyConfig;
   const baseSnapshot: ConfigFileSnapshot = {
-    path: "/tmp/openclaw-config.json",
+    path: "/tmp/klawty-config.json",
     exists: true,
     raw: "{}",
     parsed: {},
@@ -186,7 +186,7 @@ describe("update-cli", () => {
   };
 
   const mockPackageInstallStatus = (root: string) => {
-    vi.mocked(resolveOpenClawPackageRoot).mockResolvedValue(root);
+    vi.mocked(resolveKlawtyPackageRoot).mockResolvedValue(root);
     vi.mocked(checkUpdateStatus).mockResolvedValue({
       root,
       installKind: "package",
@@ -244,7 +244,7 @@ describe("update-cli", () => {
   };
 
   const setupNonInteractiveDowngrade = async () => {
-    const tempDir = createCaseDir("openclaw-update");
+    const tempDir = createCaseDir("klawty-update");
     setTty(false);
     readPackageVersion.mockResolvedValue("2.0.0");
 
@@ -268,7 +268,7 @@ describe("update-cli", () => {
   const setupUpdatedRootRefresh = (params?: {
     gatewayUpdateImpl?: () => Promise<UpdateRunResult>;
   }) => {
-    const root = createCaseDir("openclaw-updated-root");
+    const root = createCaseDir("klawty-updated-root");
     const entryPath = path.join(root, "dist", "entry.js");
     pathExists.mockImplementation(async (candidate: string) => candidate === entryPath);
     if (params?.gatewayUpdateImpl) {
@@ -288,7 +288,7 @@ describe("update-cli", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.mocked(resolveOpenClawPackageRoot).mockResolvedValue(process.cwd());
+    vi.mocked(resolveKlawtyPackageRoot).mockResolvedValue(process.cwd());
     vi.mocked(readConfigFileSnapshot).mockResolvedValue(baseSnapshot);
     vi.mocked(fetchNpmTagVersion).mockResolvedValue({
       tag: "latest",
@@ -331,7 +331,7 @@ describe("update-cli", () => {
       killed: false,
       termination: "exit",
     });
-    readPackageName.mockResolvedValue("openclaw");
+    readPackageName.mockResolvedValue("klawty");
     readPackageVersion.mockResolvedValue("1.0.0");
     resolveGlobalManager.mockResolvedValue("npm");
     serviceLoaded.mockResolvedValue(false);
@@ -340,16 +340,16 @@ describe("update-cli", () => {
       pid: 4242,
       state: "running",
     });
-    prepareRestartScript.mockResolvedValue("/tmp/openclaw-restart-test.sh");
+    prepareRestartScript.mockResolvedValue("/tmp/klawty-restart-test.sh");
     runRestartScript.mockResolvedValue(undefined);
     inspectPortUsage.mockResolvedValue({
-      port: 18789,
+      port: 2508,
       status: "busy",
-      listeners: [{ pid: 4242, command: "openclaw-gateway" }],
+      listeners: [{ pid: 4242, command: "klawty-gateway" }],
       hints: [],
     });
     classifyPortListener.mockReturnValue("gateway");
-    formatPortDiagnostics.mockReturnValue(["Port 18789 is already in use."]);
+    formatPortDiagnostics.mockReturnValue(["Port 2508 is already in use."]);
     pathExists.mockResolvedValue(false);
     syncPluginsForUpdateChannel.mockResolvedValue({
       changed: false,
@@ -427,7 +427,7 @@ describe("update-cli", () => {
         options: { json: false },
         assert: () => {
           const logs = vi.mocked(defaultRuntime.log).mock.calls.map((call) => call[0]);
-          expect(logs.join("\n")).toContain("OpenClaw update status");
+          expect(logs.join("\n")).toContain("Klawty update status");
         },
       },
       {
@@ -462,7 +462,7 @@ describe("update-cli", () => {
       name: "defaults to stable channel for package installs when unset",
       options: { yes: true },
       prepare: async () => {
-        const tempDir = createCaseDir("openclaw-update");
+        const tempDir = createCaseDir("klawty-update");
         mockPackageInstallStatus(tempDir);
       },
       expectedChannel: undefined as "stable" | undefined,
@@ -475,7 +475,7 @@ describe("update-cli", () => {
       prepare: async () => {
         vi.mocked(readConfigFileSnapshot).mockResolvedValue({
           ...baseSnapshot,
-          config: { update: { channel: "beta" } } as OpenClawConfig,
+          config: { update: { channel: "beta" } } as KlawtyConfig,
         });
       },
       expectedChannel: "beta" as const,
@@ -508,7 +508,7 @@ describe("update-cli", () => {
       } else {
         expect(runGatewayUpdate).not.toHaveBeenCalled();
         expect(runCommandWithTimeout).toHaveBeenCalledWith(
-          ["npm", "i", "-g", "openclaw@latest", "--no-fund", "--no-audit", "--loglevel=error"],
+          ["npm", "i", "-g", "klawty@latest", "--no-fund", "--no-audit", "--loglevel=error"],
           expect.any(Object),
         );
       }
@@ -524,12 +524,12 @@ describe("update-cli", () => {
   );
 
   it("falls back to latest when beta tag is older than release", async () => {
-    const tempDir = createCaseDir("openclaw-update");
+    const tempDir = createCaseDir("klawty-update");
 
     mockPackageInstallStatus(tempDir);
     vi.mocked(readConfigFileSnapshot).mockResolvedValue({
       ...baseSnapshot,
-      config: { update: { channel: "beta" } } as OpenClawConfig,
+      config: { update: { channel: "beta" } } as KlawtyConfig,
     });
     vi.mocked(resolveNpmChannelTag).mockResolvedValue({
       tag: "latest",
@@ -539,7 +539,7 @@ describe("update-cli", () => {
 
     expect(runGatewayUpdate).not.toHaveBeenCalled();
     expect(runCommandWithTimeout).toHaveBeenCalledWith(
-      ["npm", "i", "-g", "openclaw@latest", "--no-fund", "--no-audit", "--loglevel=error"],
+      ["npm", "i", "-g", "klawty@latest", "--no-fund", "--no-audit", "--loglevel=error"],
       expect.any(Object),
     );
   });
@@ -549,46 +549,46 @@ describe("update-cli", () => {
       {
         name: "explicit dist-tag",
         run: async () => {
-          mockPackageInstallStatus(createCaseDir("openclaw-update"));
+          mockPackageInstallStatus(createCaseDir("klawty-update"));
           await updateCommand({ tag: "next" });
         },
-        expectedSpec: "openclaw@next",
+        expectedSpec: "klawty@next",
       },
       {
         name: "main shorthand",
         run: async () => {
-          mockPackageInstallStatus(createCaseDir("openclaw-update"));
+          mockPackageInstallStatus(createCaseDir("klawty-update"));
           await updateCommand({ yes: true, tag: "main" });
         },
-        expectedSpec: "github:openclaw/openclaw#main",
+        expectedSpec: "github:klawty/klawty#main",
       },
       {
         name: "explicit git package spec",
         run: async () => {
-          mockPackageInstallStatus(createCaseDir("openclaw-update"));
-          await updateCommand({ yes: true, tag: "github:openclaw/openclaw#main" });
+          mockPackageInstallStatus(createCaseDir("klawty-update"));
+          await updateCommand({ yes: true, tag: "github:klawty/klawty#main" });
         },
-        expectedSpec: "github:openclaw/openclaw#main",
+        expectedSpec: "github:klawty/klawty#main",
       },
       {
-        name: "OPENCLAW_UPDATE_PACKAGE_SPEC override",
+        name: "KLAWTY_UPDATE_PACKAGE_SPEC override",
         run: async () => {
-          mockPackageInstallStatus(createCaseDir("openclaw-update"));
+          mockPackageInstallStatus(createCaseDir("klawty-update"));
           await withEnvAsync(
-            { OPENCLAW_UPDATE_PACKAGE_SPEC: "http://10.211.55.2:8138/openclaw-next.tgz" },
+            { KLAWTY_UPDATE_PACKAGE_SPEC: "http://10.211.55.2:8138/klawty-next.tgz" },
             async () => {
               await updateCommand({ yes: true, tag: "latest" });
             },
           );
         },
-        expectedSpec: "http://10.211.55.2:8138/openclaw-next.tgz",
+        expectedSpec: "http://10.211.55.2:8138/klawty-next.tgz",
       },
     ]) {
       vi.clearAllMocks();
-      readPackageName.mockResolvedValue("openclaw");
+      readPackageName.mockResolvedValue("klawty");
       readPackageVersion.mockResolvedValue("1.0.0");
       resolveGlobalManager.mockResolvedValue("npm");
-      vi.mocked(resolveOpenClawPackageRoot).mockResolvedValue(process.cwd());
+      vi.mocked(resolveKlawtyPackageRoot).mockResolvedValue(process.cwd());
       await scenario.run();
       expectPackageInstallSpec(scenario.expectedSpec);
     }
@@ -596,11 +596,11 @@ describe("update-cli", () => {
 
   it("prepends portable Git PATH for package updates on Windows", async () => {
     const platformSpy = vi.spyOn(process, "platform", "get").mockReturnValue("win32");
-    const tempDir = createCaseDir("openclaw-update");
-    const localAppData = createCaseDir("openclaw-localappdata");
+    const tempDir = createCaseDir("klawty-update");
+    const localAppData = createCaseDir("klawty-localappdata");
     const portableGitMingw = path.join(
       localAppData,
-      "OpenClaw",
+      "Klawty",
       "deps",
       "portable-git",
       "mingw64",
@@ -608,7 +608,7 @@ describe("update-cli", () => {
     );
     const portableGitUsr = path.join(
       localAppData,
-      "OpenClaw",
+      "Klawty",
       "deps",
       "portable-git",
       "usr",
@@ -803,8 +803,8 @@ describe("update-cli", () => {
       invoke: async () => {
         await withEnvAsync(
           {
-            OPENCLAW_STATE_DIR: "./state",
-            OPENCLAW_CONFIG_PATH: "./config/openclaw.json",
+            KLAWTY_STATE_DIR: "./state",
+            KLAWTY_CONFIG_PATH: "./config/klawty.json",
           },
           async () => {
             await updateCommand({});
@@ -815,8 +815,8 @@ describe("update-cli", () => {
         expect.objectContaining({
           cwd: root,
           env: expect.objectContaining({
-            OPENCLAW_STATE_DIR: path.resolve("./state"),
-            OPENCLAW_CONFIG_PATH: path.resolve("./config/openclaw.json"),
+            KLAWTY_STATE_DIR: path.resolve("./state"),
+            KLAWTY_CONFIG_PATH: path.resolve("./config/klawty.json"),
           }),
           timeoutMs: 60_000,
         }),
@@ -847,7 +847,7 @@ describe("update-cli", () => {
         try {
           await withEnvAsync(
             {
-              OPENCLAW_STATE_DIR: "./state",
+              KLAWTY_STATE_DIR: "./state",
             },
             async () => {
               await updateCommand({});
@@ -863,7 +863,7 @@ describe("update-cli", () => {
         expect.objectContaining({
           cwd: expect.any(String),
           env: expect.objectContaining({
-            OPENCLAW_STATE_DIR: path.resolve(context?.originalCwd ?? process.cwd(), "./state"),
+            KLAWTY_STATE_DIR: path.resolve(context?.originalCwd ?? process.cwd(), "./state"),
           }),
           timeoutMs: 60_000,
         }),
@@ -890,7 +890,7 @@ describe("update-cli", () => {
   it("updateCommand continues after doctor sub-step and clears update flag", async () => {
     const randomSpy = vi.spyOn(Math, "random").mockReturnValue(0);
     try {
-      await withEnvAsync({ OPENCLAW_UPDATE_IN_PROGRESS: undefined }, async () => {
+      await withEnvAsync({ KLAWTY_UPDATE_IN_PROGRESS: undefined }, async () => {
         vi.mocked(runGatewayUpdate).mockResolvedValue(makeOkUpdateResult());
         vi.mocked(runDaemonRestart).mockResolvedValue(true);
         vi.mocked(doctorCommand).mockResolvedValue(undefined);
@@ -902,7 +902,7 @@ describe("update-cli", () => {
           defaultRuntime,
           expect.objectContaining({ nonInteractive: true }),
         );
-        expect(process.env.OPENCLAW_UPDATE_IN_PROGRESS).toBeUndefined();
+        expect(process.env.KLAWTY_UPDATE_IN_PROGRESS).toBeUndefined();
 
         const logLines = vi.mocked(defaultRuntime.log).mock.calls.map((call) => String(call[0]));
         expect(
@@ -991,8 +991,8 @@ describe("update-cli", () => {
   });
 
   it("updateWizardCommand offers dev checkout and forwards selections", async () => {
-    const tempDir = createCaseDir("openclaw-update-wizard");
-    await withEnvAsync({ OPENCLAW_GIT_DIR: tempDir }, async () => {
+    const tempDir = createCaseDir("klawty-update-wizard");
+    await withEnvAsync({ KLAWTY_GIT_DIR: tempDir }, async () => {
       setTty(true);
 
       vi.mocked(checkUpdateStatus).mockResolvedValue({

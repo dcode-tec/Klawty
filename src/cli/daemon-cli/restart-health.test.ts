@@ -38,7 +38,7 @@ async function inspectGatewayRestartWithSnapshot(params: {
   const { inspectGatewayRestart } = await import("./restart-health.js");
   return inspectGatewayRestart({
     service,
-    port: 18789,
+    port: 2508,
     ...(params.includeUnknownListenersAsStale === undefined
       ? {}
       : { includeUnknownListenersAsStale: params.includeUnknownListenersAsStale }),
@@ -54,7 +54,7 @@ async function inspectUnknownListenerFallback(params: {
   return inspectGatewayRestartWithSnapshot({
     runtime: params.runtime,
     portUsage: {
-      port: 18789,
+      port: 2508,
       status: "busy",
       listeners: [{ pid: 10920, command: "unknown" }],
       hints: [],
@@ -71,7 +71,7 @@ async function inspectAmbiguousOwnershipWithProbe(
   return inspectGatewayRestartWithSnapshot({
     runtime: { status: "running", pid: 8000 },
     portUsage: {
-      port: 18789,
+      port: 2508,
       status: "busy",
       listeners: [{ commandLine: "" }],
       hints: [],
@@ -105,9 +105,9 @@ describe("inspectGatewayRestart", () => {
     const snapshot = await inspectGatewayRestartWithSnapshot({
       runtime: { status: "running", pid: 7000 },
       portUsage: {
-        port: 18789,
+        port: 2508,
         status: "busy",
-        listeners: [{ pid: 7001, ppid: 7000, commandLine: "openclaw-gateway" }],
+        listeners: [{ pid: 7001, ppid: 7000, commandLine: "klawty-gateway" }],
         hints: [],
       },
     });
@@ -120,9 +120,9 @@ describe("inspectGatewayRestart", () => {
     const snapshot = await inspectGatewayRestartWithSnapshot({
       runtime: { status: "running", pid: 8000 },
       portUsage: {
-        port: 18789,
+        port: 2508,
         status: "busy",
-        listeners: [{ pid: 9000, ppid: 8999, commandLine: "openclaw-gateway" }],
+        listeners: [{ pid: 9000, ppid: 8999, commandLine: "klawty-gateway" }],
         hints: [],
       },
     });
@@ -165,7 +165,7 @@ describe("inspectGatewayRestart", () => {
     const snapshot = await inspectGatewayRestartWithSnapshot({
       runtime: { status: "stopped" },
       portUsage: {
-        port: 18789,
+        port: 2508,
         status: "busy",
         listeners: [{ pid: 22001, command: "nginx.exe" }],
         hints: [],
@@ -184,7 +184,7 @@ describe("inspectGatewayRestart", () => {
 
     expect(snapshot.healthy).toBe(true);
     expect(probeGateway).toHaveBeenCalledWith(
-      expect.objectContaining({ url: "ws://127.0.0.1:18789" }),
+      expect.objectContaining({ url: "ws://127.0.0.1:2508" }),
     );
   });
 
@@ -199,9 +199,9 @@ describe("inspectGatewayRestart", () => {
     const snapshot = await inspectGatewayRestartWithSnapshot({
       runtime: { status: "stopped" },
       portUsage: {
-        port: 18789,
+        port: 2508,
         status: "busy",
-        listeners: [{ pid: 9100, commandLine: "openclaw-gateway" }],
+        listeners: [{ pid: 9100, commandLine: "klawty-gateway" }],
         hints: [],
       },
     });
@@ -225,7 +225,7 @@ describe("inspectGatewayRestart", () => {
     } as unknown as GatewayService;
 
     inspectPortUsage.mockResolvedValue({
-      port: 18789,
+      port: 2508,
       status: "busy",
       listeners: [],
       hints: [
@@ -235,7 +235,7 @@ describe("inspectGatewayRestart", () => {
     });
 
     const { inspectGatewayRestart } = await import("./restart-health.js");
-    const snapshot = await inspectGatewayRestart({ service, port: 18789 });
+    const snapshot = await inspectGatewayRestart({ service, port: 2508 });
 
     expect(snapshot.healthy).toBe(true);
     expect(probeGateway).not.toHaveBeenCalled();

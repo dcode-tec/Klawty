@@ -1,15 +1,15 @@
 {
-  "name": "@openclaw/telegram",
-  "version": "2026.3.14",
+  "name": "@klawty/telegram",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw Telegram channel plugin",
+  "description": "Klawty Telegram channel plugin",
   "type": "module",
   "dependencies": {
     "@grammyjs/runner": "^2.0.3",
     "@grammyjs/transformer-throttler": "^1.2.1",
     "grammy": "^1.41.1"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ],

@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { KlawtyConfig } from "../runtime-api.js";
 import { resolveMattermostAccount } from "./accounts.js";
 import {
   createMattermostClient,
@@ -50,7 +50,7 @@ export function parseMattermostApiStatus(err: unknown): number | undefined {
 
 export async function resolveMattermostOpaqueTarget(params: {
   input: string;
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   accountId?: string | null;
   token?: string;
   baseUrl?: string;

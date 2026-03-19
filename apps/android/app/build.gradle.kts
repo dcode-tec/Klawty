@@ -2,10 +2,10 @@ import com.android.build.api.variant.impl.VariantOutputImpl
 
 val dnsjavaInetAddressResolverService = "META-INF/services/java.net.spi.InetAddressResolverProvider"
 
-val androidStoreFile = providers.gradleProperty("OPENCLAW_ANDROID_STORE_FILE").orNull?.takeIf { it.isNotBlank() }
-val androidStorePassword = providers.gradleProperty("OPENCLAW_ANDROID_STORE_PASSWORD").orNull?.takeIf { it.isNotBlank() }
-val androidKeyAlias = providers.gradleProperty("OPENCLAW_ANDROID_KEY_ALIAS").orNull?.takeIf { it.isNotBlank() }
-val androidKeyPassword = providers.gradleProperty("OPENCLAW_ANDROID_KEY_PASSWORD").orNull?.takeIf { it.isNotBlank() }
+val androidStoreFile = providers.gradleProperty("KLAWTY_ANDROID_STORE_FILE").orNull?.takeIf { it.isNotBlank() }
+val androidStorePassword = providers.gradleProperty("KLAWTY_ANDROID_STORE_PASSWORD").orNull?.takeIf { it.isNotBlank() }
+val androidKeyAlias = providers.gradleProperty("KLAWTY_ANDROID_KEY_ALIAS").orNull?.takeIf { it.isNotBlank() }
+val androidKeyPassword = providers.gradleProperty("KLAWTY_ANDROID_KEY_PASSWORD").orNull?.takeIf { it.isNotBlank() }
 val resolvedAndroidStoreFile =
     androidStoreFile?.let { storeFilePath ->
         if (storeFilePath.startsWith("~/")) {
@@ -26,9 +26,9 @@ val wantsAndroidReleaseBuild =
 
 if (wantsAndroidReleaseBuild && !hasAndroidReleaseSigning) {
     error(
-        "Missing Android release signing properties. Set OPENCLAW_ANDROID_STORE_FILE, " +
-            "OPENCLAW_ANDROID_STORE_PASSWORD, OPENCLAW_ANDROID_KEY_ALIAS, and " +
-            "OPENCLAW_ANDROID_KEY_PASSWORD in ~/.gradle/gradle.properties.",
+        "Missing Android release signing properties. Set KLAWTY_ANDROID_STORE_FILE, " +
+            "KLAWTY_ANDROID_STORE_PASSWORD, KLAWTY_ANDROID_KEY_ALIAS, and " +
+            "KLAWTY_ANDROID_KEY_PASSWORD in ~/.gradle/gradle.properties.",
     )
 }
 
@@ -40,7 +40,7 @@ plugins {
 }
 
 android {
-    namespace = "ai.openclaw.app"
+    namespace = "ai.klawty.app"
     compileSdk = 36
 
     // Release signing is local-only; keep the keystore path and passwords out of the repo.
@@ -57,12 +57,12 @@ android {
 
     sourceSets {
         getByName("main") {
-            assets.directories.add("../../shared/OpenClawKit/Sources/OpenClawKit/Resources")
+            assets.directories.add("../../shared/KlawtyKit/Sources/KlawtyKit/Resources")
         }
     }
 
     defaultConfig {
-        applicationId = "ai.openclaw.app"
+        applicationId = "ai.klawty.app"
         minSdk = 31
         targetSdk = 36
         versionCode = 2026031400
@@ -141,7 +141,7 @@ androidComponents {
                 val versionName = output.versionName.orNull ?: "0"
                 val buildType = variant.buildType
 
-                val outputFileName = "openclaw-$versionName-$buildType.apk"
+                val outputFileName = "klawty-$versionName-$buildType.apk"
                 output.outputFileName = outputFileName
             }
     }

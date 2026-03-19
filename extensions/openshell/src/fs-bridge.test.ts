@@ -9,7 +9,7 @@ import { createOpenShellFsBridge } from "./fs-bridge.js";
 const tempDirs: string[] = [];
 
 async function makeTempDir() {
-  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-openshell-fs-"));
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "klawty-openshell-fs-"));
   tempDirs.push(dir);
   return dir;
 }

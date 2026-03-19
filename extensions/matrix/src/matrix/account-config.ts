@@ -1,4 +1,4 @@
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
+import { normalizeAccountId } from "klawty/plugin-sdk/account-id";
 import { DEFAULT_ACCOUNT_ID } from "../runtime-api.js";
 import type { CoreConfig, MatrixAccountConfig, MatrixConfig } from "../types.js";
 

@@ -4,14 +4,14 @@ import {
   type ProviderAuthContext,
   type ProviderAuthResult,
   type ProviderCatalogContext,
-} from "openclaw/plugin-sdk/minimax-portal-auth";
+} from "klawty/plugin-sdk/minimax-portal-auth";
 import {
   MINIMAX_OAUTH_MARKER,
   createProviderApiKeyAuthMethod,
   ensureAuthProfileStore,
   listProfilesForProvider,
-} from "openclaw/plugin-sdk/provider-auth";
-import { fetchMinimaxUsage } from "openclaw/plugin-sdk/provider-usage";
+} from "klawty/plugin-sdk/provider-auth";
+import { fetchMinimaxUsage } from "klawty/plugin-sdk/provider-usage";
 import {
   minimaxMediaUnderstandingProvider,
   minimaxPortalMediaUnderstandingProvider,

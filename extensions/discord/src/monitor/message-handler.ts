@@ -2,9 +2,9 @@ import type { Client } from "@buape/carbon";
 import {
   createChannelInboundDebouncer,
   shouldDebounceTextInbound,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/config-runtime";
-import { danger } from "openclaw/plugin-sdk/runtime-env";
+} from "klawty/plugin-sdk/channel-runtime";
+import { resolveOpenProviderRuntimeGroupPolicy } from "klawty/plugin-sdk/config-runtime";
+import { danger } from "klawty/plugin-sdk/runtime-env";
 import { buildDiscordInboundJob } from "./inbound-job.js";
 import { createDiscordInboundWorker } from "./inbound-worker.js";
 import type { DiscordMessageEvent, DiscordMessageHandler } from "./listeners.js";

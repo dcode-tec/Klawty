@@ -1,14 +1,14 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { resolveMatrixAccountStorageRoot } from "openclaw/plugin-sdk/matrix";
+import { resolveMatrixAccountStorageRoot } from "klawty/plugin-sdk/matrix";
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { setMatrixRuntime } from "../../runtime.js";
 
 const createBackupArchiveMock = vi.hoisted(() =>
   vi.fn(async (_params: unknown) => ({
     createdAt: "2026-03-17T00:00:00.000Z",
-    archiveRoot: "2026-03-17-openclaw-backup",
+    archiveRoot: "2026-03-17-klawty-backup",
     archivePath: "/tmp/matrix-migration-snapshot.tar.gz",
     dryRun: false,
     includeWorkspace: false,
@@ -41,7 +41,7 @@ describe("matrix client storage paths", () => {
     createBackupArchiveMock.mockReset();
     createBackupArchiveMock.mockImplementation(async (_params: unknown) => ({
       createdAt: "2026-03-17T00:00:00.000Z",
-      archiveRoot: "2026-03-17-openclaw-backup",
+      archiveRoot: "2026-03-17-klawty-backup",
       archivePath: "/tmp/matrix-migration-snapshot.tar.gz",
       dryRun: false,
       includeWorkspace: false,
@@ -63,8 +63,8 @@ describe("matrix client storage paths", () => {
       },
     },
   ): string {
-    const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-matrix-storage-"));
-    const stateDir = path.join(homeDir, ".openclaw");
+    const homeDir = fs.mkdtempSync(path.join(os.tmpdir(), "klawty-matrix-storage-"));
+    const stateDir = path.join(homeDir, ".klawty");
     fs.mkdirSync(stateDir, { recursive: true });
     tempDirs.push(homeDir);
     setMatrixRuntime({
@@ -88,9 +88,9 @@ describe("matrix client storage paths", () => {
   function createMigrationEnv(stateDir: string): NodeJS.ProcessEnv {
     return {
       HOME: path.dirname(stateDir),
-      OPENCLAW_HOME: path.dirname(stateDir),
-      OPENCLAW_STATE_DIR: stateDir,
-      OPENCLAW_TEST_FAST: "1",
+      KLAWTY_HOME: path.dirname(stateDir),
+      KLAWTY_STATE_DIR: stateDir,
+      KLAWTY_TEST_FAST: "1",
     } as NodeJS.ProcessEnv;
   }
 

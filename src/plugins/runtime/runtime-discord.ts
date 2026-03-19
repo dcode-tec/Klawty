@@ -1,4 +1,4 @@
-import { discordMessageActions } from "openclaw/plugin-sdk/discord";
+import { discordMessageActions } from "klawty/plugin-sdk/discord";
 import {
   getThreadBindingManager,
   resolveThreadBindingIdleTimeoutMs,
@@ -8,7 +8,7 @@ import {
   setThreadBindingIdleTimeoutBySessionKey,
   setThreadBindingMaxAgeBySessionKey,
   unbindThreadBindingsBySessionKey,
-} from "openclaw/plugin-sdk/discord";
+} from "klawty/plugin-sdk/discord";
 import {
   createLazyRuntimeMethodBinder,
   createLazyRuntimeSurface,

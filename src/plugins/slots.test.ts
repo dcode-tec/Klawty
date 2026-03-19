@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import { applyExclusiveSlotSelection } from "./slots.js";
 
 describe("applyExclusiveSlotSelection", () => {
-  const createMemoryConfig = (plugins?: OpenClawConfig["plugins"]): OpenClawConfig => ({
+  const createMemoryConfig = (plugins?: KlawtyConfig["plugins"]): KlawtyConfig => ({
     plugins: {
       ...plugins,
       entries: {
@@ -16,7 +16,7 @@ describe("applyExclusiveSlotSelection", () => {
     },
   });
 
-  const runMemorySelection = (config: OpenClawConfig, selectedId = "memory") =>
+  const runMemorySelection = (config: KlawtyConfig, selectedId = "memory") =>
     applyExclusiveSlotSelection({
       config,
       selectedId,
@@ -93,7 +93,7 @@ describe("applyExclusiveSlotSelection", () => {
   });
 
   it("skips changes when no exclusive slot applies", () => {
-    const config: OpenClawConfig = {};
+    const config: KlawtyConfig = {};
     const result = applyExclusiveSlotSelection({
       config,
       selectedId: "custom",

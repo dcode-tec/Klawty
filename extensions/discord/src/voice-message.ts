@@ -14,15 +14,15 @@ import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { RateLimitError, type RequestClient } from "@buape/carbon";
-import type { RetryRunner } from "openclaw/plugin-sdk/infra-runtime";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/infra-runtime";
+import type { RetryRunner } from "klawty/plugin-sdk/infra-runtime";
+import { resolvePreferredKlawtyTmpDir } from "klawty/plugin-sdk/infra-runtime";
 import {
   parseFfprobeCodecAndSampleRate,
   runFfmpeg,
   runFfprobe,
-} from "openclaw/plugin-sdk/media-runtime";
-import { MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS } from "openclaw/plugin-sdk/media-runtime";
-import { unlinkIfExists } from "openclaw/plugin-sdk/media-runtime";
+} from "klawty/plugin-sdk/media-runtime";
+import { MEDIA_FFMPEG_MAX_AUDIO_DURATION_SECS } from "klawty/plugin-sdk/media-runtime";
+import { unlinkIfExists } from "klawty/plugin-sdk/media-runtime";
 
 const DISCORD_VOICE_MESSAGE_FLAG = 1 << 13;
 const SUPPRESS_NOTIFICATIONS_FLAG = 1 << 12;
@@ -77,7 +77,7 @@ export async function generateWaveform(filePath: string): Promise<string> {
  * Generate waveform by extracting raw PCM data and sampling amplitudes
  */
 async function generateWaveformFromPcm(filePath: string): Promise<string> {
-  const tempDir = resolvePreferredOpenClawTmpDir();
+  const tempDir = resolvePreferredKlawtyTmpDir();
   const tempPcm = path.join(tempDir, `waveform-${crypto.randomUUID()}.raw`);
 
   try {
@@ -189,7 +189,7 @@ export async function ensureOggOpus(filePath: string): Promise<{ path: string; c
   // Convert to OGG/Opus
   // Always resample to 48kHz to ensure Discord voice messages play at correct speed
   // (Discord expects 48kHz; lower sample rates like 24kHz from some TTS providers cause 0.5x playback)
-  const tempDir = resolvePreferredOpenClawTmpDir();
+  const tempDir = resolvePreferredKlawtyTmpDir();
   const outputPath = path.join(tempDir, `voice-${crypto.randomUUID()}.ogg`);
 
   await runFfmpeg([

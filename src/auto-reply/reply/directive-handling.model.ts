@@ -1,4 +1,4 @@
-import { buildBrowseProvidersButton } from "openclaw/plugin-sdk/telegram";
+import { buildBrowseProvidersButton } from "klawty/plugin-sdk/telegram";
 import {
   ensureAuthProfileStore,
   resolveAuthStorePathForDisplay,
@@ -11,7 +11,7 @@ import {
   resolveConfiguredModelRef,
   resolveModelRefFromString,
 } from "../../agents/model-selection.js";
-import type { OpenClawConfig } from "../../config/config.js";
+import type { KlawtyConfig } from "../../config/config.js";
 import type { SessionEntry } from "../../config/sessions.js";
 import { shortenHomePath } from "../../utils.js";
 import { resolveSelectedAndActiveModel } from "../model-runtime.js";
@@ -56,7 +56,7 @@ function pushUniqueCatalogEntry(params: {
 }
 
 function buildModelPickerCatalog(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   defaultProvider: string;
   defaultModel: string;
   aliasIndex: ModelAliasIndex;
@@ -193,7 +193,7 @@ function buildModelPickerCatalog(params: {
 
 export async function maybeHandleModelDirectiveInfo(params: {
   directives: InlineDirectives;
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   agentDir: string;
   activeAgentId: string;
   provider: string;
@@ -392,7 +392,7 @@ function resolveStoredNumericProfileModelDirective(params: { raw: string; agentD
 
 export function resolveModelSelectionFromDirective(params: {
   directives: InlineDirectives;
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   agentDir: string;
   defaultProvider: string;
   defaultModel: string;

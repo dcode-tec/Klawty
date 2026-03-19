@@ -1,17 +1,17 @@
 import type { App } from "@slack/bolt";
-import { formatAllowlistMatchMeta } from "openclaw/plugin-sdk/channel-runtime";
+import { formatAllowlistMatchMeta } from "klawty/plugin-sdk/channel-runtime";
 import type {
-  OpenClawConfig,
+  KlawtyConfig,
   SlackReactionNotificationMode,
-} from "openclaw/plugin-sdk/config-runtime";
-import { resolveSessionKey, type SessionScope } from "openclaw/plugin-sdk/config-runtime";
-import type { DmPolicy, GroupPolicy } from "openclaw/plugin-sdk/config-runtime";
-import { createDedupeCache } from "openclaw/plugin-sdk/infra-runtime";
-import type { HistoryEntry } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { getChildLogger } from "openclaw/plugin-sdk/runtime-env";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
+} from "klawty/plugin-sdk/config-runtime";
+import { resolveSessionKey, type SessionScope } from "klawty/plugin-sdk/config-runtime";
+import type { DmPolicy, GroupPolicy } from "klawty/plugin-sdk/config-runtime";
+import { createDedupeCache } from "klawty/plugin-sdk/infra-runtime";
+import type { HistoryEntry } from "klawty/plugin-sdk/reply-runtime";
+import { resolveAgentRoute } from "klawty/plugin-sdk/routing";
+import { logVerbose } from "klawty/plugin-sdk/runtime-env";
+import { getChildLogger } from "klawty/plugin-sdk/runtime-env";
+import type { RuntimeEnv } from "klawty/plugin-sdk/runtime-env";
 import type { SlackMessageEvent } from "../types.js";
 import { normalizeAllowList, normalizeAllowListLower, normalizeSlackSlug } from "./allow-list.js";
 import type { SlackChannelConfigEntries } from "./channel-config.js";
@@ -22,7 +22,7 @@ import { isSlackChannelAllowedByPolicy } from "./policy.js";
 export { inferSlackChannelType, normalizeSlackChannelType } from "./channel-type.js";
 
 export type SlackMonitorContext = {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId: string;
   botToken: string;
   app: App;
@@ -53,7 +53,7 @@ export type SlackMonitorContext = {
   replyToMode: "off" | "first" | "all";
   threadHistoryScope: "thread" | "channel";
   threadInheritParent: boolean;
-  slashCommand: Required<import("openclaw/plugin-sdk/config-runtime").SlackSlashCommandConfig>;
+  slashCommand: Required<import("klawty/plugin-sdk/config-runtime").SlackSlashCommandConfig>;
   textLimit: number;
   ackReactionScope: string;
   typingReaction: string;
@@ -88,7 +88,7 @@ export type SlackMonitorContext = {
 };
 
 export function createSlackMonitorContext(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId: string;
   botToken: string;
   app: App;

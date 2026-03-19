@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/bluebubbles";
+import type { KlawtyConfig } from "klawty/plugin-sdk/bluebubbles";
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { bluebubblesMessageActions } from "./actions.js";
 import { sendBlueBubblesAttachment } from "./attachments.js";
@@ -52,7 +52,7 @@ describe("bluebubblesMessageActions", () => {
   const handleAction = bluebubblesMessageActions.handleAction!;
   const callHandleAction = (ctx: Omit<Parameters<typeof handleAction>[0], "channel">) =>
     handleAction({ channel: "bluebubbles", ...ctx });
-  const blueBubblesConfig = (): OpenClawConfig => ({
+  const blueBubblesConfig = (): KlawtyConfig => ({
     channels: {
       bluebubbles: {
         serverUrl: "http://localhost:1234",
@@ -76,7 +76,7 @@ describe("bluebubblesMessageActions", () => {
 
   describe("describeMessageTool", () => {
     it("returns empty array when account is not enabled", () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: { bluebubbles: { enabled: false } },
       };
       const actions = describeMessageTool({ cfg })?.actions ?? [];
@@ -84,7 +84,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("returns empty array when account is not configured", () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: { bluebubbles: { enabled: true } },
       };
       const actions = describeMessageTool({ cfg })?.actions ?? [];
@@ -92,7 +92,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("returns react action when enabled and configured", () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             enabled: true,
@@ -106,7 +106,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("excludes react action when reactions are gated off", () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             enabled: true,
@@ -125,7 +125,7 @@ describe("bluebubblesMessageActions", () => {
 
     it("hides private-api actions when private API is disabled", () => {
       vi.mocked(getCachedBlueBubblesPrivateApiStatus).mockReturnValueOnce(false);
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             enabled: true,
@@ -205,7 +205,7 @@ describe("bluebubblesMessageActions", () => {
 
   describe("handleAction", () => {
     it("throws for unsupported actions", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -224,7 +224,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("throws when emoji is missing for react action", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -244,7 +244,7 @@ describe("bluebubblesMessageActions", () => {
 
     it("throws a private-api error for private-only actions when disabled", async () => {
       vi.mocked(getCachedBlueBubblesPrivateApiStatus).mockReturnValueOnce(false);
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -263,7 +263,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("throws when messageId is missing", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -284,7 +284,7 @@ describe("bluebubblesMessageActions", () => {
     it("throws when chatGuid cannot be resolved", async () => {
       vi.mocked(resolveChatGuidForTarget).mockResolvedValueOnce(null);
 
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -344,7 +344,7 @@ describe("bluebubblesMessageActions", () => {
     it("resolves chatGuid from to parameter", async () => {
       vi.mocked(resolveChatGuidForTarget).mockResolvedValueOnce("iMessage;-;+15559876543");
 
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -372,7 +372,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("passes partIndex when provided", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -402,7 +402,7 @@ describe("bluebubblesMessageActions", () => {
     it("uses toolContext currentChannelId when no explicit target is provided", async () => {
       vi.mocked(resolveChatGuidForTarget).mockResolvedValueOnce("iMessage;-;+15550001111");
 
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -438,7 +438,7 @@ describe("bluebubblesMessageActions", () => {
     it("resolves short messageId before reacting", async () => {
       vi.mocked(resolveBlueBubblesMessageId).mockReturnValueOnce("resolved-uuid");
 
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -471,7 +471,7 @@ describe("bluebubblesMessageActions", () => {
         throw new Error("short id expired");
       });
 
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -495,7 +495,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("accepts message param for edit action", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -519,7 +519,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("accepts message/target aliases for sendWithEffect", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -550,7 +550,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("passes asVoice through sendAttachment", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -584,7 +584,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("throws when buffer is missing for setGroupIcon", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -604,7 +604,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("sets group icon successfully with chatGuid and buffer", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",
@@ -641,7 +641,7 @@ describe("bluebubblesMessageActions", () => {
     });
 
     it("uses default filename when not provided for setGroupIcon", async () => {
-      const cfg: OpenClawConfig = {
+      const cfg: KlawtyConfig = {
         channels: {
           bluebubbles: {
             serverUrl: "http://localhost:1234",

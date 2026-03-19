@@ -3,7 +3,7 @@ import {
   createDirectoryTestRuntime,
   expectDirectorySurface,
 } from "../../../test/helpers/extensions/directory.js";
-import type { OpenClawConfig, RuntimeEnv } from "../runtime-api.js";
+import type { KlawtyConfig, RuntimeEnv } from "../runtime-api.js";
 import { msteamsPlugin } from "./channel.js";
 
 describe("msteams directory", () => {
@@ -25,7 +25,7 @@ describe("msteams directory", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as KlawtyConfig;
 
     const directory = expectDirectorySurface(msteamsPlugin.directory);
 

@@ -2,14 +2,14 @@
  * Signal reactions via signal-cli JSON-RPC API
  */
 
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+import { loadConfig } from "klawty/plugin-sdk/config-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
 import { resolveSignalAccount } from "./accounts.js";
 import { signalRpcRequest } from "./client.js";
 import { resolveSignalRpcContext } from "./rpc-context.js";
 
 export type SignalReactionOpts = {
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   baseUrl?: string;
   account?: string;
   accountId?: string;

@@ -1,6 +1,6 @@
 import type * as Lark from "@larksuiteoapi/node-sdk";
 import { Type } from "@sinclair/typebox";
-import type { OpenClawPluginApi } from "../runtime-api.js";
+import type { KlawtyPluginApi } from "../runtime-api.js";
 import { listEnabledFeishuAccounts } from "./accounts.js";
 import { createFeishuToolClient } from "./tool-account.js";
 
@@ -532,7 +532,7 @@ const UpdateRecordSchema = Type.Object({
 
 // ============ Tool Registration ============
 
-export function registerFeishuBitableTools(api: OpenClawPluginApi) {
+export function registerFeishuBitableTools(api: KlawtyPluginApi) {
   if (!api.config) {
     api.logger.debug?.("feishu_bitable: No config available, skipping bitable tools");
     return;

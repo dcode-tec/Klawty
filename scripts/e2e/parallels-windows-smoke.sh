@@ -772,7 +772,7 @@ Remove-Item \$runner, \$log, \$done -Force -ErrorAction SilentlyContinue
 \$env:OPENAI_API_KEY = '$openai_key_q'
 try {
   \$openclaw = Join-Path \$env:APPDATA 'npm\openclaw.cmd'
-  \$cmdLine = ('"{0}" onboard --non-interactive --mode local --auth-choice openai-api-key --secret-input-mode ref --gateway-port 18789 --gateway-bind loopback --install-daemon --skip-skills --accept-risk --json > "{1}" 2>&1' -f \$openclaw, \$log)
+  \$cmdLine = ('"{0}" onboard --non-interactive --mode local --auth-choice openai-api-key --secret-input-mode ref --gateway-port 2508 --gateway-bind loopback --install-daemon --skip-skills --accept-risk --json > "{1}" 2>&1' -f \$openclaw, \$log)
   & cmd.exe /d /s /c \$cmdLine
   Set-Content -Path \$done -Value ([string]\$LASTEXITCODE)
 } catch {

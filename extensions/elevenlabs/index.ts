@@ -1,5 +1,5 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/core";
-import { buildElevenLabsSpeechProvider } from "openclaw/plugin-sdk/speech";
+import { definePluginEntry } from "klawty/plugin-sdk/core";
+import { buildElevenLabsSpeechProvider } from "klawty/plugin-sdk/speech";
 
 export default definePluginEntry({
   id: "elevenlabs",

@@ -60,7 +60,7 @@ Authoritative list lives in `src/gateway/server.ts` (`METHODS`, `EVENTS`).
 - Server handshake + method dispatch: `src/gateway/server.ts`
 - Node client: `src/gateway/client.ts`
 - Generated JSON Schema: `dist/protocol.schema.json`
-- Generated Swift models: `apps/macos/Sources/OpenClawProtocol/GatewayModels.swift`
+- Generated Swift models: `apps/macos/Sources/KlawtyProtocol/GatewayModels.swift`
 
 ## Current pipeline
 
@@ -93,7 +93,7 @@ Connect (first message):
     "minProtocol": 2,
     "maxProtocol": 2,
     "client": {
-      "id": "openclaw-macos",
+      "id": "klawty-macos",
       "displayName": "macos",
       "version": "1.0.0",
       "platform": "macos 15.1",
@@ -150,7 +150,7 @@ Smallest useful flow: connect + health.
 ```ts
 import { WebSocket } from "ws";
 
-const ws = new WebSocket("ws://127.0.0.1:18789");
+const ws = new WebSocket("ws://127.0.0.1:2508");
 
 ws.on("open", () => {
   ws.send(
@@ -282,7 +282,7 @@ Unknown frame types are preserved as raw payloads for forward compatibility.
 Generated JSON Schema is in the repo at `dist/protocol.schema.json`. The
 published raw file is typically available at:
 
-- [https://raw.githubusercontent.com/openclaw/openclaw/main/dist/protocol.schema.json](https://raw.githubusercontent.com/openclaw/openclaw/main/dist/protocol.schema.json)
+- [https://raw.githubusercontent.com/klawty/klawty/main/dist/protocol.schema.json](https://raw.githubusercontent.com/klawty/klawty/main/dist/protocol.schema.json)
 
 ## When you change schemas
 

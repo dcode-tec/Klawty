@@ -1,40 +1,40 @@
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
-import { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
-import { resolveControlCommandGate } from "openclaw/plugin-sdk/channel-runtime";
+import { resolveHumanDelayConfig } from "klawty/plugin-sdk/agent-runtime";
+import { createChannelReplyPipeline } from "klawty/plugin-sdk/channel-reply-pipeline";
+import { resolveControlCommandGate } from "klawty/plugin-sdk/channel-runtime";
 import {
   createChannelInboundDebouncer,
   shouldDebounceTextInbound,
-} from "openclaw/plugin-sdk/channel-runtime";
-import { logInboundDrop, logTypingFailure } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveMentionGatingWithBypass } from "openclaw/plugin-sdk/channel-runtime";
-import { normalizeSignalMessagingTarget } from "openclaw/plugin-sdk/channel-runtime";
-import { recordInboundSession } from "openclaw/plugin-sdk/channel-runtime";
-import { resolveChannelGroupRequireMention } from "openclaw/plugin-sdk/config-runtime";
-import { readSessionUpdatedAt, resolveStorePath } from "openclaw/plugin-sdk/config-runtime";
-import { enqueueSystemEvent } from "openclaw/plugin-sdk/infra-runtime";
-import { kindFromMime } from "openclaw/plugin-sdk/media-runtime";
-import { hasControlCommand } from "openclaw/plugin-sdk/reply-runtime";
-import { dispatchInboundMessage } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import { logInboundDrop, logTypingFailure } from "klawty/plugin-sdk/channel-runtime";
+import { resolveMentionGatingWithBypass } from "klawty/plugin-sdk/channel-runtime";
+import { normalizeSignalMessagingTarget } from "klawty/plugin-sdk/channel-runtime";
+import { recordInboundSession } from "klawty/plugin-sdk/channel-runtime";
+import { resolveChannelGroupRequireMention } from "klawty/plugin-sdk/config-runtime";
+import { readSessionUpdatedAt, resolveStorePath } from "klawty/plugin-sdk/config-runtime";
+import { enqueueSystemEvent } from "klawty/plugin-sdk/infra-runtime";
+import { kindFromMime } from "klawty/plugin-sdk/media-runtime";
+import { hasControlCommand } from "klawty/plugin-sdk/reply-runtime";
+import { dispatchInboundMessage } from "klawty/plugin-sdk/reply-runtime";
 import {
   formatInboundEnvelope,
   formatInboundFromLabel,
   resolveEnvelopeFormatOptions,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
 import {
   buildPendingHistoryContextFromMap,
   clearHistoryEntriesIfEnabled,
   recordPendingHistoryEntryIfEnabled,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { finalizeInboundContext } from "openclaw/plugin-sdk/reply-runtime";
-import { buildMentionRegexes, matchesMentionPatterns } from "openclaw/plugin-sdk/reply-runtime";
-import { createReplyDispatcherWithTyping } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { danger, logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "klawty/plugin-sdk/reply-runtime";
+import { finalizeInboundContext } from "klawty/plugin-sdk/reply-runtime";
+import { buildMentionRegexes, matchesMentionPatterns } from "klawty/plugin-sdk/reply-runtime";
+import { createReplyDispatcherWithTyping } from "klawty/plugin-sdk/reply-runtime";
+import { resolveAgentRoute } from "klawty/plugin-sdk/routing";
+import { danger, logVerbose, shouldLogVerbose } from "klawty/plugin-sdk/runtime-env";
 import {
   DM_GROUP_ACCESS_REASON,
   resolvePinnedMainDmOwnerFromAllowlist,
-} from "openclaw/plugin-sdk/security-runtime";
-import { normalizeE164 } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/security-runtime";
+import { normalizeE164 } from "klawty/plugin-sdk/text-runtime";
 import {
   formatSignalPairingIdLine,
   formatSignalSenderDisplay,

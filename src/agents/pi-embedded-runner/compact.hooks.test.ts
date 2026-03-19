@@ -3,7 +3,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { getCustomApiRegistrySourceId } from "../custom-api-registry.js";
 import {
   contextEngineCompactMock,
-  createOpenClawCodingToolsMock,
+  createKlawtyCodingToolsMock,
   ensureRuntimePluginsLoaded,
   estimateTokensMock,
   getMemorySearchManagerMock,
@@ -191,7 +191,7 @@ describe("compactEmbeddedPiSessionDirect hooks", () => {
       workspaceDir: "/tmp/workspace",
       allowGatewaySubagentBinding: true,
     });
-    expect(createOpenClawCodingToolsMock).toHaveBeenCalledWith(
+    expect(createKlawtyCodingToolsMock).toHaveBeenCalledWith(
       expect.objectContaining({
         allowGatewaySubagentBinding: true,
       }),

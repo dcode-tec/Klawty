@@ -3,16 +3,16 @@ import {
   definePluginEntry,
   type ProviderResolveDynamicModelContext,
   type ProviderRuntimeModel,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
-import { applyXaiModelCompat, DEFAULT_CONTEXT_TOKENS } from "openclaw/plugin-sdk/provider-models";
+} from "klawty/plugin-sdk/plugin-entry";
+import { createProviderApiKeyAuthMethod } from "klawty/plugin-sdk/provider-auth-api-key";
+import { applyXaiModelCompat, DEFAULT_CONTEXT_TOKENS } from "klawty/plugin-sdk/provider-models";
 import {
   getOpenRouterModelCapabilities,
   loadOpenRouterModelCapabilities,
   createOpenRouterSystemCacheWrapper,
   createOpenRouterWrapper,
   isProxyReasoningUnsupported,
-} from "openclaw/plugin-sdk/provider-stream";
+} from "klawty/plugin-sdk/provider-stream";
 import { applyOpenrouterConfig, OPENROUTER_DEFAULT_MODEL_REF } from "./onboard.js";
 import { buildOpenrouterProvider } from "./provider-catalog.js";
 

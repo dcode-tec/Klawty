@@ -1,14 +1,14 @@
 {
-  "name": "@openclaw/llm-task",
-  "version": "2026.3.14",
+  "name": "@klawty/llm-task",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw JSON-only LLM task plugin",
+  "description": "Klawty JSON-only LLM task plugin",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.48",
     "ajv": "^8.18.0"
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

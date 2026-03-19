@@ -1,4 +1,4 @@
-import { buildUntrustedChannelMetadata } from "openclaw/plugin-sdk/security-runtime";
+import { buildUntrustedChannelMetadata } from "klawty/plugin-sdk/security-runtime";
 import {
   resolveDiscordOwnerAllowFrom,
   type DiscordChannelConfigResolved,

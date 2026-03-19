@@ -1,4 +1,4 @@
-import { normalizeE164 } from "openclaw/plugin-sdk/text-runtime";
+import { normalizeE164 } from "klawty/plugin-sdk/text-runtime";
 import {
   createAllowedChatSenderMatcher,
   type ChatSenderAllowParams,

@@ -1,5 +1,5 @@
 import path from "node:path";
-import type { OpenClawPluginConfigSchema } from "openclaw/plugin-sdk/core";
+import type { KlawtyPluginConfigSchema } from "klawty/plugin-sdk/core";
 
 export type OpenShellPluginConfig = {
   mode?: string;
@@ -33,7 +33,7 @@ export type ResolvedOpenShellPluginConfig = {
 
 const DEFAULT_COMMAND = "openshell";
 const DEFAULT_MODE = "mirror";
-const DEFAULT_SOURCE = "openclaw";
+const DEFAULT_SOURCE = "klawty";
 const DEFAULT_REMOTE_WORKSPACE_DIR = "/sandbox";
 const DEFAULT_REMOTE_AGENT_WORKSPACE_DIR = "/agent";
 const DEFAULT_TIMEOUT_MS = 120_000;
@@ -90,7 +90,7 @@ function normalizeRemotePath(value: string | undefined, fallback: string): strin
   return normalized;
 }
 
-export function createOpenShellPluginConfigSchema(): OpenClawPluginConfigSchema {
+export function createOpenShellPluginConfigSchema(): KlawtyPluginConfigSchema {
   const safeParse = (value: unknown): ParseSuccess | ParseFailure => {
     if (value === undefined) {
       return { success: true, data: undefined };

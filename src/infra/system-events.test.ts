@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { drainFormattedSystemEvents } from "../auto-reply/reply/session-updates.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import { resolveMainSessionKey } from "../config/sessions.js";
 import { isCronSystemEvent } from "./heartbeat-runner.js";
 import {
@@ -13,7 +13,7 @@ import {
   resetSystemEventsForTest,
 } from "./system-events.js";
 
-const cfg = {} as unknown as OpenClawConfig;
+const cfg = {} as unknown as KlawtyConfig;
 const mainKey = resolveMainSessionKey(cfg);
 
 describe("system events (session routing)", () => {

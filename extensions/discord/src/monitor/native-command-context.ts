@@ -1,5 +1,5 @@
-import type { CommandArgs } from "openclaw/plugin-sdk/reply-runtime";
-import { finalizeInboundContext } from "openclaw/plugin-sdk/reply-runtime";
+import type { CommandArgs } from "klawty/plugin-sdk/reply-runtime";
+import { finalizeInboundContext } from "klawty/plugin-sdk/reply-runtime";
 import { type DiscordChannelConfigResolved, type DiscordGuildEntryResolved } from "./allow-list.js";
 import { buildDiscordInboundAccessContext } from "./inbound-context.js";
 

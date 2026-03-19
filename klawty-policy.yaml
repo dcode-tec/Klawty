@@ -1,0 +1,340 @@
+# Klawty Security Policy — deny-by-default
+# Agents can only access explicitly allowed resources.
+# Edit this file to customize your security posture.
+#
+# Docs: https://docs.klawty.ai/security/policy
+
+version: "1.0"
+created: "2026-03-19"
+
+# ── Network Policy ────────────────────────────────────────────────────────────
+# Only these endpoints can be reached by agents.
+# Everything else is blocked at the tool layer.
+network:
+  allow:
+    # LLM inference (required)
+    - host: "openrouter.ai"
+      port: 443
+      methods: [POST, GET]
+      reason: "LLM inference via OpenRouter"
+
+    - host: "api.openai.com"
+      port: 443
+      methods: [POST]
+      reason: "Direct OpenAI fallback"
+
+    - host: "api.anthropic.com"
+      port: 443
+      methods: [POST]
+      reason: "Direct Anthropic fallback"
+
+    - host: "generativelanguage.googleapis.com"
+      port: 443
+      methods: [POST]
+      reason: "Direct Google Gemini fallback"
+
+    # Vector memory (local Qdrant)
+    - host: "localhost"
+      port: 6333
+      methods: [POST, GET, PUT, DELETE]
+      reason: "Local Qdrant vector memory — HTTP API"
+
+    - host: "localhost"
+      port: 6334
+      methods: [POST, GET]
+      reason: "Local Qdrant vector memory — gRPC"
+
+    # License and update checks
+    - host: "ai-agent-builder.ai"
+      port: 443
+      methods: [POST, GET]
+      reason: "License activation, update checks, telemetry"
+
+    - host: "klawty.ai"
+      port: 443
+      methods: [GET]
+      reason: "Update manifest and documentation"
+
+    # ── Communication channels ────────────────────────────────────────────────
+    # Uncomment the channel(s) you use.
+
+    # Discord
+    # - host: "discord.com"
+    #   port: 443
+    #   methods: [POST, GET, PUT, PATCH, DELETE]
+    #   reason: "Discord REST API"
+    # - host: "gateway.discord.gg"
+    #   port: 443
+    #   methods: [GET]
+    #   reason: "Discord WebSocket gateway"
+    # - host: "cdn.discordapp.com"
+    #   port: 443
+    #   methods: [GET]
+    #   reason: "Discord CDN (attachments)"
+
+    # Slack
+    # - host: "slack.com"
+    #   port: 443
+    #   methods: [POST, GET]
+    #   reason: "Slack Web API"
+    # - host: "hooks.slack.com"
+    #   port: 443
+    #   methods: [POST]
+    #   reason: "Slack incoming webhooks"
+    # - host: "files.slack.com"
+    #   port: 443
+    #   methods: [GET]
+    #   reason: "Slack file downloads"
+
+    # Telegram
+    # - host: "api.telegram.org"
+    #   port: 443
+    #   methods: [POST, GET]
+    #   reason: "Telegram Bot API"
+
+    # ── Web search (if web-search tool enabled) ──────────────────────────────
+    # - host: "duckduckgo.com"
+    #   port: 443
+    #   methods: [GET]
+    #   reason: "DuckDuckGo web search"
+    # - host: "html.duckduckgo.com"
+    #   port: 443
+    #   methods: [GET, POST]
+    #   reason: "DuckDuckGo HTML search API"
+    # - host: "api.serper.dev"
+    #   port: 443
+    #   methods: [POST]
+    #   reason: "Serper Google search API"
+
+    # ── Email (if email tools enabled) ───────────────────────────────────────
+    # - host: "gmail.googleapis.com"
+    #   port: 443
+    #   methods: [POST, GET]
+    #   reason: "Gmail API"
+    # - host: "oauth2.googleapis.com"
+    #   port: 443
+    #   methods: [POST]
+    #   reason: "Google OAuth token refresh"
+
+  deny_all_others: true
+  log_blocked: true
+  log_format: "json"
+
+# ── Filesystem Policy ─────────────────────────────────────────────────────────
+# Agents can only write to specific directories relative to the workspace root.
+# All paths are resolved relative to the Klawty workspace.
+filesystem:
+  write:
+    - path: "workspace/"
+      reason: "Agent configs, skills, memory files"
+    - path: "data/"
+      reason: "SQLite databases (tasks, CRM, tracker)"
+    - path: "backups/"
+      reason: "Daily backup snapshots"
+    - path: "observability/"
+      reason: "Logs, metrics, and traces"
+    - path: "credentials/"
+      reason: "API keys and tokens (chmod 600 enforced)"
+
+  read_only:
+    - path: "runtime/"
+      reason: "Engine code — agents cannot modify their own runtime"
+    - path: "skills/"
+      reason: "Skill definitions — agents propose new ones via proposals"
+    - path: "klawty.json"
+      reason: "Main configuration — agents cannot self-modify config"
+    - path: "klawty-policy.yaml"
+      reason: "This policy file — agents cannot modify their own security policy"
+    - path: "node_modules/"
+      reason: "Dependencies — never modified at runtime"
+
+  blocked:
+    - path: "/etc/"
+      reason: "System configuration"
+    - path: "/usr/"
+      reason: "System binaries"
+    - path: "/var/"
+      reason: "System state"
+    - path: "/root/"
+      reason: "Root home"
+    - path: "/home/"
+      reason: "Other users — except workspace subdirectories"
+    - path: ".env"
+      reason: "Agents cannot read secrets directly — use env injection"
+    - path: ".session"
+      reason: "License session token — agents cannot access"
+    - path: ".git/"
+      reason: "Git internals — agents cannot manipulate version control"
+    - path: "*.pem"
+      reason: "TLS certificates"
+    - path: "*.key"
+      reason: "Private keys"
+
+  max_path_depth: 10
+  follow_symlinks: false
+
+# ── Execution Policy ──────────────────────────────────────────────────────────
+# Controls what commands the exec/shell tool can run.
+execution:
+  allowed_commands:
+    - "node"
+    - "npm"
+    - "npx"
+    - "pnpm"
+    - "git"
+    - "docker"
+    - "docker-compose"
+    - "sqlite3"
+    - "curl"
+    - "python3"
+    - "jq"
+
+  blocked_patterns:
+    # Destructive filesystem operations
+    - "rm -rf /"
+    - "rm -rf /*"
+    - "rm -rf ~"
+    - "rm -rf $HOME"
+    - "mkfs"
+    - "dd if="
+    - "shred"
+    # Privilege escalation
+    - "sudo"
+    - "su "
+    - "doas"
+    - "pkexec"
+    # Insecure permissions
+    - "chmod 777"
+    - "chmod -R 777"
+    - "chmod a+rwx"
+    # Remote code execution via pipe
+    - "curl * | bash"
+    - "curl * | sh"
+    - "wget * | bash"
+    - "wget * | sh"
+    # Inline code execution
+    - "python -c"
+    - "python3 -c"
+    - "node -e"
+    # Disk and device access
+    - "> /dev/sd"
+    - "> /dev/nvm"
+    - "mount "
+    - "umount "
+    # Fork bomb and resource abuse
+    - ":(){ :|:& };:"
+    - "while true"
+    - "yes |"
+    # Network abuse
+    - "nc -l"
+    - "ncat -l"
+    - "socat"
+    - "nmap"
+    # Credential harvesting
+    - "cat /etc/shadow"
+    - "cat /etc/passwd"
+    - "cat ~/.ssh/"
+    - "cat ~/.aws/"
+
+  max_execution_time: 30        # seconds per command
+  max_output_size: "1MB"        # truncate stdout/stderr beyond this
+  inherit_env: false            # do not pass full env to subprocesses
+  allowed_env:
+    - "PATH"
+    - "HOME"
+    - "NODE_ENV"
+    - "LANG"
+    - "TZ"
+
+# ── Resource Limits ───────────────────────────────────────────────────────────
+resources:
+  max_file_size: "10MB"          # per file write operation
+  max_disk_usage: "5GB"          # total workspace disk budget
+  max_memory_per_agent: "512MB"  # RSS limit per agent process
+  max_concurrent_tools: 3        # parallel tool executions per agent
+  max_open_files: 100            # file descriptor limit per agent
+  max_llm_calls_per_cycle: 20   # prevent runaway inference loops
+  max_tool_rounds: 15            # tool-calling loop limit per task
+
+# ── Rate Limits ───────────────────────────────────────────────────────────────
+rate_limits:
+  # Per-agent limits (rolling window)
+  channel_posts:
+    max: 10
+    window: "5m"
+    action: "queue"              # queue excess messages instead of dropping
+
+  email_sends:
+    max: 5
+    window: "1h"
+    action: "block"              # hard block — requires human approval
+
+  api_calls:
+    max: 100
+    window: "1m"
+    action: "throttle"           # slow down, don't block
+
+  task_creation:
+    max: 20
+    window: "1h"
+    action: "block"              # prevent task spam
+
+# ── Privacy ───────────────────────────────────────────────────────────────────
+# PII detection — route sensitive data to local models when enabled.
+privacy:
+  enabled: false                  # set to true + configure local_model
+  local_model: ""                 # e.g., "ollama/llama3.1:8b"
+
+  pii_patterns:
+    - name: "email"
+      pattern: "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+    - name: "phone"
+      pattern: "\\+?[1-9]\\d{1,14}"
+    - name: "ssn"
+      pattern: "\\d{3}-\\d{2}-\\d{4}"
+    - name: "credit_card"
+      pattern: "\\d{4}[- ]?\\d{4}[- ]?\\d{4}[- ]?\\d{4}"
+    - name: "iban"
+      pattern: "[A-Z]{2}\\d{2}[A-Z0-9]{4,30}"
+
+  pii_keywords:
+    - "password"
+    - "secret"
+    - "credential"
+    - "ssn"
+    - "social security"
+    - "credit card"
+    - "bank account"
+    - "salary"
+    - "medical"
+    - "diagnosis"
+    - "passport"
+    - "driver license"
+
+  action: "local_inference"       # "local_inference" | "redact" | "block"
+  log_detections: true
+  redaction_placeholder: "[REDACTED]"
+
+# ── Audit ─────────────────────────────────────────────────────────────────────
+# All policy decisions are logged for review.
+audit:
+  enabled: true
+  log_path: "observability/policy-audit.jsonl"
+  log_allowed: false              # set true to log allowed actions too (verbose)
+  log_blocked: true
+  log_rate_limited: true
+  retention_days: 90
+
+# ── Policy Overrides ──────────────────────────────────────────────────────────
+# Per-agent overrides. Use sparingly — prefer tightening, not loosening.
+overrides: {}
+  # Example: give the "research" agent web search access
+  # research:
+  #   network:
+  #     additional_allow:
+  #       - host: "duckduckgo.com"
+  #         port: 443
+  #         methods: [GET]
+  #   execution:
+  #     additional_commands:
+  #       - "wget"

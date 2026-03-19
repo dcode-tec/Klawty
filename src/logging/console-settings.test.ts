@@ -18,7 +18,7 @@ vi.mock("./logger.js", () => ({
 
 let loadConfigCalls = 0;
 let originalIsTty: boolean | undefined;
-let originalOpenClawTestConsole: string | undefined;
+let originalKlawtyTestConsole: string | undefined;
 let snapshot: ConsoleSnapshot;
 let logging: typeof import("../logging.js");
 let state: typeof import("./state.js");
@@ -32,8 +32,8 @@ beforeEach(() => {
   loadConfigCalls = 0;
   snapshot = captureConsoleSnapshot();
   originalIsTty = process.stdout.isTTY;
-  originalOpenClawTestConsole = process.env.OPENCLAW_TEST_CONSOLE;
-  process.env.OPENCLAW_TEST_CONSOLE = "1";
+  originalKlawtyTestConsole = process.env.KLAWTY_TEST_CONSOLE;
+  process.env.KLAWTY_TEST_CONSOLE = "1";
   Object.defineProperty(process.stdout, "isTTY", { value: false, configurable: true });
 });
 
@@ -44,10 +44,10 @@ afterEach(() => {
   console.error = snapshot.error;
   console.debug = snapshot.debug;
   console.trace = snapshot.trace;
-  if (originalOpenClawTestConsole === undefined) {
-    delete process.env.OPENCLAW_TEST_CONSOLE;
+  if (originalKlawtyTestConsole === undefined) {
+    delete process.env.KLAWTY_TEST_CONSOLE;
   } else {
-    process.env.OPENCLAW_TEST_CONSOLE = originalOpenClawTestConsole;
+    process.env.KLAWTY_TEST_CONSOLE = originalKlawtyTestConsole;
   }
   Object.defineProperty(process.stdout, "isTTY", { value: originalIsTty, configurable: true });
   logging.setConsoleConfigLoaderForTests();

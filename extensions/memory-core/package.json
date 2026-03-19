@@ -1,18 +1,18 @@
 {
-  "name": "@openclaw/memory-core",
-  "version": "2026.3.14",
+  "name": "@klawty/memory-core",
+  "version": "1.0.0",
   "private": true,
-  "description": "OpenClaw core memory search plugin",
+  "description": "Klawty core memory search plugin",
   "type": "module",
   "peerDependencies": {
-    "openclaw": ">=2026.3.11"
+    "klawty": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "klawty": {
       "optional": true
     }
   },
-  "openclaw": {
+  "klawty": {
     "extensions": [
       "./index.ts"
     ]

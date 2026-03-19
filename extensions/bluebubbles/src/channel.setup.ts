@@ -1,7 +1,7 @@
-import { formatNormalizedAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
-import { createScopedChannelConfigAdapter } from "openclaw/plugin-sdk/channel-config-helpers";
-import { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/core";
+import { formatNormalizedAllowFromEntries } from "klawty/plugin-sdk/allow-from";
+import { createScopedChannelConfigAdapter } from "klawty/plugin-sdk/channel-config-helpers";
+import { buildChannelConfigSchema } from "klawty/plugin-sdk/channel-config-schema";
+import type { ChannelPlugin } from "klawty/plugin-sdk/core";
 import {
   listBlueBubblesAccountIds,
   type ResolvedBlueBubblesAccount,

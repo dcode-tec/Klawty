@@ -1,4 +1,4 @@
-import type { RuntimeEnv, WizardPrompter } from "openclaw/plugin-sdk/matrix";
+import type { RuntimeEnv, WizardPrompter } from "klawty/plugin-sdk/matrix";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { matrixOnboardingAdapter } from "./onboarding.js";
 import { setMatrixRuntime } from "./runtime.js";

@@ -14,7 +14,7 @@ This repo supports “remote over SSH” by keeping a single Gateway (the master
 
 ## The core idea
 
-- The Gateway WebSocket binds to **loopback** on your configured port (defaults to 18789).
+- The Gateway WebSocket binds to **loopback** on your configured port (defaults to 2508).
 - For remote use, you forward that loopback port over SSH (or use a tailnet/VPN and tunnel less).
 
 ## Common VPN/tailnet setups (where the agent lives)
@@ -36,7 +36,7 @@ This is ideal when your laptop sleeps often but you want the agent always-on.
 
 The laptop does **not** run the agent. It connects remotely:
 
-- Use the macOS app’s **Remote over SSH** mode (Settings → General → “OpenClaw runs”).
+- Use the macOS app’s **Remote over SSH** mode (Settings → General → “Klawty runs”).
 - The app opens and manages the tunnel, so WebChat + health checks “just work.”
 
 Runbook: [macOS remote access](/platforms/mac/remote).
@@ -71,15 +71,15 @@ Notes:
 Create a local tunnel to the remote Gateway WS:
 
 ```bash
-ssh -N -L 18789:127.0.0.1:18789 user@host
+ssh -N -L 2508:127.0.0.1:2508 user@host
 ```
 
 With the tunnel up:
 
-- `openclaw health` and `openclaw status --deep` now reach the remote gateway via `ws://127.0.0.1:18789`.
-- `openclaw gateway {status,health,send,agent,call}` can also target the forwarded URL via `--url` when needed.
+- `klawty health` and `klawty status --deep` now reach the remote gateway via `ws://127.0.0.1:2508`.
+- `klawty gateway {status,health,send,agent,call}` can also target the forwarded URL via `--url` when needed.
 
-Note: replace `18789` with your configured `gateway.port` (or `--port`/`OPENCLAW_GATEWAY_PORT`).
+Note: replace `2508` with your configured `gateway.port` (or `--port`/`KLAWTY_GATEWAY_PORT`).
 Note: when you pass `--url`, the CLI does not fall back to config or environment credentials.
 Include `--token` or `--password` explicitly. Missing explicit credentials is an error.
 
@@ -92,14 +92,14 @@ You can persist a remote target so CLI commands use it by default:
   gateway: {
     mode: "remote",
     remote: {
-      url: "ws://127.0.0.1:18789",
+      url: "ws://127.0.0.1:2508",
       token: "your-token",
     },
   },
 }
 ```
 
-When the gateway is loopback-only, keep the URL at `ws://127.0.0.1:18789` and open the SSH tunnel first.
+When the gateway is loopback-only, keep the URL at `ws://127.0.0.1:2508` and open the SSH tunnel first.
 
 ## Credential precedence
 
@@ -108,22 +108,22 @@ Gateway credential resolution follows one shared contract across call/probe/stat
 - Explicit credentials (`--token`, `--password`, or tool `gatewayToken`) always win on call paths that accept explicit auth.
 - URL override safety:
   - CLI URL overrides (`--url`) never reuse implicit config/env credentials.
-  - Env URL overrides (`OPENCLAW_GATEWAY_URL`) may use env credentials only (`OPENCLAW_GATEWAY_TOKEN` / `OPENCLAW_GATEWAY_PASSWORD`).
+  - Env URL overrides (`KLAWTY_GATEWAY_URL`) may use env credentials only (`KLAWTY_GATEWAY_TOKEN` / `KLAWTY_GATEWAY_PASSWORD`).
 - Local mode defaults:
-  - token: `OPENCLAW_GATEWAY_TOKEN` -> `gateway.auth.token` -> `gateway.remote.token` (remote fallback applies only when local auth token input is unset)
-  - password: `OPENCLAW_GATEWAY_PASSWORD` -> `gateway.auth.password` -> `gateway.remote.password` (remote fallback applies only when local auth password input is unset)
+  - token: `KLAWTY_GATEWAY_TOKEN` -> `gateway.auth.token` -> `gateway.remote.token` (remote fallback applies only when local auth token input is unset)
+  - password: `KLAWTY_GATEWAY_PASSWORD` -> `gateway.auth.password` -> `gateway.remote.password` (remote fallback applies only when local auth password input is unset)
 - Remote mode defaults:
-  - token: `gateway.remote.token` -> `OPENCLAW_GATEWAY_TOKEN` -> `gateway.auth.token`
-  - password: `OPENCLAW_GATEWAY_PASSWORD` -> `gateway.remote.password` -> `gateway.auth.password`
+  - token: `gateway.remote.token` -> `KLAWTY_GATEWAY_TOKEN` -> `gateway.auth.token`
+  - password: `KLAWTY_GATEWAY_PASSWORD` -> `gateway.remote.password` -> `gateway.auth.password`
 - Node-host local-mode exception: `gateway.remote.token` / `gateway.remote.password` are ignored.
 - Remote probe/status token checks are strict by default: they use `gateway.remote.token` only (no local token fallback) when targeting remote mode.
-- Legacy `CLAWDBOT_GATEWAY_*` env vars are only used by compatibility call paths; probe/status/auth resolution uses `OPENCLAW_GATEWAY_*` only.
+- Legacy `CLAWDBOT_GATEWAY_*` env vars are only used by compatibility call paths; probe/status/auth resolution uses `KLAWTY_GATEWAY_*` only.
 
 ## Chat UI over SSH
 
 WebChat no longer uses a separate HTTP port. The SwiftUI chat UI connects directly to the Gateway WebSocket.
 
-- Forward `18789` over SSH (see above), then connect clients to `ws://127.0.0.1:18789`.
+- Forward `2508` over SSH (see above), then connect clients to `ws://127.0.0.1:2508`.
 - On macOS, prefer the app’s “Remote over SSH” mode, which manages the tunnel automatically.
 
 ## macOS app "Remote over SSH"
@@ -138,7 +138,7 @@ Short version: **keep the Gateway loopback-only** unless you’re sure you need 
 
 - **Loopback + SSH/Tailscale Serve** is the safest default (no public exposure).
 - Plaintext `ws://` is loopback-only by default. For trusted private networks,
-  set `OPENCLAW_ALLOW_INSECURE_PRIVATE_WS=1` on the client process as break-glass.
+  set `KLAWTY_ALLOW_INSECURE_PRIVATE_WS=1` on the client process as break-glass.
 - **Non-loopback binds** (`lan`/`tailnet`/`custom`, or `auto` when loopback is unavailable) must use auth tokens/passwords.
 - `gateway.remote.token` / `.password` are client credential sources. They do **not** configure server auth by themselves.
 - Local call paths can use `gateway.remote.*` as fallback only when `gateway.auth.*` is unset.

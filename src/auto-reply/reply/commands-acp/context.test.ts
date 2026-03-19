@@ -3,7 +3,7 @@ import {
   __testing as feishuThreadBindingTesting,
   createFeishuThreadBindingManager,
 } from "../../../../extensions/feishu/src/thread-bindings.js";
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { KlawtyConfig } from "../../../config/config.js";
 import {
   __testing as sessionBindingTesting,
   getSessionBindingService,
@@ -18,7 +18,7 @@ import {
 
 const baseCfg = {
   session: { mainKey: "main", scope: "per-sender" },
-} satisfies OpenClawConfig;
+} satisfies KlawtyConfig;
 
 describe("commands-acp context", () => {
   beforeEach(() => {

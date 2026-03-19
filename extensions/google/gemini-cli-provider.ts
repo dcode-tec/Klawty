@@ -1,18 +1,18 @@
 import type {
-  OpenClawPluginApi,
+  KlawtyPluginApi,
   ProviderAuthContext,
   ProviderFetchUsageSnapshotContext,
-} from "openclaw/plugin-sdk/plugin-entry";
-import { buildOauthProviderAuthResult } from "openclaw/plugin-sdk/provider-auth";
-import { fetchGeminiUsage } from "openclaw/plugin-sdk/provider-usage";
+} from "klawty/plugin-sdk/plugin-entry";
+import { buildOauthProviderAuthResult } from "klawty/plugin-sdk/provider-auth";
+import { fetchGeminiUsage } from "klawty/plugin-sdk/provider-usage";
 import { isModernGoogleModel, resolveGoogle31ForwardCompatModel } from "./provider-models.js";
 
 const PROVIDER_ID = "google-gemini-cli";
 const PROVIDER_LABEL = "Gemini CLI OAuth";
 const DEFAULT_MODEL = "google-gemini-cli/gemini-3.1-pro-preview";
 const ENV_VARS = [
-  "OPENCLAW_GEMINI_OAUTH_CLIENT_ID",
-  "OPENCLAW_GEMINI_OAUTH_CLIENT_SECRET",
+  "KLAWTY_GEMINI_OAUTH_CLIENT_ID",
+  "KLAWTY_GEMINI_OAUTH_CLIENT_SECRET",
   "GEMINI_CLI_OAUTH_CLIENT_ID",
   "GEMINI_CLI_OAUTH_CLIENT_SECRET",
 ];
@@ -47,7 +47,7 @@ async function fetchGeminiCliUsage(ctx: ProviderFetchUsageSnapshotContext) {
   return await fetchGeminiUsage(ctx.token, ctx.timeoutMs, ctx.fetchFn, PROVIDER_ID);
 }
 
-export function registerGoogleGeminiCliProvider(api: OpenClawPluginApi) {
+export function registerGoogleGeminiCliProvider(api: KlawtyPluginApi) {
   api.registerProvider({
     id: PROVIDER_ID,
     label: PROVIDER_LABEL,

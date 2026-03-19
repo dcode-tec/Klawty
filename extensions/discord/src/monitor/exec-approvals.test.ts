@@ -16,7 +16,7 @@ import {
   type ExecApprovalButtonContext,
 } from "./exec-approvals.js";
 
-const STORE_PATH = path.join(os.tmpdir(), "openclaw-exec-approvals-test.json");
+const STORE_PATH = path.join(os.tmpdir(), "klawty-exec-approvals-test.json");
 
 const writeStore = (store: Record<string, unknown>) => {
   fs.writeFileSync(STORE_PATH, `${JSON.stringify(store, null, 2)}\n`, "utf8");
@@ -41,9 +41,9 @@ beforeEach(() => {
     }) => {
       const configToken = params.config?.gateway?.auth?.token;
       const configPassword = params.config?.gateway?.auth?.password;
-      const envToken = params.env.OPENCLAW_GATEWAY_TOKEN ?? params.env.CLAWDBOT_GATEWAY_TOKEN;
+      const envToken = params.env.KLAWTY_GATEWAY_TOKEN ?? params.env.CLAWDBOT_GATEWAY_TOKEN;
       const envPassword =
-        params.env.OPENCLAW_GATEWAY_PASSWORD ?? params.env.CLAWDBOT_GATEWAY_PASSWORD;
+        params.env.KLAWTY_GATEWAY_PASSWORD ?? params.env.CLAWDBOT_GATEWAY_PASSWORD;
       return { token: envToken ?? configToken, password: envPassword ?? configPassword };
     },
   );
@@ -738,8 +738,8 @@ describe("DiscordExecApprovalHandler gateway auth", () => {
     });
   });
 
-  it("prefers OPENCLAW_GATEWAY_TOKEN when config token is missing", async () => {
-    vi.stubEnv("OPENCLAW_GATEWAY_TOKEN", "env-gateway-token");
+  it("prefers KLAWTY_GATEWAY_TOKEN when config token is missing", async () => {
+    vi.stubEnv("KLAWTY_GATEWAY_TOKEN", "env-gateway-token");
     const handler = new DiscordExecApprovalHandler({
       token: "discord-bot-token",
       accountId: "default",
@@ -932,9 +932,9 @@ describe("DiscordExecApprovalHandler gateway auth resolution", () => {
   });
 
   it("passes env URL overrides to shared gateway auth resolver", async () => {
-    const previousGatewayUrl = process.env.OPENCLAW_GATEWAY_URL;
+    const previousGatewayUrl = process.env.KLAWTY_GATEWAY_URL;
     try {
-      process.env.OPENCLAW_GATEWAY_URL = "wss://gateway-from-env.example/ws";
+      process.env.KLAWTY_GATEWAY_URL = "wss://gateway-from-env.example/ws";
       const handler = new DiscordExecApprovalHandler({
         token: "test-token",
         accountId: "default",
@@ -951,9 +951,9 @@ describe("DiscordExecApprovalHandler gateway auth resolution", () => {
       await handler.stop();
     } finally {
       if (typeof previousGatewayUrl === "string") {
-        process.env.OPENCLAW_GATEWAY_URL = previousGatewayUrl;
+        process.env.KLAWTY_GATEWAY_URL = previousGatewayUrl;
       } else {
-        delete process.env.OPENCLAW_GATEWAY_URL;
+        delete process.env.KLAWTY_GATEWAY_URL;
       }
     }
   });

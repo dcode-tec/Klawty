@@ -1,6 +1,6 @@
 import type { RequestClient } from "@buape/carbon";
 import { describe, expect, it } from "vitest";
-import type { OpenClawConfig } from "../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../src/config/config.js";
 import { createDiscordRestClient } from "./client.js";
 
 describe("createDiscordRestClient", () => {
@@ -17,7 +17,7 @@ describe("createDiscordRestClient", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     const result = createDiscordRestClient(
       {
@@ -50,7 +50,7 @@ describe("createDiscordRestClient", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     const result = createDiscordRestClient(
       {
@@ -77,7 +77,7 @@ describe("createDiscordRestClient", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     expect(() =>
       createDiscordRestClient(

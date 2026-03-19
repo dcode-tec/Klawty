@@ -85,7 +85,7 @@ describe("maybeInstallDaemon", () => {
       warnings: [],
     });
     buildGatewayInstallPlan.mockResolvedValue({
-      programArguments: ["openclaw", "gateway", "run"],
+      programArguments: ["klawty", "gateway", "run"],
       workingDirectory: "/tmp",
       environment: {},
     });
@@ -94,7 +94,7 @@ describe("maybeInstallDaemon", () => {
   it("does not serialize SecretRef token into service environment", async () => {
     await maybeInstallDaemon({
       runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
-      port: 18789,
+      port: 2508,
     });
 
     expect(resolveGatewayInstallToken).toHaveBeenCalledTimes(1);
@@ -113,7 +113,7 @@ describe("maybeInstallDaemon", () => {
 
     await maybeInstallDaemon({
       runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
-      port: 18789,
+      port: 2508,
     });
 
     expect(note).toHaveBeenCalledWith(
@@ -132,7 +132,7 @@ describe("maybeInstallDaemon", () => {
     await expect(
       maybeInstallDaemon({
         runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
-        port: 18789,
+        port: 2508,
       }),
     ).resolves.toBeUndefined();
 
@@ -147,7 +147,7 @@ describe("maybeInstallDaemon", () => {
     await expect(
       maybeInstallDaemon({
         runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
-        port: 18789,
+        port: 2508,
       }),
     ).rejects.toThrow("systemctl is-enabled unavailable: read-only file system");
 
@@ -162,7 +162,7 @@ describe("maybeInstallDaemon", () => {
     await expect(
       maybeInstallDaemon({
         runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
-        port: 18789,
+        port: 2508,
       }),
     ).resolves.toBeUndefined();
 
@@ -176,7 +176,7 @@ describe("maybeInstallDaemon", () => {
 
     await maybeInstallDaemon({
       runtime: { log: vi.fn(), error: vi.fn(), exit: vi.fn() },
-      port: 18789,
+      port: 2508,
     });
 
     expect(serviceRestart).toHaveBeenCalledTimes(1);

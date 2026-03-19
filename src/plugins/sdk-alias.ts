@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveOpenClawPackageRootSync } from "../infra/openclaw-root.js";
+import { resolveKlawtyPackageRootSync } from "../infra/klawty-root.js";
 
 type PluginSdkAliasCandidateKind = "dist" | "src";
 
@@ -38,7 +38,7 @@ function listPluginSdkSubpathsFromPackageJson(pkg: PluginSdkPackageJson): string
     .toSorted();
 }
 
-function hasTrustedOpenClawRootIndicator(params: {
+function hasTrustedKlawtyRootIndicator(params: {
   packageRoot: string;
   packageJson: PluginSdkPackageJson;
 }): boolean {
@@ -51,14 +51,14 @@ function hasTrustedOpenClawRootIndicator(params: {
     return false;
   }
   const hasCliEntryExport = Object.prototype.hasOwnProperty.call(packageExports, "./cli-entry");
-  const hasOpenClawBin =
+  const hasKlawtyBin =
     (typeof params.packageJson.bin === "string" &&
-      params.packageJson.bin.toLowerCase().includes("openclaw")) ||
+      params.packageJson.bin.toLowerCase().includes("klawty")) ||
     (typeof params.packageJson.bin === "object" &&
       params.packageJson.bin !== null &&
-      typeof params.packageJson.bin.openclaw === "string");
-  const hasOpenClawEntrypoint = fs.existsSync(path.join(params.packageRoot, "openclaw.mjs"));
-  return hasCliEntryExport || hasOpenClawBin || hasOpenClawEntrypoint;
+      typeof params.packageJson.bin.klawty === "string");
+  const hasKlawtyEntrypoint = fs.existsSync(path.join(params.packageRoot, "klawty.mjs"));
+  return hasCliEntryExport || hasKlawtyBin || hasKlawtyEntrypoint;
 }
 
 function readPluginSdkSubpathsFromPackageRoot(packageRoot: string): string[] | null {
@@ -66,7 +66,7 @@ function readPluginSdkSubpathsFromPackageRoot(packageRoot: string): string[] | n
   if (!pkg) {
     return null;
   }
-  if (!hasTrustedOpenClawRootIndicator({ packageRoot, packageJson: pkg })) {
+  if (!hasTrustedKlawtyRootIndicator({ packageRoot, packageJson: pkg })) {
     return null;
   }
   const subpaths = listPluginSdkSubpathsFromPackageJson(pkg);
@@ -93,13 +93,13 @@ export function resolveLoaderPackageRoot(
   params: LoaderModuleResolveParams & { modulePath: string },
 ): string | null {
   const cwd = params.cwd ?? path.dirname(params.modulePath);
-  const fromModulePath = resolveOpenClawPackageRootSync({ cwd });
+  const fromModulePath = resolveKlawtyPackageRootSync({ cwd });
   if (fromModulePath) {
     return fromModulePath;
   }
   const argv1 = params.argv1 ?? process.argv[1];
   const moduleUrl = params.moduleUrl ?? (params.modulePath ? undefined : import.meta.url);
-  return resolveOpenClawPackageRootSync({
+  return resolveKlawtyPackageRootSync({
     cwd,
     ...(argv1 ? { argv1 } : {}),
     ...(moduleUrl ? { moduleUrl } : {}),
@@ -110,10 +110,10 @@ function resolveLoaderPluginSdkPackageRoot(
   params: LoaderModuleResolveParams & { modulePath: string },
 ): string | null {
   const cwd = params.cwd ?? path.dirname(params.modulePath);
-  const fromCwd = resolveOpenClawPackageRootSync({ cwd });
+  const fromCwd = resolveKlawtyPackageRootSync({ cwd });
   const fromExplicitHints =
     params.argv1 || params.moduleUrl
-      ? resolveOpenClawPackageRootSync({
+      ? resolveKlawtyPackageRootSync({
           cwd,
           ...(params.argv1 ? { argv1: params.argv1 } : {}),
           ...(params.moduleUrl ? { moduleUrl: params.moduleUrl } : {}),
@@ -232,7 +232,7 @@ export function resolvePluginSdkScopedAliasMap(
       modulePath: params.modulePath,
     });
     if (resolved) {
-      aliasMap[`openclaw/plugin-sdk/${subpath}`] = resolved;
+      aliasMap[`klawty/plugin-sdk/${subpath}`] = resolved;
     }
   }
   return aliasMap;

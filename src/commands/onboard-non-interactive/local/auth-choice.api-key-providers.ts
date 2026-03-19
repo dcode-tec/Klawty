@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../config/config.js";
+import type { KlawtyConfig } from "../../../config/config.js";
 import type { SecretInput } from "../../../config/types.secrets.js";
 import { applyAuthProfileConfig } from "../../../plugins/provider-auth-helpers.js";
 import { setLitellmApiKey } from "../../../plugins/provider-auth-storage.js";
@@ -17,14 +17,14 @@ type ResolvedNonInteractiveApiKey = {
 
 export async function applySimpleNonInteractiveApiKeyChoice(params: {
   authChoice: AuthChoice;
-  nextConfig: OpenClawConfig;
-  baseConfig: OpenClawConfig;
+  nextConfig: KlawtyConfig;
+  baseConfig: KlawtyConfig;
   opts: OnboardOptions;
   runtime: RuntimeEnv;
   apiKeyStorageOptions?: ApiKeyStorageOptions;
   resolveApiKey: (input: {
     provider: string;
-    cfg: OpenClawConfig;
+    cfg: KlawtyConfig;
     flagValue?: string;
     flagName: `--${string}`;
     envVar: string;
@@ -34,7 +34,7 @@ export async function applySimpleNonInteractiveApiKeyChoice(params: {
     resolved: ResolvedNonInteractiveApiKey,
     setter: (value: SecretInput) => Promise<void> | void,
   ) => Promise<boolean>;
-}): Promise<OpenClawConfig | null | undefined> {
+}): Promise<KlawtyConfig | null | undefined> {
   if (params.authChoice !== "litellm-api-key") {
     return undefined;
   }

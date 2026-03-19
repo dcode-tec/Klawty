@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { PluginRuntime } from "openclaw/plugin-sdk/matrix";
+import type { PluginRuntime } from "klawty/plugin-sdk/matrix";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   getSessionBindingService,
@@ -30,9 +30,9 @@ const writeJsonFileAtomicallyMock = vi.hoisted(() =>
   vi.fn<(filePath: string, value: unknown) => Promise<void>>(),
 );
 
-vi.mock("openclaw/plugin-sdk/matrix", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/matrix")>(
-    "openclaw/plugin-sdk/matrix",
+vi.mock("klawty/plugin-sdk/matrix", async () => {
+  const actual = await vi.importActual<typeof import("klawty/plugin-sdk/matrix")>(
+    "klawty/plugin-sdk/matrix",
   );
   pluginSdkActual.writeJsonFileAtomically = actual.writeJsonFileAtomically;
   return {

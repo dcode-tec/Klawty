@@ -1,8 +1,8 @@
 import { describe, expect, it, vi, afterEach, beforeEach } from "vitest";
 
 // Mock fetchWithSsrFGuard from the focused infra seam.
-vi.mock("openclaw/plugin-sdk/infra-runtime", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("openclaw/plugin-sdk/infra-runtime")>();
+vi.mock("klawty/plugin-sdk/infra-runtime", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("klawty/plugin-sdk/infra-runtime")>();
   return {
     ...actual,
     fetchWithSsrFGuard: vi.fn(),
@@ -16,7 +16,7 @@ vi.mock("@tloncorp/api", () => ({
 
 describe("uploadImageFromUrl", () => {
   async function loadUploadMocks() {
-    const { fetchWithSsrFGuard } = await import("openclaw/plugin-sdk/infra-runtime");
+    const { fetchWithSsrFGuard } = await import("klawty/plugin-sdk/infra-runtime");
     const { uploadFile } = await import("@tloncorp/api");
     const { uploadImageFromUrl } = await import("./upload.js");
     return {

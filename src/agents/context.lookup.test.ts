@@ -10,10 +10,10 @@ function mockContextDeps(params: {
     loadConfig: params.loadConfig,
   }));
   vi.doMock("./models-config.js", () => ({
-    ensureOpenClawModelsJson: vi.fn(async () => {}),
+    ensureKlawtyModelsJson: vi.fn(async () => {}),
   }));
   vi.doMock("./agent-paths.js", () => ({
-    resolveOpenClawAgentDir: () => "/tmp/openclaw-agent",
+    resolveKlawtyAgentDir: () => "/tmp/klawty-agent",
   }));
   vi.doMock("./pi-model-discovery.js", () => ({
     discoverAuthStorage: vi.fn(() => ({})),
@@ -85,19 +85,19 @@ describe("lookupContextTokens", () => {
     try {
       for (const scenario of [
         {
-          argv: ["node", "openclaw", "--profile", "--", "config", "validate"],
+          argv: ["node", "klawty", "--profile", "--", "config", "validate"],
           expectedCalls: 1,
         },
         {
-          argv: ["node", "openclaw", "logs", "--limit", "5"],
+          argv: ["node", "klawty", "logs", "--limit", "5"],
           expectedCalls: 0,
         },
         {
-          argv: ["node", "openclaw", "status", "--json"],
+          argv: ["node", "klawty", "status", "--json"],
           expectedCalls: 0,
         },
         {
-          argv: ["node", "openclaw", "gateway", "status", "--json"],
+          argv: ["node", "klawty", "gateway", "status", "--json"],
           expectedCalls: 0,
         },
       ]) {
@@ -133,7 +133,7 @@ describe("lookupContextTokens", () => {
     mockContextModuleDeps(loadConfigMock);
 
     const argvSnapshot = process.argv;
-    process.argv = ["node", "openclaw", "config", "validate"];
+    process.argv = ["node", "klawty", "config", "validate"];
     try {
       const { lookupContextTokens } = await import("./context.js");
       expect(lookupContextTokens("openrouter/claude-sonnet")).toBeUndefined();

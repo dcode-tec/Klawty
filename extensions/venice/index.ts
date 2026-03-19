@@ -1,7 +1,7 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/core";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
-import { buildSingleProviderApiKeyCatalog } from "openclaw/plugin-sdk/provider-catalog";
-import { applyXaiModelCompat } from "openclaw/plugin-sdk/provider-models";
+import { definePluginEntry } from "klawty/plugin-sdk/core";
+import { createProviderApiKeyAuthMethod } from "klawty/plugin-sdk/provider-auth-api-key";
+import { buildSingleProviderApiKeyCatalog } from "klawty/plugin-sdk/provider-catalog";
+import { applyXaiModelCompat } from "klawty/plugin-sdk/provider-models";
 import { applyVeniceConfig, VENICE_DEFAULT_MODEL_REF } from "./onboard.js";
 import { buildVeniceProvider } from "./provider-catalog.js";
 

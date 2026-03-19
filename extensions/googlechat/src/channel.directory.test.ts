@@ -3,7 +3,7 @@ import {
   createDirectoryTestRuntime,
   expectDirectorySurface,
 } from "../../../test/helpers/extensions/directory.ts";
-import type { OpenClawConfig } from "../runtime-api.js";
+import type { KlawtyConfig } from "../runtime-api.js";
 import { googlechatPlugin } from "./channel.js";
 
 describe("googlechat directory", () => {
@@ -21,7 +21,7 @@ describe("googlechat directory", () => {
           },
         },
       },
-    } as unknown as OpenClawConfig;
+    } as unknown as KlawtyConfig;
 
     const directory = expectDirectorySurface(googlechatPlugin.directory);
 

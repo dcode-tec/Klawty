@@ -38,8 +38,8 @@ vi.mock("../commands/onboard-helpers.js", () => ({
   openUrl: vi.fn(async () => false),
   probeGatewayReachable,
   resolveControlUiLinks: vi.fn(() => ({
-    httpUrl: "http://127.0.0.1:18789",
-    wsUrl: "ws://127.0.0.1:18789",
+    httpUrl: "http://127.0.0.1:2508",
+    wsUrl: "ws://127.0.0.1:2508",
   })),
   waitForGatewayReachable: vi.fn(async () => {}),
 }));
@@ -158,8 +158,8 @@ describe("finalizeSetupWizard", () => {
   });
 
   it("resolves gateway password SecretRef for probe and TUI", async () => {
-    const previous = process.env.OPENCLAW_GATEWAY_PASSWORD;
-    process.env.OPENCLAW_GATEWAY_PASSWORD = "resolved-gateway-password"; // pragma: allowlist secret
+    const previous = process.env.KLAWTY_GATEWAY_PASSWORD;
+    process.env.KLAWTY_GATEWAY_PASSWORD = "resolved-gateway-password"; // pragma: allowlist secret
     resolveSetupSecretInputString.mockResolvedValueOnce("resolved-gateway-password");
     const select = vi.fn(async (params: { message: string }) => {
       if (params.message === "How do you want to hatch your bot?") {
@@ -191,7 +191,7 @@ describe("finalizeSetupWizard", () => {
               password: {
                 source: "env",
                 provider: "default",
-                id: "OPENCLAW_GATEWAY_PASSWORD",
+                id: "KLAWTY_GATEWAY_PASSWORD",
               },
             },
           },
@@ -205,7 +205,7 @@ describe("finalizeSetupWizard", () => {
         },
         workspaceDir: "/tmp",
         settings: {
-          port: 18789,
+          port: 2508,
           bind: "loopback",
           authMode: "password",
           gatewayToken: undefined,
@@ -217,21 +217,21 @@ describe("finalizeSetupWizard", () => {
       });
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_GATEWAY_PASSWORD;
+        delete process.env.KLAWTY_GATEWAY_PASSWORD;
       } else {
-        process.env.OPENCLAW_GATEWAY_PASSWORD = previous;
+        process.env.KLAWTY_GATEWAY_PASSWORD = previous;
       }
     }
 
     expect(probeGatewayReachable).toHaveBeenCalledWith(
       expect.objectContaining({
-        url: "ws://127.0.0.1:18789",
+        url: "ws://127.0.0.1:2508",
         password: "resolved-gateway-password", // pragma: allowlist secret
       }),
     );
     expect(runTui).toHaveBeenCalledWith(
       expect.objectContaining({
-        url: "ws://127.0.0.1:18789",
+        url: "ws://127.0.0.1:2508",
         password: "resolved-gateway-password", // pragma: allowlist secret
       }),
     );
@@ -261,14 +261,14 @@ describe("finalizeSetupWizard", () => {
             token: {
               source: "env",
               provider: "default",
-              id: "OPENCLAW_GATEWAY_TOKEN",
+              id: "KLAWTY_GATEWAY_TOKEN",
             },
           },
         },
       },
       workspaceDir: "/tmp",
       settings: {
-        port: 18789,
+        port: 2508,
         bind: "loopback",
         authMode: "token",
         gatewayToken: "session-token",
@@ -314,7 +314,7 @@ describe("finalizeSetupWizard", () => {
       nextConfig: {},
       workspaceDir: "/tmp",
       settings: {
-        port: 18789,
+        port: 2508,
         bind: "loopback",
         authMode: "token",
         gatewayToken: undefined,

@@ -1,10 +1,10 @@
 import {
   createScopedChannelConfigAdapter,
   createScopedDmSecurityResolver,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { createAllowlistProviderRouteAllowlistWarningCollector } from "openclaw/plugin-sdk/channel-policy";
-import { createChannelPluginBase } from "openclaw/plugin-sdk/core";
-import { createDelegatedSetupWizardProxy } from "openclaw/plugin-sdk/setup";
+} from "klawty/plugin-sdk/channel-config-helpers";
+import { createAllowlistProviderRouteAllowlistWarningCollector } from "klawty/plugin-sdk/channel-policy";
+import { createChannelPluginBase } from "klawty/plugin-sdk/core";
+import { createDelegatedSetupWizardProxy } from "klawty/plugin-sdk/setup";
 import {
   buildChannelConfigSchema,
   formatWhatsAppConfigAllowFromEntries,
@@ -15,7 +15,7 @@ import {
   resolveWhatsAppGroupToolPolicy,
   WhatsAppConfigSchema,
   type ChannelPlugin,
-} from "openclaw/plugin-sdk/whatsapp-core";
+} from "klawty/plugin-sdk/whatsapp-core";
 import {
   listWhatsAppAccountIds,
   resolveDefaultWhatsAppAccountId,

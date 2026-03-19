@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { FinalizedMsgContext } from "../auto-reply/templating.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import {
   buildCanonicalSentMessageHookContext,
   deriveInboundMessageHookContext,
@@ -148,7 +148,7 @@ describe("message hook mappers", () => {
   });
 
   it("maps transcribed and preprocessed internal payloads", () => {
-    const cfg = {} as OpenClawConfig;
+    const cfg = {} as KlawtyConfig;
     const canonical = deriveInboundMessageHookContext(makeInboundCtx({ Transcript: undefined }));
 
     const transcribed = toInternalMessageTranscribedContext(canonical, cfg);

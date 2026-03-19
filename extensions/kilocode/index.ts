@@ -1,10 +1,10 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth";
-import { buildSingleProviderApiKeyCatalog } from "openclaw/plugin-sdk/provider-catalog";
+import { definePluginEntry } from "klawty/plugin-sdk/plugin-entry";
+import { createProviderApiKeyAuthMethod } from "klawty/plugin-sdk/provider-auth";
+import { buildSingleProviderApiKeyCatalog } from "klawty/plugin-sdk/provider-catalog";
 import {
   createKilocodeWrapper,
   isProxyReasoningUnsupported,
-} from "openclaw/plugin-sdk/provider-stream";
+} from "klawty/plugin-sdk/provider-stream";
 import { applyKilocodeConfig, KILOCODE_DEFAULT_MODEL_REF } from "./onboard.js";
 import { buildKilocodeProviderWithDiscovery } from "./provider-catalog.js";
 

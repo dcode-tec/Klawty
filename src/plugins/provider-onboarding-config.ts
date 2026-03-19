@@ -1,5 +1,5 @@
 import { findNormalizedProviderKey } from "../agents/provider-id.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import type { AgentModelEntryConfig } from "../config/types.agent-defaults.js";
 import type {
   ModelApi,
@@ -51,12 +51,12 @@ export function withAgentModelAliases(
 }
 
 export function applyOnboardAuthAgentModelsAndProviders(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     agentModels: Record<string, AgentModelEntryConfig>;
     providers: Record<string, ModelProviderConfig>;
   },
-): OpenClawConfig {
+): KlawtyConfig {
   return {
     ...cfg,
     agents: {
@@ -74,9 +74,9 @@ export function applyOnboardAuthAgentModelsAndProviders(
 }
 
 export function applyAgentDefaultModelPrimary(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   primary: string,
-): OpenClawConfig {
+): KlawtyConfig {
   const existingFallbacks = extractAgentDefaultModelFallbacks(cfg.agents?.defaults?.model);
   return {
     ...cfg,
@@ -94,7 +94,7 @@ export function applyAgentDefaultModelPrimary(
 }
 
 export function applyProviderConfigWithDefaultModels(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     agentModels: Record<string, AgentModelEntryConfig>;
     providerId: string;
@@ -103,7 +103,7 @@ export function applyProviderConfigWithDefaultModels(
     defaultModels: ModelDefinitionConfig[];
     defaultModelId?: string;
   },
-): OpenClawConfig {
+): KlawtyConfig {
   const providerState = resolveProviderModelMergeState(cfg, params.providerId);
 
   const defaultModels = params.defaultModels;
@@ -129,7 +129,7 @@ export function applyProviderConfigWithDefaultModels(
 }
 
 export function applyProviderConfigWithDefaultModel(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     agentModels: Record<string, AgentModelEntryConfig>;
     providerId: string;
@@ -138,7 +138,7 @@ export function applyProviderConfigWithDefaultModel(
     defaultModel: ModelDefinitionConfig;
     defaultModelId?: string;
   },
-): OpenClawConfig {
+): KlawtyConfig {
   return applyProviderConfigWithDefaultModels(cfg, {
     agentModels: params.agentModels,
     providerId: params.providerId,
@@ -150,7 +150,7 @@ export function applyProviderConfigWithDefaultModel(
 }
 
 export function applyProviderConfigWithDefaultModelPreset(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     providerId: string;
     api: ModelApi;
@@ -160,7 +160,7 @@ export function applyProviderConfigWithDefaultModelPreset(
     aliases?: readonly AgentModelAliasEntry[];
     primaryModelRef?: string;
   },
-): OpenClawConfig {
+): KlawtyConfig {
   const next = applyProviderConfigWithDefaultModel(cfg, {
     agentModels: withAgentModelAliases(cfg.agents?.defaults?.models, params.aliases ?? []),
     providerId: params.providerId,
@@ -175,7 +175,7 @@ export function applyProviderConfigWithDefaultModelPreset(
 }
 
 export function applyProviderConfigWithDefaultModelsPreset(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     providerId: string;
     api: ModelApi;
@@ -185,7 +185,7 @@ export function applyProviderConfigWithDefaultModelsPreset(
     aliases?: readonly AgentModelAliasEntry[];
     primaryModelRef?: string;
   },
-): OpenClawConfig {
+): KlawtyConfig {
   const next = applyProviderConfigWithDefaultModels(cfg, {
     agentModels: withAgentModelAliases(cfg.agents?.defaults?.models, params.aliases ?? []),
     providerId: params.providerId,
@@ -200,7 +200,7 @@ export function applyProviderConfigWithDefaultModelsPreset(
 }
 
 export function applyProviderConfigWithModelCatalog(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     agentModels: Record<string, AgentModelEntryConfig>;
     providerId: string;
@@ -208,7 +208,7 @@ export function applyProviderConfigWithModelCatalog(
     baseUrl: string;
     catalogModels: ModelDefinitionConfig[];
   },
-): OpenClawConfig {
+): KlawtyConfig {
   const providerState = resolveProviderModelMergeState(cfg, params.providerId);
   const catalogModels = params.catalogModels;
   const mergedModels =
@@ -232,7 +232,7 @@ export function applyProviderConfigWithModelCatalog(
 }
 
 export function applyProviderConfigWithModelCatalogPreset(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     providerId: string;
     api: ModelApi;
@@ -241,7 +241,7 @@ export function applyProviderConfigWithModelCatalogPreset(
     aliases?: readonly AgentModelAliasEntry[];
     primaryModelRef?: string;
   },
-): OpenClawConfig {
+): KlawtyConfig {
   const next = applyProviderConfigWithModelCatalog(cfg, {
     agentModels: withAgentModelAliases(cfg.agents?.defaults?.models, params.aliases ?? []),
     providerId: params.providerId,
@@ -261,7 +261,7 @@ type ProviderModelMergeState = {
 };
 
 function resolveProviderModelMergeState(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   providerId: string,
 ): ProviderModelMergeState {
   const providers = { ...cfg.models?.providers } as Record<string, ModelProviderConfig>;
@@ -280,7 +280,7 @@ function resolveProviderModelMergeState(
 }
 
 function applyProviderConfigWithMergedModels(
-  cfg: OpenClawConfig,
+  cfg: KlawtyConfig,
   params: {
     agentModels: Record<string, AgentModelEntryConfig>;
     providerId: string;
@@ -290,7 +290,7 @@ function applyProviderConfigWithMergedModels(
     mergedModels: ModelDefinitionConfig[];
     fallbackModels: ModelDefinitionConfig[];
   },
-): OpenClawConfig {
+): KlawtyConfig {
   params.providerState.providers[params.providerId] = buildProviderConfig({
     existingProvider: params.providerState.existingProvider,
     api: params.api,

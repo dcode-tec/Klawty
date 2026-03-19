@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import type { OpenClawPluginApi } from "../runtime-api.js";
+import type { KlawtyPluginApi } from "../runtime-api.js";
 import { registerFeishuBitableTools } from "./bitable.js";
 import { registerFeishuDriveTools } from "./drive.js";
 import { registerFeishuPermTools } from "./perm.js";
@@ -26,7 +26,7 @@ function createConfig(params: {
     perm?: boolean;
   };
   defaultAccount?: string;
-}): OpenClawPluginApi["config"] {
+}): KlawtyPluginApi["config"] {
   return {
     channels: {
       feishu: {
@@ -46,7 +46,7 @@ function createConfig(params: {
         },
       },
     },
-  } as OpenClawPluginApi["config"];
+  } as KlawtyPluginApi["config"];
 }
 
 describe("feishu tool account routing", () => {

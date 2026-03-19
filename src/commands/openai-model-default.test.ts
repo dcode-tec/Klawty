@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { applyDefaultModelChoice } from "./auth-choice.default-model.js";
 import {
@@ -30,7 +30,7 @@ function makePrompter(): WizardPrompter {
 }
 
 function expectPrimaryModelChanged(
-  applied: { changed: boolean; next: OpenClawConfig },
+  applied: { changed: boolean; next: KlawtyConfig },
   primary: string,
 ) {
   expect(applied.changed).toBe(true);
@@ -38,18 +38,18 @@ function expectPrimaryModelChanged(
 }
 
 function expectConfigUnchanged(
-  applied: { changed: boolean; next: OpenClawConfig },
-  cfg: OpenClawConfig,
+  applied: { changed: boolean; next: KlawtyConfig },
+  cfg: KlawtyConfig,
 ) {
   expect(applied.changed).toBe(false);
   expect(applied.next).toEqual(cfg);
 }
 
 type SharedDefaultModelCase = {
-  apply: (cfg: OpenClawConfig) => { changed: boolean; next: OpenClawConfig };
+  apply: (cfg: KlawtyConfig) => { changed: boolean; next: KlawtyConfig };
   defaultModel: string;
-  overrideConfig: OpenClawConfig;
-  alreadyDefaultConfig: OpenClawConfig;
+  overrideConfig: KlawtyConfig;
+  alreadyDefaultConfig: KlawtyConfig;
 };
 
 const SHARED_DEFAULT_MODEL_CASES: SharedDefaultModelCase[] = [
@@ -58,20 +58,20 @@ const SHARED_DEFAULT_MODEL_CASES: SharedDefaultModelCase[] = [
     defaultModel: GOOGLE_GEMINI_DEFAULT_MODEL,
     overrideConfig: {
       agents: { defaults: { model: { primary: "anthropic/claude-opus-4-5" } } },
-    } as OpenClawConfig,
+    } as KlawtyConfig,
     alreadyDefaultConfig: {
       agents: { defaults: { model: { primary: GOOGLE_GEMINI_DEFAULT_MODEL } } },
-    } as OpenClawConfig,
+    } as KlawtyConfig,
   },
   {
     apply: applyOpencodeZenModelDefault,
     defaultModel: OPENCODE_ZEN_DEFAULT_MODEL,
     overrideConfig: {
       agents: { defaults: { model: "anthropic/claude-opus-4-5" } },
-    } as OpenClawConfig,
+    } as KlawtyConfig,
     alreadyDefaultConfig: {
       agents: { defaults: { model: OPENCODE_ZEN_DEFAULT_MODEL } },
-    } as OpenClawConfig,
+    } as KlawtyConfig,
   },
 ];
 
@@ -84,8 +84,8 @@ describe("applyDefaultModelChoice", () => {
       setDefaultModel: false,
       defaultModel,
       // Simulate a provider function that does not explicitly add the entry.
-      applyProviderConfig: (config: OpenClawConfig) => config,
-      applyDefaultConfig: (config: OpenClawConfig) => config,
+      applyProviderConfig: (config: KlawtyConfig) => config,
+      applyDefaultConfig: (config: KlawtyConfig) => config,
       noteAgentModel,
       prompter: makePrompter(),
     });
@@ -101,8 +101,8 @@ describe("applyDefaultModelChoice", () => {
       config: {},
       setDefaultModel: false,
       defaultModel,
-      applyProviderConfig: (config: OpenClawConfig) => config,
-      applyDefaultConfig: (config: OpenClawConfig) => config,
+      applyProviderConfig: (config: KlawtyConfig) => config,
+      applyDefaultConfig: (config: KlawtyConfig) => config,
       noteAgentModel: async () => {},
       prompter: makePrompter(),
     });
@@ -117,7 +117,7 @@ describe("applyDefaultModelChoice", () => {
       config: {},
       setDefaultModel: true,
       defaultModel,
-      applyProviderConfig: (config: OpenClawConfig) => config,
+      applyProviderConfig: (config: KlawtyConfig) => config,
       applyDefaultConfig: () => ({
         agents: {
           defaults: {
@@ -138,7 +138,7 @@ describe("applyDefaultModelChoice", () => {
 describe("shared default model behavior", () => {
   it("sets defaults when model is unset", () => {
     for (const testCase of SHARED_DEFAULT_MODEL_CASES) {
-      const cfg: OpenClawConfig = { agents: { defaults: {} } };
+      const cfg: KlawtyConfig = { agents: { defaults: {} } };
       const applied = testCase.apply(cfg);
       expectPrimaryModelChanged(applied, testCase.defaultModel);
     }
@@ -197,13 +197,13 @@ describe("applyOpencodeZenModelDefault", () => {
   it("no-ops when already legacy opencode-zen default", () => {
     const cfg = {
       agents: { defaults: { model: "opencode-zen/claude-opus-4-5" } },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
     const applied = applyOpencodeZenModelDefault(cfg);
     expectConfigUnchanged(applied, cfg);
   });
 
   it("preserves fallbacks when setting primary", () => {
-    const cfg: OpenClawConfig = {
+    const cfg: KlawtyConfig = {
       agents: {
         defaults: {
           model: {

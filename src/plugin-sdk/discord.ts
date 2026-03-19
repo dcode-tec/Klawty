@@ -3,7 +3,7 @@ export type {
   ChannelGatewayContext,
   ChannelMessageActionAdapter,
 } from "../channels/plugins/types.js";
-export type { OpenClawConfig } from "../config/config.js";
+export type { KlawtyConfig } from "../config/config.js";
 export type { DiscordAccountConfig, DiscordActionConfig } from "../config/types.js";
 export type { DiscordConfig } from "../config/types.discord.js";
 export type { DiscordPluralKitConfig } from "../../extensions/discord/api.js";
@@ -23,7 +23,7 @@ export type {
 export type {
   ChannelMessageActionContext,
   ChannelPlugin,
-  OpenClawPluginApi,
+  KlawtyPluginApi,
   PluginRuntime,
 } from "./channel-plugin-common.js";
 export {

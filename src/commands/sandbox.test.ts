@@ -29,13 +29,13 @@ import { sandboxListCommand, sandboxRecreateCommand } from "./sandbox.js";
 const NOW = Date.now();
 
 function createContainer(overrides: Partial<SandboxContainerInfo> = {}): SandboxContainerInfo {
-  const containerName = overrides.containerName ?? "openclaw-sandbox-test";
+  const containerName = overrides.containerName ?? "klawty-sandbox-test";
   return {
     containerName,
     backendId: "docker",
     runtimeLabel: containerName,
     sessionKey: "test-session",
-    image: "openclaw/sandbox:latest",
+    image: "klawty/sandbox:latest",
     configLabelKind: "Image",
     imageMatch: true,
     running: true,
@@ -47,9 +47,9 @@ function createContainer(overrides: Partial<SandboxContainerInfo> = {}): Sandbox
 
 function createBrowser(overrides: Partial<SandboxBrowserInfo> = {}): SandboxBrowserInfo {
   return {
-    containerName: "openclaw-browser-test",
+    containerName: "klawty-browser-test",
     sessionKey: "test-session",
-    image: "openclaw/browser:latest",
+    image: "klawty/browser:latest",
     imageMatch: true,
     running: true,
     createdAtMs: NOW - 3600000,

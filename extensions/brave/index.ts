@@ -1,4 +1,4 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/core";
+import { definePluginEntry } from "klawty/plugin-sdk/core";
 import { createBraveWebSearchProvider } from "./src/brave-web-search-provider.js";
 
 export default definePluginEntry({

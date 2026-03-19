@@ -1,0 +1,33 @@
+{
+  // Klawty Configuration — Free Demo
+  // Get the full agent OS at https://ai-agent-builder.ai
+
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-6"
+      },
+      "timeout": 300000,
+      "tools": {
+        "allow": ["file_read", "web_search", "web_fetch", "recall_memory", "store_memory"],
+        "deny": ["exec"]
+      }
+    },
+    "list": [
+      {
+        "name": "atlas",
+        "role": "orchestrator",
+        "description": "Main agent",
+        "workspace": "workspace/"
+      }
+    ]
+  },
+
+  "memory": {
+    "maxMemoryLines": 50
+  },
+
+  "channels": {
+    "default": "terminal"
+  }
+}

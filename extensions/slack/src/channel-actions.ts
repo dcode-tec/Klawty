@@ -2,7 +2,7 @@ import type { AgentToolResult } from "@mariozechner/pi-agent-core";
 import {
   type ChannelMessageActionAdapter,
   type ChannelMessageToolDiscovery,
-} from "openclaw/plugin-sdk/channel-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
 import type { SlackActionContext } from "./action-runtime.js";
 import { handleSlackAction } from "./action-runtime.js";
 import { handleSlackMessageAction } from "./message-action-dispatch.js";

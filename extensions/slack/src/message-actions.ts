@@ -1,12 +1,12 @@
-import { createActionGate } from "openclaw/plugin-sdk/agent-runtime";
+import { createActionGate } from "klawty/plugin-sdk/agent-runtime";
 import type {
   ChannelMessageActionName,
   ChannelToolSend,
-} from "openclaw/plugin-sdk/channel-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+} from "klawty/plugin-sdk/channel-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
 import { listEnabledSlackAccounts } from "./accounts.js";
 
-export function listSlackMessageActions(cfg: OpenClawConfig): ChannelMessageActionName[] {
+export function listSlackMessageActions(cfg: KlawtyConfig): ChannelMessageActionName[] {
   const accounts = listEnabledSlackAccounts(cfg).filter(
     (account) => account.botTokenSource !== "none",
   );

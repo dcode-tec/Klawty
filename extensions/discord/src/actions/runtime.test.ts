@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { OpenClawConfig } from "../../../../src/config/config.js";
+import type { KlawtyConfig } from "../../../../src/config/config.js";
 import type { DiscordActionConfig } from "../../../../src/config/types.discord.js";
 import { discordGuildActionRuntime, handleDiscordGuildAction } from "./runtime.guild.js";
 import { handleDiscordAction } from "./runtime.js";
@@ -236,7 +236,7 @@ describe("handleDiscordMessagingAction", () => {
           token: "token",
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
     await handleDiscordMessagingAction(
       "readMessages",
       { channelId: "C1" },
@@ -272,7 +272,7 @@ describe("handleDiscordMessagingAction", () => {
           token: "token",
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
     await handleDiscordMessagingAction(
       "fetchMessage",
       { guildId: "G1", channelId: "C1", messageId: "M1" },
@@ -686,7 +686,7 @@ describe("handleDiscordAction per-account gating", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     await handleDiscordAction(
       { action: "timeout", guildId: "G1", userId: "U1", durationMinutes: 5, accountId: "ops" },
@@ -707,7 +707,7 @@ describe("handleDiscordAction per-account gating", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     await expect(
       handleDiscordAction(
@@ -728,7 +728,7 @@ describe("handleDiscordAction per-account gating", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     await handleDiscordAction(
       { action: "kick", guildId: "G1", userId: "U1", accountId: "ops" },
@@ -747,7 +747,7 @@ describe("handleDiscordAction per-account gating", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     await expect(
       handleDiscordAction(
@@ -770,7 +770,7 @@ describe("handleDiscordAction per-account gating", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as KlawtyConfig;
 
     await handleDiscordAction(
       { action: "channelCreate", guildId: "G1", name: "alerts", accountId: "ops" },

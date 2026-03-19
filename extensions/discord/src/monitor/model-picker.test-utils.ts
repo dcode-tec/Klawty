@@ -1,4 +1,4 @@
-import type { ModelsProviderData } from "openclaw/plugin-sdk/reply-runtime";
+import type { ModelsProviderData } from "klawty/plugin-sdk/reply-runtime";
 
 export function createModelsProviderData(
   entries: Record<string, string[]>,

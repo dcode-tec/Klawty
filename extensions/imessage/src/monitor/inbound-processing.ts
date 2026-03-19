@@ -1,31 +1,31 @@
-import { resolveDualTextControlCommandGate } from "openclaw/plugin-sdk/channel-runtime";
-import { logInboundDrop } from "openclaw/plugin-sdk/channel-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+import { resolveDualTextControlCommandGate } from "klawty/plugin-sdk/channel-runtime";
+import { logInboundDrop } from "klawty/plugin-sdk/channel-runtime";
+import type { KlawtyConfig } from "klawty/plugin-sdk/config-runtime";
 import {
   resolveChannelGroupPolicy,
   resolveChannelGroupRequireMention,
-} from "openclaw/plugin-sdk/config-runtime";
-import { hasControlCommand } from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/config-runtime";
+import { hasControlCommand } from "klawty/plugin-sdk/reply-runtime";
 import {
   formatInboundEnvelope,
   formatInboundFromLabel,
   resolveEnvelopeFormatOptions,
   type EnvelopeFormatOptions,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "klawty/plugin-sdk/reply-runtime";
 import {
   buildPendingHistoryContextFromMap,
   recordPendingHistoryEntryIfEnabled,
   type HistoryEntry,
-} from "openclaw/plugin-sdk/reply-runtime";
-import { finalizeInboundContext } from "openclaw/plugin-sdk/reply-runtime";
-import { buildMentionRegexes, matchesMentionPatterns } from "openclaw/plugin-sdk/reply-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
+} from "klawty/plugin-sdk/reply-runtime";
+import { finalizeInboundContext } from "klawty/plugin-sdk/reply-runtime";
+import { buildMentionRegexes, matchesMentionPatterns } from "klawty/plugin-sdk/reply-runtime";
+import { resolveAgentRoute } from "klawty/plugin-sdk/routing";
 import {
   DM_GROUP_ACCESS_REASON,
   resolveDmGroupAccessWithLists,
-} from "openclaw/plugin-sdk/security-runtime";
-import { sanitizeTerminalText } from "openclaw/plugin-sdk/text-runtime";
-import { truncateUtf16Safe } from "openclaw/plugin-sdk/text-runtime";
+} from "klawty/plugin-sdk/security-runtime";
+import { sanitizeTerminalText } from "klawty/plugin-sdk/text-runtime";
+import { truncateUtf16Safe } from "klawty/plugin-sdk/text-runtime";
 import {
   formatIMessageChatTarget,
   isAllowedIMessageSender,
@@ -89,7 +89,7 @@ export type IMessageInboundDecision =
   | IMessageInboundDispatchDecision;
 
 export function resolveIMessageInboundDecision(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   accountId: string;
   message: IMessagePayload;
   opts?: Pick<MonitorIMessageOpts, "requireMention">;
@@ -374,7 +374,7 @@ export function resolveIMessageInboundDecision(params: {
 }
 
 export function buildIMessageInboundContext(params: {
-  cfg: OpenClawConfig;
+  cfg: KlawtyConfig;
   decision: IMessageInboundDispatchDecision;
   message: IMessagePayload;
   envelopeOptions?: EnvelopeFormatOptions;

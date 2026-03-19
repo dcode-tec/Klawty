@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import "./test-helpers/fast-coding-tools.js";
-import { createOpenClawCodingTools } from "./pi-tools.js";
+import { createKlawtyCodingTools } from "./pi-tools.js";
 
 vi.mock("./channel-tools.js", () => {
   const stubTool = (name: string) => ({
@@ -16,7 +16,7 @@ vi.mock("./channel-tools.js", () => {
 
 describe("owner-only tool gating", () => {
   it("removes owner-only tools for unauthorized senders", () => {
-    const tools = createOpenClawCodingTools({ senderIsOwner: false });
+    const tools = createKlawtyCodingTools({ senderIsOwner: false });
     const toolNames = tools.map((tool) => tool.name);
     expect(toolNames).not.toContain("whatsapp_login");
     expect(toolNames).not.toContain("cron");
@@ -25,7 +25,7 @@ describe("owner-only tool gating", () => {
   });
 
   it("keeps owner-only tools for authorized senders", () => {
-    const tools = createOpenClawCodingTools({ senderIsOwner: true });
+    const tools = createKlawtyCodingTools({ senderIsOwner: true });
     const toolNames = tools.map((tool) => tool.name);
     expect(toolNames).toContain("whatsapp_login");
     expect(toolNames).toContain("cron");
@@ -34,13 +34,13 @@ describe("owner-only tool gating", () => {
   });
 
   it("keeps canvas available to unauthorized senders by current trust model", () => {
-    const tools = createOpenClawCodingTools({ senderIsOwner: false });
+    const tools = createKlawtyCodingTools({ senderIsOwner: false });
     const toolNames = tools.map((tool) => tool.name);
     expect(toolNames).toContain("canvas");
   });
 
   it("defaults to removing owner-only tools when owner status is unknown", () => {
-    const tools = createOpenClawCodingTools();
+    const tools = createKlawtyCodingTools();
     const toolNames = tools.map((tool) => tool.name);
     expect(toolNames).not.toContain("whatsapp_login");
     expect(toolNames).not.toContain("cron");

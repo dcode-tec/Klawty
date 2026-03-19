@@ -1,7 +1,7 @@
 import path from "node:path";
 import { type Api, getEnvApiKey, type Model } from "@mariozechner/pi-ai";
 import { formatCliCommand } from "../cli/command-format.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { KlawtyConfig } from "../config/config.js";
 import type { ModelProviderAuthMode, ModelProviderConfig } from "../config/types.js";
 import { coerceSecretRef } from "../config/types.secrets.js";
 import { getShellEnvAppliedKeys } from "../infra/shell-env.js";
@@ -45,7 +45,7 @@ function loadProviderRuntime() {
 }
 
 function resolveProviderConfig(
-  cfg: OpenClawConfig | undefined,
+  cfg: KlawtyConfig | undefined,
   provider: string,
 ): ModelProviderConfig | undefined {
   const providers = cfg?.models?.providers ?? {};
@@ -67,7 +67,7 @@ function resolveProviderConfig(
 }
 
 export function getCustomProviderApiKey(
-  cfg: OpenClawConfig | undefined,
+  cfg: KlawtyConfig | undefined,
   provider: string,
 ): string | undefined {
   const entry = resolveProviderConfig(cfg, provider);
@@ -80,7 +80,7 @@ type ResolvedCustomProviderApiKey = {
 };
 
 export function resolveUsableCustomProviderApiKey(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: KlawtyConfig | undefined;
   provider: string;
   env?: NodeJS.ProcessEnv;
 }): ResolvedCustomProviderApiKey | null {
@@ -110,7 +110,7 @@ export function resolveUsableCustomProviderApiKey(params: {
 }
 
 export function hasUsableCustomProviderApiKey(
-  cfg: OpenClawConfig | undefined,
+  cfg: KlawtyConfig | undefined,
   provider: string,
   env?: NodeJS.ProcessEnv,
 ): boolean {
@@ -118,7 +118,7 @@ export function hasUsableCustomProviderApiKey(
 }
 
 function resolveProviderAuthOverride(
-  cfg: OpenClawConfig | undefined,
+  cfg: KlawtyConfig | undefined,
   provider: string,
 ): ModelProviderAuthMode | undefined {
   const entry = resolveProviderConfig(cfg, provider);
@@ -164,7 +164,7 @@ function isCustomLocalProviderConfig(providerConfig: ModelProviderConfig): boole
 }
 
 function resolveSyntheticLocalProviderAuth(params: {
-  cfg: OpenClawConfig | undefined;
+  cfg: KlawtyConfig | undefined;
   provider: string;
 }): ResolvedProviderAuth | null {
   const providerConfig = resolveProviderConfig(params.cfg, params.provider);
@@ -281,7 +281,7 @@ export type ResolvedProviderAuth = {
 
 export async function resolveApiKeyForProvider(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   profileId?: string;
   preferredProfile?: string;
   store?: AuthProfileStore;
@@ -388,7 +388,7 @@ export async function resolveApiKeyForProvider(params: {
     [
       `No API key found for provider "${provider}".`,
       `Auth store: ${authStorePath} (agentDir: ${resolvedAgentDir}).`,
-      `Configure auth for this agent (${formatCliCommand("openclaw agents add <id>")}) or copy auth-profiles.json from the main agentDir.`,
+      `Configure auth for this agent (${formatCliCommand("klawty agents add <id>")}) or copy auth-profiles.json from the main agentDir.`,
     ].join(" "),
   );
 }
@@ -433,7 +433,7 @@ export function resolveEnvApiKey(
 
 export function resolveModelAuthMode(
   provider?: string,
-  cfg?: OpenClawConfig,
+  cfg?: KlawtyConfig,
   store?: AuthProfileStore,
 ): ModelAuthMode | undefined {
   const resolved = provider?.trim();
@@ -489,7 +489,7 @@ export function resolveModelAuthMode(
 
 export async function hasAvailableAuthForProvider(params: {
   provider: string;
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   preferredProfile?: string;
   store?: AuthProfileStore;
   agentDir?: string;
@@ -539,7 +539,7 @@ export async function hasAvailableAuthForProvider(params: {
 
 export async function getApiKeyForModel(params: {
   model: Model<Api>;
-  cfg?: OpenClawConfig;
+  cfg?: KlawtyConfig;
   profileId?: string;
   preferredProfile?: string;
   store?: AuthProfileStore;

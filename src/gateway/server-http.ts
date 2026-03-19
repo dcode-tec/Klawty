@@ -7,7 +7,7 @@ import {
 } from "node:http";
 import { createServer as createHttpsServer } from "node:https";
 import type { TlsOptions } from "node:tls";
-import { handleSlackHttpRequest } from "openclaw/plugin-sdk/slack";
+import { handleSlackHttpRequest } from "klawty/plugin-sdk/slack";
 import type { WebSocketServer } from "ws";
 import { resolveAgentAvatar } from "../agents/identity-avatar.js";
 import { CANVAS_WS_PATH, handleA2uiHttpRequest } from "../canvas-host/a2ui.js";
@@ -476,7 +476,7 @@ export function createHooksRequestHandler(
       res.statusCode = 400;
       res.setHeader("Content-Type", "text/plain; charset=utf-8");
       res.end(
-        "Hook token must be provided via Authorization: Bearer <token> or X-OpenClaw-Token header (query parameters are not allowed).",
+        "Hook token must be provided via Authorization: Bearer <token> or X-Klawty-Token header (query parameters are not allowed).",
       );
       return true;
     }

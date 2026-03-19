@@ -16,18 +16,18 @@ Start at [/help/troubleshooting](/help/troubleshooting) if you want the fast tri
 Run these first, in this order:
 
 ```bash
-openclaw status
-openclaw gateway status
-openclaw logs --follow
-openclaw doctor
-openclaw channels status --probe
+klawty status
+klawty gateway status
+klawty logs --follow
+klawty doctor
+klawty channels status --probe
 ```
 
 Expected healthy signals:
 
-- `openclaw gateway status` shows `Runtime: running` and `RPC probe: ok`.
-- `openclaw doctor` reports no blocking config/service issues.
-- `openclaw channels status --probe` shows connected/ready channels.
+- `klawty gateway status` shows `Runtime: running` and `RPC probe: ok`.
+- `klawty doctor` reports no blocking config/service issues.
+- `klawty channels status --probe` shows connected/ready channels.
 
 ## Anthropic 429 extra usage required for long context
 
@@ -35,9 +35,9 @@ Use this when logs/errors include:
 `HTTP 429: rate_limit_error: Extra usage is required for long context requests`.
 
 ```bash
-openclaw logs --follow
-openclaw models status
-openclaw config get agents.defaults.models
+klawty logs --follow
+klawty models status
+klawty config get agents.defaults.models
 ```
 
 Look for:
@@ -63,11 +63,11 @@ Related:
 If channels are up but nothing answers, check routing and policy before reconnecting anything.
 
 ```bash
-openclaw status
-openclaw channels status --probe
-openclaw pairing list --channel <channel> [--account <id>]
-openclaw config get channels
-openclaw logs --follow
+klawty status
+klawty channels status --probe
+klawty pairing list --channel <channel> [--account <id>]
+klawty config get channels
+klawty logs --follow
 ```
 
 Look for:
@@ -93,11 +93,11 @@ Related:
 When dashboard/control UI will not connect, validate URL, auth mode, and secure context assumptions.
 
 ```bash
-openclaw gateway status
-openclaw status
-openclaw logs --follow
-openclaw doctor
-openclaw gateway status --json
+klawty gateway status
+klawty status
+klawty logs --follow
+klawty doctor
+klawty gateway status --json
 ```
 
 Look for:
@@ -123,17 +123,17 @@ Use `error.details.code` from the failed `connect` response to pick the next act
 
 | Detail code                  | Meaning                                                  | Recommended action                                                                                                                                                   |
 | ---------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `AUTH_TOKEN_MISSING`         | Client did not send a required shared token.             | Paste/set token in the client and retry. For dashboard paths: `openclaw config get gateway.auth.token` then paste into Control UI settings.                          |
+| `AUTH_TOKEN_MISSING`         | Client did not send a required shared token.             | Paste/set token in the client and retry. For dashboard paths: `klawty config get gateway.auth.token` then paste into Control UI settings.                          |
 | `AUTH_TOKEN_MISMATCH`        | Shared token did not match gateway auth token.           | If `canRetryWithDeviceToken=true`, allow one trusted retry. If still failing, run the [token drift recovery checklist](/cli/devices#token-drift-recovery-checklist). |
 | `AUTH_DEVICE_TOKEN_MISMATCH` | Cached per-device token is stale or revoked.             | Rotate/re-approve device token using [devices CLI](/cli/devices), then reconnect.                                                                                    |
-| `PAIRING_REQUIRED`           | Device identity is known but not approved for this role. | Approve pending request: `openclaw devices list` then `openclaw devices approve <requestId>`.                                                                        |
+| `PAIRING_REQUIRED`           | Device identity is known but not approved for this role. | Approve pending request: `klawty devices list` then `klawty devices approve <requestId>`.                                                                        |
 
 Device auth v2 migration check:
 
 ```bash
-openclaw --version
-openclaw doctor
-openclaw gateway status
+klawty --version
+klawty doctor
+klawty gateway status
 ```
 
 If logs show nonce/signature errors, update the connecting client and verify it:
@@ -154,11 +154,11 @@ Related:
 Use this when service is installed but process does not stay up.
 
 ```bash
-openclaw gateway status
-openclaw status
-openclaw logs --follow
-openclaw doctor
-openclaw gateway status --deep
+klawty gateway status
+klawty status
+klawty logs --follow
+klawty doctor
+klawty gateway status --deep
 ```
 
 Look for:
@@ -169,7 +169,7 @@ Look for:
 
 Common signatures:
 
-- `Gateway start blocked: set gateway.mode=local` → local gateway mode is not enabled. Fix: set `gateway.mode="local"` in your config (or run `openclaw configure`). If you are running OpenClaw via Podman using the dedicated `openclaw` user, the config lives at `~openclaw/.openclaw/openclaw.json`.
+- `Gateway start blocked: set gateway.mode=local` → local gateway mode is not enabled. Fix: set `gateway.mode="local"` in your config (or run `klawty configure`). If you are running Klawty via Podman using the dedicated `klawty` user, the config lives at `~klawty/.klawty/klawty.json`.
 - `refusing to bind gateway ... without auth` → non-loopback bind without token/password.
 - `another gateway instance is already listening` / `EADDRINUSE` → port conflict.
 
@@ -184,11 +184,11 @@ Related:
 If channel state is connected but message flow is dead, focus on policy, permissions, and channel specific delivery rules.
 
 ```bash
-openclaw channels status --probe
-openclaw pairing list --channel <channel> [--account <id>]
-openclaw status --deep
-openclaw logs --follow
-openclaw config get channels
+klawty channels status --probe
+klawty pairing list --channel <channel> [--account <id>]
+klawty status --deep
+klawty logs --follow
+klawty config get channels
 ```
 
 Look for:
@@ -215,11 +215,11 @@ Related:
 If cron or heartbeat did not run or did not deliver, verify scheduler state first, then delivery target.
 
 ```bash
-openclaw cron status
-openclaw cron list
-openclaw cron runs --id <jobId> --limit 20
-openclaw system heartbeat last
-openclaw logs --follow
+klawty cron status
+klawty cron list
+klawty cron runs --id <jobId> --limit 20
+klawty system heartbeat last
+klawty logs --follow
 ```
 
 Look for:
@@ -247,11 +247,11 @@ Related:
 If a node is paired but tools fail, isolate foreground, permission, and approval state.
 
 ```bash
-openclaw nodes status
-openclaw nodes describe --node <idOrNameOrIp>
-openclaw approvals get --node <idOrNameOrIp>
-openclaw logs --follow
-openclaw status
+klawty nodes status
+klawty nodes describe --node <idOrNameOrIp>
+klawty approvals get --node <idOrNameOrIp>
+klawty logs --follow
+klawty status
 ```
 
 Look for:
@@ -278,11 +278,11 @@ Related:
 Use this when browser tool actions fail even though the gateway itself is healthy.
 
 ```bash
-openclaw browser status
-openclaw browser start --browser-profile openclaw
-openclaw browser profiles
-openclaw logs --follow
-openclaw doctor
+klawty browser status
+klawty browser start --browser-profile klawty
+klawty browser profiles
+klawty logs --follow
+klawty doctor
 ```
 
 Look for:
@@ -310,10 +310,10 @@ Most post-upgrade breakage is config drift or stricter defaults now being enforc
 ### 1) Auth and URL override behavior changed
 
 ```bash
-openclaw gateway status
-openclaw config get gateway.mode
-openclaw config get gateway.remote.url
-openclaw config get gateway.auth.mode
+klawty gateway status
+klawty config get gateway.mode
+klawty config get gateway.remote.url
+klawty config get gateway.auth.mode
 ```
 
 What to check:
@@ -329,10 +329,10 @@ Common signatures:
 ### 2) Bind and auth guardrails are stricter
 
 ```bash
-openclaw config get gateway.bind
-openclaw config get gateway.auth.token
-openclaw gateway status
-openclaw logs --follow
+klawty config get gateway.bind
+klawty config get gateway.auth.token
+klawty gateway status
+klawty logs --follow
 ```
 
 What to check:
@@ -348,10 +348,10 @@ Common signatures:
 ### 3) Pairing and device identity state changed
 
 ```bash
-openclaw devices list
-openclaw pairing list --channel <channel> [--account <id>]
-openclaw logs --follow
-openclaw doctor
+klawty devices list
+klawty pairing list --channel <channel> [--account <id>]
+klawty logs --follow
+klawty doctor
 ```
 
 What to check:
@@ -367,8 +367,8 @@ Common signatures:
 If the service config and runtime still disagree after checks, reinstall service metadata from the same profile/state directory:
 
 ```bash
-openclaw gateway install --force
-openclaw gateway restart
+klawty gateway install --force
+klawty gateway restart
 ```
 
 Related:
