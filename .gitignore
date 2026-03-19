@@ -149,3 +149,13 @@ workspace/credentials/
 *.db-shm
 *.db-wal
 runtime-manifest.json
+
+# IDE
+.vscode/
+.idea/
+
+# Backups (generated at runtime)
+*.tar.gz
+
+# Serena cache
+.serena/
