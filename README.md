@@ -89,14 +89,17 @@ cd Klawty && docker compose up -d
 
 Available at [ai-agent-builder.ai](https://ai-agent-builder.ai):
 
-- Up to **8 coordinated agents** with inter-agent messaging
+- Up to **8 coordinated agents** with inter-agent messaging and delegation context
+- **4-layer architecture** — orchestration, execution, governance, memory (not a flat list of bots)
 - **5-tier LLM routing** — 10x cost savings via smart model selection
+- **Pattern memory** — agents learn from their own execution history (success rates, tool patterns, duration)
+- **Policy engine** — code-level governance gate before every tool call (7 rules, zero LLM cost)
 - **4-tier memory** — file + session + JSONL + Qdrant vector search
 - **27 domain skills** — SEO, copywriting, sales, finance, client ops, ...
-- **Self-improvement** — reflection engine + skill gap detection
-- **Proposal lifecycle** — approval + 15-minute rollback
+- **Proposal lifecycle** — Sentinel validation + 15-minute auto-approve + human gate
 - **4-layer deduplication** — task, channel, proposal, discovery
-- **Management dashboard** — web portal with KPIs, kanban, costs
+- **Board dashboard** — real-time ops UI (tasks, proposals, agents, costs) via SSH tunnel
+- **Discord + Telegram** — agent activity in Discord channels, critical alerts on Telegram
 - **6 industry solutions** — restaurants, real estate, construction, resellers, accounting, law firms
 - **Managed hosting** — all-inclusive from 79€/month (hosting + AI credits + support)
 
