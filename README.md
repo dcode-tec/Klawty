@@ -184,11 +184,11 @@ workspace/
 
 ---
 
-## Production Reference: dcode-ops
+## What the Premium Version Looks Like in Production
 
-We run our own business on Klawty. **7 AI agents** manage all dcode websites 24/7 for under €40/month.
+We run our own business on the premium Klawty engine. **7 AI agents** manage all dcode websites 24/7 for under €40/month.
 
-See [dcode-tec/klawty-team](https://github.com/dcode-tec/klawty-team) for the production instance:
+See [dcode-tec/klawty-team](https://github.com/dcode-tec/klawty-team):
 
 - **4-layer architecture** — orchestration, execution, governance, memory
 - **7 agents** — Atlas (orchestrator), Scout (research), Ship (build/ops), Plume (communication), Mira (analysis), Closer (business), Sentinel (audit)
@@ -197,12 +197,7 @@ See [dcode-tec/klawty-team](https://github.com/dcode-tec/klawty-team) for the pr
 - **Discord + Telegram** — agent activity visible in real-time
 - **Health monitoring** — 60-second checks with Telegram escalation
 
-This is simultaneously:
-1. **A real production system** — managing ai-agent-builder.ai, wp-claw.ai, klawty.ai, d-code.lu
-2. **The reference implementation** — how to structure, deploy, and run a Klawty instance
-3. **The proof** — 7 agents, 5 sites, one API key, autonomous
-
-Every customer Klawty instance follows this pattern.
+The free version (this repo) gives you **1 agent with the full platform**. The premium version at [ai-agent-builder.ai](https://ai-agent-builder.ai) unlocks multi-agent teams, LLM routing, proposals, and everything you see in dcode-ops.
 
 ---
 
