@@ -184,6 +184,55 @@ workspace/
 
 ---
 
+## Production Reference: dcode-ops
+
+We run our own business on Klawty. **7 AI agents** manage all dcode websites 24/7 for under €40/month.
+
+See [dcode-tec/klawty-team](https://github.com/dcode-tec/klawty-team) for the production instance:
+
+- **4-layer architecture** — orchestration, execution, governance, memory
+- **7 agents** — Atlas (orchestrator), Scout (research), Ship (build/ops), Plume (communication), Mira (analysis), Closer (business), Sentinel (audit)
+- **5-tier LLM routing** — $0.07 to $15/M tokens, 80% of calls on cheap models
+- **Board dashboard** — internal ops UI accessible via SSH tunnel
+- **Discord + Telegram** — agent activity visible in real-time
+- **Health monitoring** — 60-second checks with Telegram escalation
+
+This is simultaneously:
+1. **A real production system** — managing ai-agent-builder.ai, wp-claw.ai, klawty.ai, d-code.lu
+2. **The reference implementation** — how to structure, deploy, and run a Klawty instance
+3. **The proof** — 7 agents, 5 sites, one API key, autonomous
+
+Every customer Klawty instance follows this pattern.
+
+---
+
+## Remote Access (SSH Tunnels)
+
+Klawty services bind to **loopback** (127.0.0.1) — never exposed to the internet. Access them from anywhere via SSH tunnel:
+
+```bash
+# Forward Klawty Gateway to your laptop
+ssh -L 2508:127.0.0.1:2508 user@your-server -N
+
+# Forward Board dashboard
+ssh -L 3100:127.0.0.1:3100 user@your-server -N
+
+# Multiple services at once
+ssh -L 2508:127.0.0.1:2508 -L 3100:127.0.0.1:3100 -L 6333:127.0.0.1:6333 user@your-server -N
+```
+
+Then open `http://localhost:2508` (Gateway) or `http://localhost:3100` (Board) in your browser.
+
+**Why SSH tunnels:**
+- Zero attack surface — services invisible to the internet
+- No auth overhead — SSH key is the auth
+- Works from anywhere — any machine with SSH access
+- No firewall rules, no Nginx config, no VPN
+
+See [docs/gateway/remote.md](docs/gateway/remote.md) for detailed remote access documentation.
+
+---
+
 ## Contributing
 
 - **Bug fixes** — open an issue, then a PR
